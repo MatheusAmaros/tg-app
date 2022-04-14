@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tg_app/view/chamada.view.dart';
 import 'package:tg_app/view/login.view.dart';
 
 class App extends StatelessWidget {
@@ -9,7 +10,7 @@ class App extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginWidget(),
+      home: Chamada(),
       //routes: {
       //  '/login': (context) => LoginWidget(),
       //},

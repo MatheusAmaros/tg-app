@@ -46,7 +46,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           children: [
             Container(
               width: 500,
-              height: 400,
+              height: 450,
               decoration: BoxDecoration(
                 color: Color(0xFF252525),
                 boxShadow: [
@@ -73,25 +73,39 @@ class _LoginWidgetState extends State<LoginWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      Text(
+                        'Login',
+                        style: TextStyle(
+                              fontFamily: 'Open Sans',
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+
                       Align(
                         alignment: AlignmentDirectional(0,1),
                         child: TextFormField(
                       decoration: InputDecoration(
-                          hintText: "E-mail Address",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 0, 0, 0)),
-                          labelText: "E-mail",
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0))),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(color: Color.fromARGB(255, 255, 255, 255))),
-                          prefixIcon: Icon(Icons.email),
-                          filled: true,
-                          fillColor: Color(0xFF757575),
+                          labelText: 'E-mail',
+                          hintText: 'E-mail',
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
                           ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
                       onSaved: (value) => () {},
                       validator: (value) {
                         if (value!.isEmpty) return "Campo E-mail obrigatório";
@@ -136,6 +150,19 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                         
                       ),
+                      ElevatedButton(
+                      onPressed: () => () {},
+                      child: Text("Enter"),
+                      style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          primary: Color.fromARGB(255, 112, 112, 112),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 130, vertical: 20),
+                          textStyle: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold)),
+                    ),
+                    
+
                     ],
                   ),
                 ),
