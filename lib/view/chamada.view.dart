@@ -1,17 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tg_app/view/chamadaItem.view.dart';
 
 class Chamada extends StatefulWidget {
-  
-  const Chamada({ Key? key }) : super(key: key);
+  const Chamada({Key? key}) : super(key: key);
 
   @override
-
   _ChamadaState createState() => _ChamadaState();
-
 }
 
-class _ChamadaState extends State<Chamada>{
+class _ChamadaState extends State<Chamada> {
   bool checkboxListTileValue = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -26,10 +24,10 @@ class _ChamadaState extends State<Chamada>{
           'Chamada',
           textAlign: TextAlign.justify,
           style: TextStyle(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 22,
-              ),
+            fontFamily: 'Poppins',
+            color: Colors.white,
+            fontSize: 22,
+          ),
         ),
         actions: [],
         centerTitle: false,
@@ -41,28 +39,9 @@ class _ChamadaState extends State<Chamada>{
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Theme(
-                data: ThemeData(
-                  unselectedWidgetColor: Color(0xFF95A1AC),
-                ),
-                child: CheckboxListTile(
-                  value: checkboxListTileValue ??= false,
-                  onChanged: (newValue) =>
-                      setState(() => checkboxListTileValue = newValue!),
-                  title: Text(
-                    'Title',
-                    style: TextStyle(),
-                  ),
-                  subtitle: Text(
-                    'Subtitle',
-                    style: TextStyle(),
-                  ),
-                  tileColor: Color(0xFFF5F5F5),
-                  activeColor: Colors.red,
-                  dense: false,
-                  controlAffinity: ListTileControlAffinity.trailing,
-                ),
-              ),
+              ChamadaItem(),
+              ChamadaItem(),
+              ChamadaItem()
             ],
           ),
         ),
@@ -70,7 +49,3 @@ class _ChamadaState extends State<Chamada>{
     );
   }
 }
-
-  
-  
-  
