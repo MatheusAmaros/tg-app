@@ -30,7 +30,7 @@ class CadastroAtirador extends StatelessWidget {
                 ),
               ],
             ),
-            width: 400,
+            width: 380,
             height: 500,
             child: Padding(
               padding: const EdgeInsets.all(30),
@@ -47,7 +47,7 @@ class CadastroAtirador extends StatelessWidget {
                         Text(
                           "CADASTRAR ATIRADOR",
                           style: TextStyle(
-                              fontSize: 25,
+                              fontSize: 18,
                               color: Color.fromARGB(255, 0, 0, 0),
                               fontWeight: FontWeight.bold),
                         ),
@@ -125,11 +125,11 @@ class CadastroAtirador extends StatelessWidget {
                       child: Text("Cadastrar"),
                       style: ElevatedButton.styleFrom(
                           shape: StadiumBorder(),
-                          primary: Color.fromARGB(255, 0, 0, 0),
+                          primary: Color(0xFF757575),
                           padding: EdgeInsets.symmetric(
-                              horizontal: 110, vertical: 20),
+                              horizontal: 100, vertical: 20),
                           textStyle: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold)),
+                              fontSize: 18, fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),

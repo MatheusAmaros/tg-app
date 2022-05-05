@@ -12,6 +12,7 @@ class Chamada extends StatefulWidget {
 class _ChamadaState extends State<Chamada> {
   bool checkboxListTileValue = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List funcoes = ["matheus", "cabo"];
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +33,24 @@ class _ChamadaState extends State<Chamada> {
         actions: [],
         centerTitle: false,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 0, 0, 0),
       body: SafeArea(
         child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
+          child: ListView(
             children: [
-              ChamadaItem(),
-              ChamadaItem(),
-              ChamadaItem()
+              ChamadaItem(uuid: "teste", nome: funcoes[0], funcao: funcoes[1]),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+            IconButton(icon: Icon(Icons.home), onPressed: () {}),
+            IconButton(icon: Icon(Icons.list), onPressed: () {}),
+          ],
         ),
       ),
     );

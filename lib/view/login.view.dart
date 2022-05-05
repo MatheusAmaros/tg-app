@@ -10,7 +10,7 @@ class LoginWidget extends StatefulWidget {
 
 class _LoginWidgetState extends State<LoginWidget> {
   TextEditingController textController1 = new TextEditingController();
-  TextEditingController textController2= new TextEditingController(); 
+  TextEditingController textController2 = new TextEditingController();
   bool passwordVisibility = false;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -29,7 +29,7 @@ class _LoginWidgetState extends State<LoginWidget> {
       key: scaffoldKey,
       backgroundColor: Color(0xFF262D34),
       body: Container(
-        width: 400,
+        width: 500,
         height: 900,
         decoration: BoxDecoration(
           color: Color(0xFFEEEEEE),
@@ -42,13 +42,13 @@ class _LoginWidgetState extends State<LoginWidget> {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 500,
-              height: 450,
+              width: 380,
+              height: 400,
               decoration: BoxDecoration(
-                color: Color(0xFF252525),
+                color: Color.fromARGB(255, 255, 255, 255),
                 boxShadow: [
                   BoxShadow(
                     blurRadius: 50,
@@ -58,8 +58,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                   )
                 ],
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(0),
-                  bottomRight: Radius.circular(0),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 ),
@@ -76,42 +76,35 @@ class _LoginWidgetState extends State<LoginWidget> {
                       Text(
                         'Login',
                         style: TextStyle(
-                              fontFamily: 'Open Sans',
-                              color: Colors.white,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
-
-                      Align(
-                        alignment: AlignmentDirectional(0,1),
-                        child: TextFormField(
-                      decoration: InputDecoration(
-                          labelText: 'E-mail',
-                          hintText: 'E-mail',
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
+                          fontFamily: 'Open Sans',
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
                         ),
-                      onSaved: (value) => () {},
-                      validator: (value) {
-                        if (value!.isEmpty) return "Campo E-mail obrigatório";
-                        return null;
-                      },
-                    ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(0, 1),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'E-mail',
+                            hintText: 'E-mail',
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                          ),
+                          onSaved: (value) => () {},
+                          validator: (value) {
+                            if (value!.isEmpty)
+                              return "Campo E-mail obrigatório";
+                            return null;
+                          },
+                        ),
                       ),
                       TextFormField(
                         controller: textController2,
@@ -119,22 +112,15 @@ class _LoginWidgetState extends State<LoginWidget> {
                         decoration: InputDecoration(
                           labelText: 'Senha',
                           hintText: 'Senha',
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
+                          hintStyle: TextStyle(
+                              color: Color.fromARGB(255, 165, 165, 165)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(color: Colors.red)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 0, 0, 0))),
                           suffixIcon: InkWell(
                             onTap: () => setState(
                               () => passwordVisibility = !passwordVisibility,
@@ -148,21 +134,33 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                           ),
                         ),
-                        
                       ),
-                      ElevatedButton(
-                      onPressed: () => () {},
-                      child: Text("Enter"),
-                      style: ElevatedButton.styleFrom(
-                          shape: StadiumBorder(),
-                          primary: Color.fromARGB(255, 112, 112, 112),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 130, vertical: 20),
-                          textStyle: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold)),
-                    ),
-                    
-
+                      Flexible(
+                        child: ElevatedButton(
+                          onPressed: () => () {},
+                          child: Text("Enter"),
+                          style: ElevatedButton.styleFrom(
+                              shape: StadiumBorder(),
+                              primary: Color.fromARGB(255, 112, 112, 112),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 130, vertical: 20),
+                              textStyle: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Não Tem cadastro? "),
+                            GestureDetector(
+                              child: Text("Cadastrar-se",
+                                  style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.blue)),
+                              onTap: () =>
+                                  Navigator.pushNamed(context, '/cadastro'),
+                            )
+                          ]),
                     ],
                   ),
                 ),

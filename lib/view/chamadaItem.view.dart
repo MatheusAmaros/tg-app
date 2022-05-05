@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ChamadaItem extends StatefulWidget {
-  const ChamadaItem({Key? key}) : super(key: key);
+  final String? nome;
+  final String? funcao;
+  final String? uuid;
+  ChamadaItem({
+    Key? key,
+    @required this.uuid,
+    @required this.nome,
+    @required this.funcao,
+  }) : super(key: key);
 
   @override
   State<ChamadaItem> createState() => _ChamadaItemState();
@@ -9,6 +17,24 @@ class ChamadaItem extends StatefulWidget {
 
 class _ChamadaItemState extends State<ChamadaItem> {
   bool checkboxListTileValue = false;
+
+  /*
+  void sendMessage() async {
+    var message = txtCtrl.text;
+    await firestore.collection('conversas').add({
+      "message": message,
+      "data": DateTime.now(),
+      "email": auth.currentUser!.email,
+      "usuarios": [
+        auth.currentUser!.uid,
+        ,
+      ]
+    });
+    txtCtrl.clear();
+
+    //firestore.collection('conversas').doc('123').
+  }
+  */
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +45,20 @@ class _ChamadaItemState extends State<ChamadaItem> {
         unselectedWidgetColor: Color(0xFF95A1AC),
       ),
       child: CheckboxListTile(
-        value: checkboxListTileValue ??= arguments['presenca'],
-        onChanged: (newValue) =>
-            setState(() => checkboxListTileValue = newValue!),
+        value: checkboxListTileValue != false,
+        onChanged: (newValue) {
+          setState(() => checkboxListTileValue = newValue!);
+        },
         title: Text(
-          arguments['nome'].toString(),
+          widget.nome.toString(),
           style: TextStyle(),
         ),
         subtitle: Text(
-          arguments['funcao'].toString(),
+          widget.funcao.toString(),
           style: TextStyle(),
         ),
         tileColor: Color(0xFFF5F5F5),
-        activeColor: Colors.red,
+        activeColor: Color.fromARGB(255, 25, 68, 0),
         dense: false,
         controlAffinity: ListTileControlAffinity.trailing,
       ),

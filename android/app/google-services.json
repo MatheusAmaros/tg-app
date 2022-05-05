@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "51092244440",
+    "project_id": "sistg-89390",
+    "storage_bucket": "sistg-89390.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51092244440:android:c782b7b15ccbcccead54ad",
+        "android_client_info": {
+          "package_name": "com.example.tg_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51092244440-n7rdgv5dkhh803jsb1vgm4hc6rvgi4fm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk9h0FHLmDSAk5dtrfgQ7YrZU1DMkhm_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51092244440-n7rdgv5dkhh803jsb1vgm4hc6rvgi4fm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
