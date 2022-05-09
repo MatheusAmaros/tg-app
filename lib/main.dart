@@ -5,23 +5,17 @@ import 'package:tg_app/view/app.dart';
 
 void main() async {
 
-
-
-
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+     options: FirebaseOptions(
+      apiKey: "AIzaSyAqKIVrPhRUWTHN-kJciPl-OM3tjMZi9XI",
+      appId: "1:51092244440:web:a5cf296b43dedde4ad54ad",
+      messagingSenderId: "51092244440",
+      projectId: "sistg-89390",
+    ),
+  );
 
-  /*FirebaseFirestore db = FirebaseFirestore.instance;
-db.collection("atiradores").doc('pelotao1').set({
-'nome':'Andre',
-'cpf':'1111111111',
-'numero':'02',
-'Telefone':'17992061685',
-'Email':'andre@email.com',
-'Função': 'sentinela',
-'Graduação' :'atirador'
 
-});*/
 
 
   runApp(App());

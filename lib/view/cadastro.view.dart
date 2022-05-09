@@ -1,20 +1,55 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CadastroAtirador extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
-  /* 
-  Nome
-CPF
-Número do atirador
-Telefone
-Email
-Pelotão
-Ano de ingresso (atual)
-Função 
-Graduação 
+
+  String nome = '';
+  String cpf = '';
+  String numero = '';
+  String telefone = '';
+  String email = '';
+  String pelotao = '';
+  String anoIngresso = '';
+  String funcao = '';
+  String graduacao = '';
+  String senha = '';
+
+/*
 Não aparece na tela: 
 Última guarda preta (dias uteis)
 Última guarda vermelha (dias não uteis)*/
+
+  void cadastrarUsuario(BuildContext context) async {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    //FirebaseAuth auth = FirebaseAuth.instance;
+    var formKey = GlobalKey<FormState>();
+
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+
+     // print(email);
+    //  print(senha);
+      /* var result = await auth.createUserWithEmailAndPassword(email: email, password: senha);
+      
+      await result.user!.updateDisplayName(nome);
+
+       db.collection("Atiradores")
+          .doc(pelotao)
+          .collection(anoIngresso)
+          .doc()
+          .set({
+        'nome': nome,
+        'cpf': cpf,
+        'numero': numero,
+        'Telefone': telefone,
+        'Email': email,
+        'Função': funcao,
+        'Graduação': graduacao
+      });*/
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +121,9 @@ Não aparece na tela:
                                 borderSide: BorderSide(
                                     color: Color.fromARGB(255, 0, 0, 0))),
                             prefixIcon: Icon(Icons.person)),
-                        onSaved: (value) => () {}, //email = value!,
+                        onSaved: (value) => nome = value!,
                         validator: (value) {
-                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          if (value!.isEmpty) return "Campo Nome é obrigatório";
                           return null;
                         },
                       ),
@@ -110,9 +145,9 @@ Não aparece na tela:
                                 borderSide: BorderSide(
                                     color: Color.fromARGB(255, 0, 0, 0))),
                             prefixIcon: Icon(Icons.house)),
-                        onSaved: (value) => () {}, //email = value!,
+                        onSaved: (value) => cpf = value!,
                         validator: (value) {
-                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          if (value!.isEmpty) return "Campo CPF obrigatório";
                           return null;
                         },
                       ),
@@ -134,9 +169,9 @@ Não aparece na tela:
                                 borderSide: BorderSide(
                                     color: Color.fromARGB(255, 0, 0, 0))),
                             prefixIcon: Icon(Icons.numbers)),
-                        onSaved: (value) => () {}, //email = value!,
+                        onSaved: (value) => numero = value!,
                         validator: (value) {
-                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          if (value!.isEmpty) return "Campo Numero obrigatório";
                           return null;
                         },
                       ),
@@ -158,9 +193,10 @@ Não aparece na tela:
                                 borderSide: BorderSide(
                                     color: Color.fromARGB(255, 0, 0, 0))),
                             prefixIcon: Icon(Icons.phone)),
-                        onSaved: (value) => () {}, //email = value!,
+                        onSaved: (value) => telefone = value!,
                         validator: (value) {
-                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          if (value!.isEmpty)
+                            return "Campo Telefone obrigatório";
                           return null;
                         },
                       ),
@@ -182,7 +218,7 @@ Não aparece na tela:
                                 borderSide: BorderSide(
                                     color: Color.fromARGB(255, 0, 0, 0))),
                             prefixIcon: Icon(Icons.email)),
-                        onSaved: (value) => () {}, //email = value!,
+                        onSaved: (value) => email = value!,
                         validator: (value) {
                           if (value!.isEmpty) return "Campo E-mail obrigatório";
                           return null;
@@ -206,9 +242,10 @@ Não aparece na tela:
                                 borderSide: BorderSide(
                                     color: Color.fromARGB(255, 0, 0, 0))),
                             prefixIcon: Icon(Icons.people)),
-                        onSaved: (value) => () {}, //email = value!,
+                        onSaved: (value) => pelotao = value!,
                         validator: (value) {
-                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          if (value!.isEmpty)
+                            return "Campo Pelotao obrigatório";
                           return null;
                         },
                       ),
@@ -230,9 +267,10 @@ Não aparece na tela:
                                 borderSide: BorderSide(
                                     color: Color.fromARGB(255, 0, 0, 0))),
                             prefixIcon: Icon(Icons.calendar_month)),
-                        onSaved: (value) => () {}, //email = value!,
+                        onSaved: (value) => anoIngresso = value!,
                         validator: (value) {
-                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          if (value!.isEmpty)
+                            return "Campo Ano de Ingreso é obrigatório";
                           return null;
                         },
                       ),
@@ -254,9 +292,9 @@ Não aparece na tela:
                                 borderSide: BorderSide(
                                     color: Color.fromARGB(255, 0, 0, 0))),
                             prefixIcon: Icon(Icons.people)),
-                        onSaved: (value) => () {}, //email = value!,
+                        onSaved: (value) => funcao = value!,
                         validator: (value) {
-                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          if (value!.isEmpty) return "Campo Função obrigatório";
                           return null;
                         },
                       ),
@@ -278,15 +316,19 @@ Não aparece na tela:
                                 borderSide: BorderSide(
                                     color: Color.fromARGB(255, 0, 0, 0))),
                             prefixIcon: Icon(Icons.people)),
-                        onSaved: (value) => () {}, //email = value!,
+                        onSaved: (value) => graduacao = value!,
                         validator: (value) {
-                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          if (value!.isEmpty)
+                            return "Campo Graduação obrigatório";
                           return null;
                         },
                       ),
                     ),
+                    
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        cadastrarUsuario(context);
+                      },
                       child: Text("Cadastrar"),
                       style: ElevatedButton.styleFrom(
                           shape: StadiumBorder(),
