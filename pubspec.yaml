@@ -45,6 +45,11 @@ dependencies:
   timeago: 3.1.0
   url_launcher: 6.0.15
 
+  #dependencias do firebase
+  firebase_core: ^1.13.1
+  cloud_firestore: ^3.1.10
+  firebase_auth: ^3.3.11
+
 
 dev_dependencies:
   flutter_test:

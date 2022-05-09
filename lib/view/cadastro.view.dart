@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 
 class CadastroAtirador extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
+  /* 
+  Nome
+CPF
+Número do atirador
+Telefone
+Email
+Pelotão
+Ano de ingresso (atual)
+Função 
+Graduação 
+Não aparece na tela: 
+Última guarda preta (dias uteis)
+Última guarda vermelha (dias não uteis)*/
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +49,11 @@ class CadastroAtirador extends StatelessWidget {
               padding: const EdgeInsets.all(30),
               child: Form(
                 key: formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                child: ListView(
+                  //aqui
+                  //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //  mainAxisSize: MainAxisSize.min,
+                  //  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -55,70 +69,221 @@ class CadastroAtirador extends StatelessWidget {
                             size: 40, color: Color.fromARGB(255, 0, 0, 0))
                       ],
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "E-mail Address",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 165, 165, 165)),
-                          labelText: "E-mail",
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.red)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 0, 0, 0))),
-                          prefixIcon: Icon(Icons.email)),
-                      onSaved: (value) => () {}, //email = value!,
-                      validator: (value) {
-                        if (value!.isEmpty) return "Campo E-mail obrigatório";
-                        return null;
-                      },
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "Nome",
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            labelText: "Nome",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                            prefixIcon: Icon(Icons.person)),
+                        onSaved: (value) => () {}, //email = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          return null;
+                        },
+                      ),
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "Nome",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 165, 165, 165)),
-                          labelText: "Nome",
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.red)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 0, 0, 0))),
-                          prefixIcon: Icon(Icons.email)),
-                      onSaved: (value) => () {}, //nome = value!,
-                      validator: (value) {
-                        if (value!.isEmpty) return "Campo nome obrigatório";
-                        return null;
-                      },
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "CPF",
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            labelText: "CPF",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                            prefixIcon: Icon(Icons.house)),
+                        onSaved: (value) => () {}, //email = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          return null;
+                        },
+                      ),
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "Password",
-                          hintStyle: TextStyle(
-                              color: Color.fromARGB(255, 165, 165, 165)),
-                          labelText: "Password",
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 0, 0, 0))),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 0, 0, 0))),
-                          prefixIcon: Icon(Icons.password)),
-                      obscureText: true,
-                      onSaved: (value) => () {}, //senha = value!,
-                      validator: (value) {
-                        if (value!.isEmpty) return "Campo senha obrigatório";
-                        return null;
-                      },
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "Numero do Atirador",
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            labelText: "Numero do Atirador",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                            prefixIcon: Icon(Icons.numbers)),
+                        onSaved: (value) => () {}, //email = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "Telefone",
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            labelText: "Telefone",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                            prefixIcon: Icon(Icons.phone)),
+                        onSaved: (value) => () {}, //email = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "E-mail Address",
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            labelText: "E-mail",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                            prefixIcon: Icon(Icons.email)),
+                        onSaved: (value) => () {}, //email = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "Pelotão",
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            labelText: "Pelotão",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                            prefixIcon: Icon(Icons.people)),
+                        onSaved: (value) => () {}, //email = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "Ano de Ingresso",
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            labelText: "Ano de Ingresso",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                            prefixIcon: Icon(Icons.calendar_month)),
+                        onSaved: (value) => () {}, //email = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "Função",
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            labelText: "Função",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                            prefixIcon: Icon(Icons.people)),
+                        onSaved: (value) => () {}, //email = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "Graduação",
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            labelText: "Graduação",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                            prefixIcon: Icon(Icons.people)),
+                        onSaved: (value) => () {}, //email = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) return "Campo E-mail obrigatório";
+                          return null;
+                        },
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: () {},

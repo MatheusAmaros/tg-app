@@ -9,7 +9,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/chamada',
+      initialRoute: '/cadastro',
       routes: {
         '/login': (context) => LoginWidget(),
         '/chamada': (context) => Chamada(),
