@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+
+
 
 class CadastroAtirador extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
@@ -10,11 +13,24 @@ class CadastroAtirador extends StatelessWidget {
   String numero = '';
   String telefone = '';
   String email = '';
-  String pelotao = '';
-  String anoIngresso = '';
+  String pelotao = 'pelotao_2';
+  String anoIngresso = '2022';
   String funcao = '';
   String graduacao = '';
   String senha = '';
+  String _chosenValue = '';
+
+  List<DropdownMenuItem<String>> get dropdownItems{
+  List<DropdownMenuItem<String>> menuItems = [
+    DropdownMenuItem(child: Text("USA"),value: "USA"),
+    DropdownMenuItem(child: Text("Canada"),value: "Canada"),
+    DropdownMenuItem(child: Text("Brazil"),value: "Brazil"),
+    DropdownMenuItem(child: Text("England"),value: "England"),
+  ];
+  return menuItems;
+  }
+
+
 
 /*
 Não aparece na tela: 
@@ -23,17 +39,16 @@ Não aparece na tela:
 
   void cadastrarUsuario(BuildContext context) async {
     FirebaseFirestore db = FirebaseFirestore.instance;
-    //FirebaseAuth auth = FirebaseAuth.instance;
-    var formKey = GlobalKey<FormState>();
+    FirebaseAuth auth = FirebaseAuth.instance;
 
+      
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
-     // print(email);
-    //  print(senha);
-      /* var result = await auth.createUserWithEmailAndPassword(email: email, password: senha);
+   
+       var result = await auth.createUserWithEmailAndPassword(email: email, password: senha);
       
-      await result.user!.updateDisplayName(nome);
+      //await result.user!.updateDisplayName(nome);
 
        db.collection("Atiradores")
           .doc(pelotao)
@@ -47,7 +62,9 @@ Não aparece na tela:
         'Email': email,
         'Função': funcao,
         'Graduação': graduacao
-      });*/
+      });
+
+      print('salvo');
     }
   }
 
@@ -323,6 +340,35 @@ Não aparece na tela:
                           return null;
                         },
                       ),
+                    ),
+                                        Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            hintText: "Senha",
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            labelText: "Senha",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                            prefixIcon: Icon(Icons.password)),
+                        onSaved: (value) => senha = value!,
+                        validator: (value) {
+                          if (value!.isEmpty)
+                            return "Campo Senha obrigatório";
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: DropdownButton(items: dropdownItems, onChanged: (String? value) {  },),
                     ),
                     
                     ElevatedButton(
