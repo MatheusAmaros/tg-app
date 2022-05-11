@@ -2,66 +2,78 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+class CadastroAtirador extends StatefulWidget {
+  @override
+  State<CadastroAtirador> createState() => _CadastroAtiradorState();
+}
 
-
-
-class CadastroAtirador extends StatelessWidget {
+class _CadastroAtiradorState extends State<CadastroAtirador> {
   var formKey = GlobalKey<FormState>();
 
   String nome = '';
+
   String cpf = '';
+
   String numero = '';
+
   String telefone = '';
+
   String email = '';
-  String pelotao = 'pelotao_2';
-  String anoIngresso = '2022';
+
+
+  String anoIngresso ='';
+
   String funcao = '';
+
   String graduacao = '';
+
   String senha = '';
+
   String _chosenValue = '';
 
-  List<DropdownMenuItem<String>> get dropdownItems{
-  List<DropdownMenuItem<String>> menuItems = [
-    DropdownMenuItem(child: Text("USA"),value: "USA"),
-    DropdownMenuItem(child: Text("Canada"),value: "Canada"),
-    DropdownMenuItem(child: Text("Brazil"),value: "Brazil"),
-    DropdownMenuItem(child: Text("England"),value: "England"),
-  ];
-  return menuItems;
+  String pelotao ='pelotao1';
+
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Pelotão 1"), value: "pelotao1"),
+      DropdownMenuItem(child: Text("Pelotão 2"), value: "pelotao2"),
+      DropdownMenuItem(child: Text("Pelotão 3"), value: "pelotao3"),
+    ];
+    return menuItems;
   }
-
-
 
 /*
 Não aparece na tela: 
 Última guarda preta (dias uteis)
 Última guarda vermelha (dias não uteis)*/
-
   void cadastrarUsuario(BuildContext context) async {
     FirebaseFirestore db = FirebaseFirestore.instance;
     FirebaseAuth auth = FirebaseAuth.instance;
 
-      
+
+    anoIngresso = DateTime.now().year.toString();
+
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
-   
-       var result = await auth.createUserWithEmailAndPassword(email: email, password: senha);
-      
+      var result = await auth.createUserWithEmailAndPassword(
+          email: email, password: senha);
+
       //await result.user!.updateDisplayName(nome);
 
-       db.collection("Atiradores")
+      db
+          .collection("atiradores")
           .doc(pelotao)
           .collection(anoIngresso)
-          .doc()
+          .doc(result.user!.uid)
           .set({
         'nome': nome,
         'cpf': cpf,
         'numero': numero,
-        'Telefone': telefone,
-        'Email': email,
-        'Função': funcao,
-        'Graduação': graduacao
+        'telefone': telefone,
+        'email': email,
+        'função': funcao,
+        'graduação': graduacao
       });
 
       print('salvo');
@@ -102,10 +114,6 @@ Não aparece na tela:
               child: Form(
                 key: formKey,
                 child: ListView(
-                  //aqui
-                  //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //  mainAxisSize: MainAxisSize.min,
-                  //  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -246,56 +254,6 @@ Não aparece na tela:
                       margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
                       child: TextFormField(
                         decoration: InputDecoration(
-                            hintText: "Pelotão",
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 165, 165, 165)),
-                            labelText: "Pelotão",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: Colors.red)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 0, 0, 0))),
-                            prefixIcon: Icon(Icons.people)),
-                        onSaved: (value) => pelotao = value!,
-                        validator: (value) {
-                          if (value!.isEmpty)
-                            return "Campo Pelotao obrigatório";
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            hintText: "Ano de Ingresso",
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 165, 165, 165)),
-                            labelText: "Ano de Ingresso",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: Colors.red)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 0, 0, 0))),
-                            prefixIcon: Icon(Icons.calendar_month)),
-                        onSaved: (value) => anoIngresso = value!,
-                        validator: (value) {
-                          if (value!.isEmpty)
-                            return "Campo Ano de Ingreso é obrigatório";
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
-                      child: TextFormField(
-                        decoration: InputDecoration(
                             hintText: "Função",
                             hintStyle: TextStyle(
                                 color: Color.fromARGB(255, 165, 165, 165)),
@@ -341,7 +299,7 @@ Não aparece na tela:
                         },
                       ),
                     ),
-                                        Container(
+                    Container(
                       margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
                       child: TextFormField(
                         decoration: InputDecoration(
@@ -360,17 +318,31 @@ Não aparece na tela:
                             prefixIcon: Icon(Icons.password)),
                         onSaved: (value) => senha = value!,
                         validator: (value) {
-                          if (value!.isEmpty)
-                            return "Campo Senha obrigatório";
+                          if (value!.isEmpty) return "Campo Senha obrigatório";
                           return null;
                         },
                       ),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
-                      child: DropdownButton(items: dropdownItems, onChanged: (String? value) {  },),
+                      
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [Text('Pelotao'),
+                          DropdownButton(
+                            isExpanded: true,
+                            items: dropdownItems,
+                            value: pelotao ,
+                            onChanged: (String? value) {
+                              setState(() {
+                                pelotao =  value!;
+                              }); 
+                            },
+                          ),
+                        ],
+                      ),
+                   
                     ),
-                    
                     ElevatedButton(
                       onPressed: () {
                         cadastrarUsuario(context);
