@@ -28,6 +28,7 @@ class _MyStatefulWidgetState extends State<CadastroGuarnicaoComandante> {
         .collection('guarnicao')
         .doc('Comandante')
         .set({'uid': "Salva ai mano", 'nome': dropdownValue});
+    //Inserir comandante e cabo na data
   }
 
   @override

@@ -22,10 +22,38 @@ class CadastroGuarnicao extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
+        body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+      stream: firestore.collection('atiradores').snapshots(),
+      builder: (_, snapshot) {
+        if (snapshot.hasError) return const Text('Erro ao carregar dados');
+        if (!snapshot.hasData) {
+          return const CircularProgressIndicator();
+        }
+        // print(snapshot.data!.docs[0].get(''));
+
+        return ListView.builder(
+            itemCount: snapshot.data?.docs.length,
+            itemBuilder: (_, index) {
+              return Container();
+              // return Text(snapshot.data!.docs[index].data()[0]);
+            });
+        /*
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CadastroGuarnicaoItem(
+                lista: ["lista", "Matheus"],
+              ),
+            ],
+          );*/ //Text(snapshot.data!.data()!['id']);
+      },
+      /*Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+
+        
         CadastroGuarnicaoComandante(
           lista: ["lista", "Matheus"],
         ),
@@ -51,45 +79,14 @@ class CadastroGuarnicao extends StatelessWidget {
           lista: ["Padilha", "Matheus"],
         ),
       ],
-    )
-        /* StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: firestore
-            .collection('atiradores')
-            //.where('usuarios', arrayContains: auth.currentUser!.uid)
-            //.orderBy('dataUltimaMensagem', descending: true)
-            .snapshots(),
-        builder: (_, snapshot) {
-          if (!snapshot.hasData) {
-            print(snapshot.data?.docs);
-            return CircularProgressIndicator();
-          }
-          if (snapshot.hasError) {
-            return Text("Erro");
-          }
-          print(snapshot.data!.docs[0].get(''));
-
-          return ListView.builder(
-              itemCount: snapshot.data?.docs.length,
-              itemBuilder: (_, index) {
-                return Text(snapshot.data!.docs[index].data()[0]);
-              });
-          /*
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CadastroGuarnicaoItem(
-                lista: ["lista", "Matheus"],
-              ),
-            ],
-          );*/ //Text(snapshot.data!.data()!['id']);
-        },
+    )*/
+      /* 
 
         // separatorBuilder: (_,i) => Divider(),
         //  itemCount: mensagens.length,
         //  itemBuilder: (_, index) =>  MensagemItem(mensagens[index])
         //mensagens.map((m) => MensagemItem(m)).toList()
       ),*/
-        );
+    ));
   }
 }
