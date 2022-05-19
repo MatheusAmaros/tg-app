@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CadastroAtirador extends StatefulWidget {
   @override
@@ -19,19 +20,18 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
   String telefone = '';
 
   String email = '';
+  var emailValid = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
+  String anoIngresso = '';
 
-  String anoIngresso ='';
+  String funcao = 'sentinela';
 
-  String funcao = '';
-
-  String graduacao = '';
+  String graduacao = 'atirador';
 
   String senha = '';
 
-  String _chosenValue = '';
-
-  String pelotao ='pelotao1';
+  String pelotao = 'pelotao1';
 
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
@@ -42,6 +42,39 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
     return menuItems;
   }
 
+  List<DropdownMenuItem<String>> get funcaoItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Comandante"), value: "comandante"),
+      DropdownMenuItem(child: Text("Cabo"), value: "cabo"),
+      DropdownMenuItem(child: Text("Sentinela"), value: "sentinela"),
+      DropdownMenuItem(child: Text("Permanente"), value: "permanente"),
+    ];
+    return menuItems;
+  }
+
+  List<DropdownMenuItem<String>> get graducaoItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Atirador"), value: "atirador"),
+      DropdownMenuItem(child: Text("Subtenente"), value: "subtenente"),
+    ];
+    return menuItems;
+  }
+
+  var telephoneMask = new MaskTextInputFormatter(
+      mask: '(##) #####-####',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.eager);
+
+  var cpfMask = new MaskTextInputFormatter(
+      mask: '###.###.###-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.eager);
+
+  var numberMask = new MaskTextInputFormatter(
+      mask: '###',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.eager);
+
 /*
 Não aparece na tela: 
 Última guarda preta (dias uteis)
@@ -49,7 +82,6 @@ Não aparece na tela:
   void cadastrarUsuario(BuildContext context) async {
     FirebaseFirestore db = FirebaseFirestore.instance;
     FirebaseAuth auth = FirebaseAuth.instance;
-
 
     anoIngresso = DateTime.now().year.toString();
 
@@ -156,6 +188,7 @@ Não aparece na tela:
                     Container(
                       margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
                       child: TextFormField(
+                        inputFormatters: [cpfMask],
                         decoration: InputDecoration(
                             hintText: "CPF",
                             hintStyle: TextStyle(
@@ -173,55 +206,9 @@ Não aparece na tela:
                         onSaved: (value) => cpf = value!,
                         validator: (value) {
                           if (value!.isEmpty) return "Campo CPF obrigatório";
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            hintText: "Numero do Atirador",
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 165, 165, 165)),
-                            labelText: "Numero do Atirador",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: Colors.red)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 0, 0, 0))),
-                            prefixIcon: Icon(Icons.numbers)),
-                        onSaved: (value) => numero = value!,
-                        validator: (value) {
-                          if (value!.isEmpty) return "Campo Numero obrigatório";
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            hintText: "Telefone",
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 165, 165, 165)),
-                            labelText: "Telefone",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: Colors.red)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 0, 0, 0))),
-                            prefixIcon: Icon(Icons.phone)),
-                        onSaved: (value) => telefone = value!,
-                        validator: (value) {
-                          if (value!.isEmpty)
-                            return "Campo Telefone obrigatório";
+
+                          if (value.length < 14) return "Preencha seu CPF";
+
                           return null;
                         },
                       ),
@@ -246,6 +233,10 @@ Não aparece na tela:
                         onSaved: (value) => email = value!,
                         validator: (value) {
                           if (value!.isEmpty) return "Campo E-mail obrigatório";
+
+                          if (!emailValid.hasMatch(value))
+                            return "Formato de email inserido está incorreto";
+
                           return null;
                         },
                       ),
@@ -253,11 +244,12 @@ Não aparece na tela:
                     Container(
                       margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
                       child: TextFormField(
+                        inputFormatters: [telephoneMask],
                         decoration: InputDecoration(
-                            hintText: "Função",
+                            hintText: "Telefone",
                             hintStyle: TextStyle(
                                 color: Color.fromARGB(255, 165, 165, 165)),
-                            labelText: "Função",
+                            labelText: "Telefone",
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -266,35 +258,14 @@ Não aparece na tela:
                                 borderRadius: BorderRadius.circular(20),
                                 borderSide: BorderSide(
                                     color: Color.fromARGB(255, 0, 0, 0))),
-                            prefixIcon: Icon(Icons.people)),
-                        onSaved: (value) => funcao = value!,
-                        validator: (value) {
-                          if (value!.isEmpty) return "Campo Função obrigatório";
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            hintText: "Graduação",
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 165, 165, 165)),
-                            labelText: "Graduação",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: Colors.red)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 0, 0, 0))),
-                            prefixIcon: Icon(Icons.people)),
-                        onSaved: (value) => graduacao = value!,
+                            prefixIcon: Icon(Icons.phone)),
+                        onSaved: (value) => telefone = value!,
                         validator: (value) {
                           if (value!.isEmpty)
-                            return "Campo Graduação obrigatório";
+                            return "Campo Telefone obrigatório";
+
+                          if (value.length < 15) return "Preencha seu Telefone";
+
                           return null;
                         },
                       ),
@@ -319,29 +290,94 @@ Não aparece na tela:
                         onSaved: (value) => senha = value!,
                         validator: (value) {
                           if (value!.isEmpty) return "Campo Senha obrigatório";
+
+                          if (value.length < 6)
+                            return "Sua senha deve ter no mínimo 6 caracteres";
                           return null;
                         },
                       ),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
-                      
+                      child: TextFormField(
+                        inputFormatters: [numberMask],
+                        decoration: InputDecoration(
+                            hintText: "Numero do Atirador",
+                            hintStyle: TextStyle(
+                                color: Color.fromARGB(255, 165, 165, 165)),
+                            labelText: "Numero do Atirador",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.red)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 0, 0, 0))),
+                            prefixIcon: Icon(Icons.numbers)),
+                        onSaved: (value) => numero = value!,
+                        validator: (value) {
+                          if (value!.isEmpty) return "Campo Numero obrigatório";
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text('Pelotao'),
+                        children: [
+                          Text('Pelotao'),
                           DropdownButton(
                             isExpanded: true,
                             items: dropdownItems,
-                            value: pelotao ,
+                            value: pelotao,
                             onChanged: (String? value) {
                               setState(() {
-                                pelotao =  value!;
-                              }); 
+                                pelotao = value!;
+                              });
                             },
                           ),
                         ],
                       ),
-                   
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Função'),
+                          DropdownButton(
+                            isExpanded: true,
+                            items: funcaoItems,
+                            value: funcao,
+                            onChanged: (String? value) {
+                              setState(() {
+                                funcao = value!;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Graduação'),
+                          DropdownButton(
+                            isExpanded: true,
+                            items: graducaoItems,
+                            value: graduacao,
+                            onChanged: (String? value) {
+                              setState(() {
+                                graduacao = value!;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: () {
