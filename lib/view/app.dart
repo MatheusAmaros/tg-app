@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tg_app/view/cadastro.view.dart';
 import 'package:tg_app/view/chamada.view.dart';
@@ -9,10 +8,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/cadastro',
+      initialRoute: '/chamada',
       routes: {
         '/login': (context) => LoginWidget(),
-        '/chamada': (context) => Chamada(),
+        '/chamada': (context) => ChamadaView(),
         '/cadastro': (context) => CadastroAtirador()
       },
     );

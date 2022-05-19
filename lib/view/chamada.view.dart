@@ -1,58 +1,64 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tg_app/view/chamadaItem.view.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Chamada extends StatefulWidget {
-  const Chamada({Key? key}) : super(key: key);
+class ChamadaView extends StatefulWidget {
+
+  ChamadaView({Key? key}) : super(key: key);
 
   @override
-  _ChamadaState createState() => _ChamadaState();
+  State<ChamadaView> createState() => _ChamadaViewState();
 }
 
-class _ChamadaState extends State<Chamada> {
-  bool checkboxListTileValue = false;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  List funcoes = ["matheus", "cabo"];
+class _ChamadaViewState extends State<ChamadaView> {
+  final firestore = FirebaseFirestore.instance;
+
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem(child: Text("Pelotão 1"), value: "pelotao1"),
+      const DropdownMenuItem(child: Text("Pelotão 2"), value: "pelotao2"),
+      const DropdownMenuItem(child: Text("Pelotão 3"), value: "pelotao3"),
+    ];
+    return menuItems;
+  }
+
+  String pelotao ='pelotao1';
+  bool presenca = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Chamada',
-          textAlign: TextAlign.justify,
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            color: Colors.white,
-            fontSize: 22,
-          ),
-        ),
-        actions: [],
-        centerTitle: false,
-      ),
-      backgroundColor: Color.fromARGB(255, 0, 0, 0),
-      body: SafeArea(
-        child: GestureDetector(
-          child: ListView(
-            children: [
-              ChamadaItem(uuid: "teste", nome: funcoes[0], funcao: funcoes[1]),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-            IconButton(icon: Icon(Icons.home), onPressed: () {}),
-            IconButton(icon: Icon(Icons.list), onPressed: () {}),
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: firestore.collection('atiradores').doc('pelotao1').collection('2022').snapshots(),
+        builder: (_, snapshot){
+          return Column(children: [
+            DropdownButton(
+              isExpanded: true,
+              items: dropdownItems,
+              value: pelotao,
+              onChanged: (String? value) {
+                setState(() {
+                  pelotao =  value!;
+                }); 
+              },
+            ),
+            ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (_, index){
+                return CheckboxListTile(
+                  title: snapshot.data!.docs[index].data()['nome'],
+                  value: presenca,
+                  onChanged: (value){
+                    setState(() {
+                      presenca = value!;
+                    });
+                  }
+                );
+              },
+            )
           ],
-        ),
-      ),
+          );
+        },
+      )
     );
   }
 }
