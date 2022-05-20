@@ -15,9 +15,5 @@ void main() async {
       projectId: "sistg-89390",
     ),
   );
-
-
-
-
   runApp(App());
 }
