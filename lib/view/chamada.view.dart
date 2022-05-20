@@ -41,6 +41,7 @@ class _ChamadaViewState extends State<ChamadaView> {
           return Column(
             children: [
               DropdownButton(
+                underline: Container(),
                 isExpanded: true,
                 items: dropdownItems,
                 value: pelotao,
@@ -50,20 +51,26 @@ class _ChamadaViewState extends State<ChamadaView> {
                   }); 
                 },
               ),
-              ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (_, index){
-                  return CheckboxListTile(
-                    title: Text(snapshot.data!.docs[index].data()['nome']),
-                    value: presenca,
-                    onChanged: (value){
-                      setState(() {
-                        presenca = value!;
-                      });
-                    }
-                  );
-                },
-              )
+              /*Expanded(
+                child: SizedBox(
+                  height: 200,
+                  child:*/ ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (_, index){
+                      return CheckboxListTile(
+                        title: Text(snapshot.data!.docs[index]['nome']),
+                        value: presenca,
+                        onChanged: (value){
+                          setState(() {
+                            presenca = value!;
+                          });
+                        }
+                      );
+                    },
+                  ),
+               // ),
+             // )
             ],
           );
         },
