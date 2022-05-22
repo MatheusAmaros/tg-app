@@ -19,13 +19,14 @@ class _ChamadaViewState extends State<ChamadaView> {
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
+    final numPelotao = arguments['pelotao'];
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.green[900],
+        backgroundColor: Color.fromARGB(255, 8, 56, 11),
         automaticallyImplyLeading: false,
         title: Text(
-          'Chamada - ',
+          'Chamada - Pelotão $numPelotao',
           textAlign: TextAlign.justify,
           style: TextStyle(
             fontFamily: 'Poppins',
@@ -41,7 +42,7 @@ class _ChamadaViewState extends State<ChamadaView> {
                 unselectedWidgetColor: Colors.white,
             ), 
         child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: firestore.collection('atiradores').where('pelotao', isEqualTo: int.parse(arguments['pelotao'])).snapshots(),
+        stream: firestore.collection('atiradores').where('pelotao', isEqualTo: int.parse(numPelotao)).snapshots(),
         builder: (_, snapshot){
           if (!snapshot.hasData) {
             return CircularProgressIndicator();
@@ -61,7 +62,7 @@ class _ChamadaViewState extends State<ChamadaView> {
                             presenca = value!;
                           });
                         },
-                        activeColor: Color.fromARGB(255, 25, 68, 0),
+                        activeColor: Color.fromARGB(255, 8, 56, 11),
                       );
                     },
             );
