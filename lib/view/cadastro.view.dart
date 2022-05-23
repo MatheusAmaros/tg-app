@@ -95,8 +95,6 @@ Não aparece na tela:
 
       db
           .collection("atiradores")
-          .doc(pelotao)
-          .collection(anoIngresso)
           .doc(result.user!.uid)
           .set({
         'nome': nome,
@@ -105,7 +103,10 @@ Não aparece na tela:
         'telefone': telefone,
         'email': email,
         'função': funcao,
-        'graduação': graduacao
+        'graduação': graduacao,
+        'pelotao':pelotao,
+        'anoIngresso':anoIngresso,
+        'uid':result.user!.uid
       });
 
       print('salvo');
