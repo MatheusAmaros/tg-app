@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tg_app/view/app.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
 
@@ -15,5 +16,6 @@ void main() async {
       projectId: "sistg-89390",
     ),
   );
+
   runApp(App());
 }
