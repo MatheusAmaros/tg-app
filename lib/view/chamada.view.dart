@@ -1,28 +1,53 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tg_app/view/chamadaItem.view.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tg_app/model/atirador.model.dart';
+import 'package:tg_app/model/chamada.model.dart';
 
-class Chamada extends StatefulWidget {
-  const Chamada({Key? key}) : super(key: key);
+class ChamadaView extends StatefulWidget {
+  
+  ChamadaView({Key? key}) : super(key: key);
 
   @override
-  _ChamadaState createState() => _ChamadaState();
+  State<ChamadaView> createState() => _ChamadaViewState();
 }
 
-class _ChamadaState extends State<Chamada> {
-  bool checkboxListTileValue = false;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  List funcoes = ["matheus", "cabo"];
+class _ChamadaViewState extends State<ChamadaView> {
+  final firestore = FirebaseFirestore.instance;
+
+  bool presenca = false;
+  String anoIngresso = DateTime.now().year.toString();
+  String ano = DateTime.now().year.toString();
+  String mes = DateTime.now().month.toString();
+  String dia = DateTime.now().day.toString();
 
   @override
   Widget build(BuildContext context) {
+    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
+    final numPelotao = arguments['pelotao'];
+
+    void buscaDados() async{
+      var atiradores = await firestore.collection('atiradores').where('pelotao', isEqualTo: int.parse(numPelotao)).snapshots().toList();
+      var chamada = await firestore.collection('chamada').doc('$dia-$mes-$ano').snapshots();
+      print(chamada);
+      /*if(chamada.isNotEmpty){
+        for (var element in chamada) {
+          print(element);
+        }
+      }*/
+      //pesquisar se a chamada de hoje para esse pelotão já existe
+      //se existir: chama a chamada
+      //senão: setar a chamada do pelotão com todos os atiradores com falta
+    }
+
+  buscaDados();
+
     return Scaffold(
-      //key: scaffoldKey,
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromARGB(255, 8, 56, 11),
         automaticallyImplyLeading: false,
         title: Text(
-          'Chamada',
+          'Chamada - Pelotão $numPelotao',
           textAlign: TextAlign.justify,
           style: TextStyle(
             fontFamily: 'Poppins',
@@ -33,25 +58,40 @@ class _ChamadaState extends State<Chamada> {
         actions: [],
         centerTitle: false,
       ),
-      backgroundColor: Color.fromARGB(255, 0, 0, 0),
-      body: SafeArea(
-        child: GestureDetector(
-          child: ListView(
-            children: [
-              ChamadaItem(uuid: "teste", nome: funcoes[0], funcao: funcoes[1]),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-            IconButton(icon: Icon(Icons.home), onPressed: () {}),
-            IconButton(icon: Icon(Icons.list), onPressed: () {}),
-          ],
-        ),
+      body: Theme(
+            data: ThemeData(
+                unselectedWidgetColor: Colors.white,
+            ), 
+        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: firestore.collection('atiradores').where('pelotao', isEqualTo: int.parse(numPelotao)).snapshots(),
+        builder: (_, snapshot){
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+          if (snapshot.hasError) {
+            return Text("Erro");
+          }
+          
+          return ListView.builder( 
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (_, index){
+                      final item = snapshot.data!.docs[index];
+                      return CheckboxListTile(
+                        title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(color: Colors.white)),
+                        value: presenca,
+                        onChanged: (value){
+                          setState(() {
+                            presenca = value!;
+                          });
+                          //salvar atirador na chamada
+                        },
+                        activeColor: Color.fromARGB(255, 8, 56, 11),
+                      );
+                    },
+            );
+        },
+      )
       ),
     );
   }
