@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,9 +12,18 @@ class LoginWidget extends StatefulWidget {
 class _LoginWidgetState extends State<LoginWidget> {
   TextEditingController textController1 = new TextEditingController();
   TextEditingController textController2 = new TextEditingController();
+
   bool passwordVisibility = false;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  var emailValid = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
+  String email = '';
+  String senha = '';
+
+  String erro = '';
 
   @override
   void initState() {
@@ -21,6 +31,49 @@ class _LoginWidgetState extends State<LoginWidget> {
     textController1 = TextEditingController();
     textController2 = TextEditingController();
     passwordVisibility = false;
+  }
+
+  void _handleFirebaseLoginWithCredentialsException(
+      FirebaseAuthException e, StackTrace s) {
+    if (e.code == 'user-disabled') {
+      //'O usuário informado está desabilitado.'
+      erro = 'Usuário desabilitado no sistema';
+    } else if (e.code == 'user-not-found') {
+      //'O usuário informado não está cadastrado.'
+      erro = 'Usuário não cadastrado';
+    } else if (e.code == 'invalid-email') {
+      //'O domínio do e-mail informado é inválido.'
+      erro = 'Email ou senha invalido';
+    } else if (e.code == 'wrong-password') {
+      //'A senha informada está incorreta.'
+      erro = 'Email ou senha invalido';
+    } else {
+       erro = 'Entre em contato com o administrador do sistema';
+    }
+  }
+
+  void save(BuildContext context) async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+
+    erro ='';
+    
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+
+      try {
+        var result = await auth.signInWithEmailAndPassword(
+            email: email, password: senha);
+
+        // result.user!.updateDisplayName(displayName)
+        Navigator.of(context).pushNamed('/cadastro');
+      } on FirebaseAuthException catch (e, s) {
+        _handleFirebaseLoginWithCredentialsException(e, s);
+        setState(() {
+          email ='';
+          senha ='';
+        });
+      }
+    }
   }
 
   @override
@@ -73,6 +126,16 @@ class _LoginWidgetState extends State<LoginWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      if (erro.isNotEmpty)
+                        Text(
+                          erro,
+                          style: TextStyle(
+                            fontFamily: 'Open Sans',
+                            color: Color.fromARGB(255, 196, 17, 17),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       Text(
                         'Login',
                         style: TextStyle(
@@ -98,16 +161,26 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 borderSide: BorderSide(
                                     color: Color.fromARGB(255, 0, 0, 0))),
                           ),
-                          onSaved: (value) => () {},
+                          onSaved: (value) => email = value!,
                           validator: (value) {
                             if (value!.isEmpty)
-                              return "Campo E-mail obrigatório";
+                              return "Campo E-mail é obrigatório";
+
+                            if (!emailValid.hasMatch(value))
+                              return "Formato de email inserido está incorreto";
+
                             return null;
                           },
                         ),
                       ),
                       TextFormField(
                         controller: textController2,
+                        onSaved: (value) => senha = value!,
+                        validator: (value) {
+                          if (value!.isEmpty)
+                            return "Campo Senha é obrigatório";
+                          return null;
+                        },
                         obscureText: !passwordVisibility,
                         decoration: InputDecoration(
                           labelText: 'Senha',
@@ -137,7 +210,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                       Flexible(
                         child: ElevatedButton(
-                          onPressed: () => () {},
+                          onPressed: () => save(context),
                           child: Text("Enter"),
                           style: ElevatedButton.styleFrom(
                               shape: StadiumBorder(),
@@ -148,7 +221,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   fontSize: 18, fontWeight: FontWeight.bold)),
                         ),
                       ),
-                      Row(
+                      /*Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("Não Tem cadastro? "),
@@ -160,7 +233,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               onTap: () =>
                                   Navigator.pushNamed(context, '/cadastro'),
                             )
-                          ]),
+                          ]),*/
                     ],
                   ),
                 ),

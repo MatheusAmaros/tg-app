@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tg_app/model/atirador.model.dart';
+import 'package:tg_app/model/chamada.model.dart';
 
 class ChamadaView extends StatefulWidget {
   
@@ -15,11 +16,31 @@ class _ChamadaViewState extends State<ChamadaView> {
 
   bool presenca = false;
   String anoIngresso = DateTime.now().year.toString();
+  String ano = DateTime.now().year.toString();
+  String mes = DateTime.now().month.toString();
+  String dia = DateTime.now().day.toString();
 
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
     final numPelotao = arguments['pelotao'];
+
+    void buscaDados() async{
+      var atiradores = await firestore.collection('atiradores').where('pelotao', isEqualTo: int.parse(numPelotao)).snapshots().toList();
+      var chamada = await firestore.collection('chamada').doc('$dia-$mes-$ano').snapshots();
+      print(chamada);
+      /*if(chamada.isNotEmpty){
+        for (var element in chamada) {
+          print(element);
+        }
+      }*/
+      //pesquisar se a chamada de hoje para esse pelotão já existe
+      //se existir: chama a chamada
+      //senão: setar a chamada do pelotão com todos os atiradores com falta
+    }
+
+  buscaDados();
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -50,10 +71,12 @@ class _ChamadaViewState extends State<ChamadaView> {
           if (snapshot.hasError) {
             return Text("Erro");
           }
-          return ListView.builder(
+          
+          return ListView.builder( 
                     shrinkWrap: true,
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (_, index){
+                      final item = snapshot.data!.docs[index];
                       return CheckboxListTile(
                         title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(color: Colors.white)),
                         value: presenca,
@@ -61,6 +84,7 @@ class _ChamadaViewState extends State<ChamadaView> {
                           setState(() {
                             presenca = value!;
                           });
+                          //salvar atirador na chamada
                         },
                         activeColor: Color.fromARGB(255, 8, 56, 11),
                       );
