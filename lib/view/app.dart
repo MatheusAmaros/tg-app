@@ -12,7 +12,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      initialRoute: '/chamadaPelotao',
+      initialRoute: '/login',
       routes: {
         '/login': (context) => LoginWidget(),
         '/chamadaPelotao': (context) => ChamadaPelotaoView(),

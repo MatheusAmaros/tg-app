@@ -65,7 +65,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             email: email, password: senha);
 
         // result.user!.updateDisplayName(displayName)
-        Navigator.of(context).pushNamed('/cadastro');
+        Navigator.of(context).pushNamed('/home', arguments: {'userUid': result.user!.uid});
       } on FirebaseAuthException catch (e, s) {
         _handleFirebaseLoginWithCredentialsException(e, s);
         setState(() {
