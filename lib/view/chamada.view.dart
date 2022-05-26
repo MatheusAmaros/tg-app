@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:tg_app/model/atirador.model.dart';
 import 'package:tg_app/model/chamada.model.dart';
 
@@ -16,30 +17,33 @@ class _ChamadaViewState extends State<ChamadaView> {
 
   bool presenca = false;
   String anoIngresso = DateTime.now().year.toString();
-  String ano = DateTime.now().year.toString();
-  String mes = DateTime.now().month.toString();
-  String dia = DateTime.now().day.toString();
+
+  void CadastrarAtiradores(pelotaoBusca, dataInv) async {
+    await firestore.collection('atiradores').where('pelotao', isEqualTo: pelotaoBusca).get()
+    .then((val){
+      for (var element in val.docs) {
+        //print('aqui!!!! ${element.data()}');
+         firestore
+          .collection("chamadas")
+          .doc(dataInv)
+          .collection(pelotaoBusca)
+          .doc(element.data()["uid"])
+          .set({
+            'uid': element.data()["uid"],
+            'nome': element.data()["nome"],
+            'presenca': false,
+          });
+      }
+            
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
     final numPelotao = arguments['pelotao'];
-
-    void buscaDados() async{
-      var atiradores = await firestore.collection('atiradores').where('pelotao', isEqualTo: int.parse(numPelotao)).snapshots().toList();
-      var chamada = await firestore.collection('chamada').doc('$dia-$mes-$ano').snapshots();
-      print(chamada);
-      /*if(chamada.isNotEmpty){
-        for (var element in chamada) {
-          print(element);
-        }
-      }*/
-      //pesquisar se a chamada de hoje para esse pelotão já existe
-      //se existir: chama a chamada
-      //senão: setar a chamada do pelotão com todos os atiradores com falta
-    }
-
-  buscaDados();
+    final pelotaoBusca = 'pelotao$numPelotao';
+    String dataInv = DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -63,14 +67,19 @@ class _ChamadaViewState extends State<ChamadaView> {
                 unselectedWidgetColor: Colors.white,
             ), 
         child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: firestore.collection('atiradores').where('pelotao', isEqualTo: int.parse(numPelotao)).snapshots(),
+        stream: firestore.collection('chamadas').doc(dataInv).collection(pelotaoBusca).snapshots(),
         builder: (_, snapshot){
+          if(snapshot.data!.docs.length == 0){
+            CadastrarAtiradores(pelotaoBusca, dataInv);
+          }
           if (!snapshot.hasData) {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
             return Text("Erro");
           }
+          
+
           
           return ListView.builder( 
                     shrinkWrap: true,
