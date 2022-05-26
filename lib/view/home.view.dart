@@ -6,11 +6,28 @@ import 'package:intl/date_time_patterns.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
   Widget build(BuildContext context) {
+
+    void logout() async
+    {
+      FirebaseAuth user = FirebaseAuth.instance;
+      await user.signOut();
+
+      setState(() {
+        Navigator.pushNamed(context, '/login');
+        
+      });
+    }
+
     void carrega() async {
       //final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
 
@@ -41,54 +58,61 @@ class Home extends StatelessWidget {
     }
 
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(title: const Text('Sistema Auxiliador do TG'),
+        actions: <Widget>[IconButton(onPressed:() => logout(), icon: Icon(Icons.logout))],
+        backgroundColor: Color.fromARGB(228, 22, 37, 4),
+        foregroundColor: Color.fromARGB(255, 255, 255, 255),
+        ),
+        
         body: ListView(
           children: [
             Container(
-              margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                      children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  carrega();
-                                },
-                                iconSize: 50,
-                                icon: Icon(Icons.abc)),
-                            Text('Chamada')
-                          ],
-                        ),
-                      ],
-                    ),
+              child: Container(
+                margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    carrega();
+                                  },
+                                  iconSize: 50,
+                                  icon: Icon(Icons.abc)),
+                              Text('Chamada')
+                            ],
+                          ),
+                        ],
+                      ),
 
-                                      Column(
-                      children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  carrega();
-                                },
-                                iconSize: 50,
-                                icon: Icon(Icons.abc)),
-                            Text('Chamada')
-                          ],
-                        ),
-                      ],
-                    ),
-              
+                                        Column(
+                        children: [
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    carrega();
+                                  },
+                                  iconSize: 50,
+                                  icon: Icon(Icons.abc)),
+                              Text('Chamada')
+                            ],
+                          ),
+                        ],
+                      ),
+                
 
 
-                ]),
+                  ]),
+              ),
             ),
             
              Container(
