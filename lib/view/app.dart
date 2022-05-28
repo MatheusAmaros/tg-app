@@ -16,7 +16,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      initialRoute: auth.currentUser == null ? '/login':'/home',
+      initialRoute: auth.currentUser == null ? '/chamadaPelotao':'/home',
       routes: {
         '/login': (context) => LoginWidget(),
         '/chamadaPelotao': (context) => ChamadaPelotaoView(),

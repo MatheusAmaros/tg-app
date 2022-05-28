@@ -17,12 +17,21 @@ class _ChamadaViewState extends State<ChamadaView> {
 
   bool presenca = false;
   String anoIngresso = DateTime.now().year.toString();
+  bool value1 = true;
 
-  void CadastrarAtiradores(pelotaoBusca, dataInv) async {
-    await firestore.collection('atiradores').where('pelotao', isEqualTo: pelotaoBusca).get()
+  void verificaChamada(pelotaoBusca, dataInv) async {
+    await firestore.collection('chamadas').doc(dataInv).collection(pelotaoBusca).get()
+    .then((val){
+      if(val.docs.length == 0){
+        cadastrarAtiradores(pelotaoBusca, dataInv);
+      } 
+    });
+  }
+
+  void cadastrarAtiradores(pelotaoBusca, dataInv) {
+    firestore.collection('atiradores').where('pelotao', isEqualTo: pelotaoBusca).get()
     .then((val){
       for (var element in val.docs) {
-        //print('aqui!!!! ${element.data()}');
          firestore
           .collection("chamadas")
           .doc(dataInv)
@@ -31,11 +40,21 @@ class _ChamadaViewState extends State<ChamadaView> {
           .set({
             'uid': element.data()["uid"],
             'nome': element.data()["nome"],
-            'presenca': false,
+            'presenca': false
           });
-      }
-            
+      }  
     });
+  }
+
+  void salvarPresenca(pelotaoBusca, dataInv, uid, value) {
+    firestore
+      .collection("chamadas")
+      .doc(dataInv)
+      .collection(pelotaoBusca)
+      .doc(uid)
+      .update({
+        'presenca': value
+      });
   }
 
   @override
@@ -44,7 +63,7 @@ class _ChamadaViewState extends State<ChamadaView> {
     final numPelotao = arguments['pelotao'];
     final pelotaoBusca = 'pelotao$numPelotao';
     String dataInv = DateFormat("yyyy-MM-dd").format(DateTime.now()).toString();
-
+    verificaChamada(pelotaoBusca, dataInv);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -62,43 +81,40 @@ class _ChamadaViewState extends State<ChamadaView> {
         actions: [],
         centerTitle: false,
       ),
+      
       body: Theme(
             data: ThemeData(
                 unselectedWidgetColor: Colors.white,
-            ), 
+            ),
         child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: firestore.collection('chamadas').doc(dataInv).collection(pelotaoBusca).snapshots(),
         builder: (_, snapshot){
-          if(snapshot.data!.docs.length == 0){
-            CadastrarAtiradores(pelotaoBusca, dataInv);
-          }
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
             return Text("Erro");
           }
-          
+          if(snapshot.data!.docs.length == 0){
+            return Center(child: Text("Sem atiradores cadastrados para o pelotão selecionado."));
+          }
 
-          
           return ListView.builder( 
-                    shrinkWrap: true,
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (_, index){
-                      final item = snapshot.data!.docs[index];
-                      return CheckboxListTile(
-                        title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(color: Colors.white)),
-                        value: presenca,
-                        onChanged: (value){
-                          setState(() {
-                            presenca = value!;
-                          });
-                          //salvar atirador na chamada
-                        },
-                        activeColor: Color.fromARGB(255, 8, 56, 11),
-                      );
-                    },
-            );
+            shrinkWrap: true,
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (_, index){
+              return CheckboxListTile(
+                title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(color: Colors.white)),
+                value: snapshot.data!.docs[index]['presenca'],
+                onChanged: (value){
+                  setState(() {
+                    salvarPresenca(pelotaoBusca, dataInv, snapshot.data!.docs[index]['uid'], value);
+                  });
+                },
+                activeColor: Color.fromARGB(255, 8, 56, 11),
+              );
+            },
+          );
         },
       )
       ),
