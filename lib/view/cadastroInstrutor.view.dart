@@ -67,11 +67,11 @@ Não aparece na tela:
       });
 
       setState(() {
-        String nome = '';
-        String cpf = '';
-        String telefone = '';
-        String email = '';
-        String senha = '';
+         nome = '';
+         cpf = '';
+         telefone = '';
+         email = '';
+         senha = '';
 
       Fluttertoast.showToast(
         msg: "Instrutor cadastrado com sucesso!",

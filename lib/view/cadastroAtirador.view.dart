@@ -108,17 +108,16 @@ Não aparece na tela:
       });
 
       setState(() {
-        String nome = '';
-
-        String cpf = '';
-        String numero = '';
-        String telefone = '';
-        String email = '';
-        String anoIngresso = '';
-        String funcao = 'sentinela';
-        String graduacao = 'atirador';
-        String senha = '';
-        String pelotao = 'pelotao1';
+         nome = '';
+         cpf = '';
+         numero = '';
+         telefone = '';
+         email = '';
+         anoIngresso = '';
+         funcao = 'sentinela';
+         graduacao = 'atirador';
+         senha = '';
+         pelotao = 'pelotao1';
 
         Fluttertoast.showToast(
             msg: "Atirador cadastrado com sucesso!",
