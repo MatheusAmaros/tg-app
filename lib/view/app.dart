@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tg_app/view/cadastro.view.dart';
+import 'package:tg_app/view/cadastroAtirador.view.dart';
 import 'package:tg_app/view/cadastroGuarnicaoCompleta.view.dart';
+import 'package:tg_app/view/cadastroInstrutor.view.dart';
 import 'package:tg_app/view/chamada.view.dart';
 import 'package:tg_app/view/chamadaPelotao.view.dart';
 import 'package:tg_app/view/login.view.dart';
@@ -16,12 +17,13 @@ FirebaseAuth auth = FirebaseAuth.instance;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      initialRoute: auth.currentUser == null ? '/chamadaPelotao':'/home',
+      initialRoute: auth.currentUser == null ? '/login':'/home',
       routes: {
         '/login': (context) => LoginWidget(),
         '/chamadaPelotao': (context) => ChamadaPelotaoView(),
         '/chamada': (context) => ChamadaView(),
-        '/cadastro': (context) => CadastroAtirador(),
+        '/cadastroAtirador': (context) => CadastroAtirador(),
+        '/cadastroInstrutor': (context) => CadastroInstrutor(),
         '/home':(context) => Home()
       },
     );

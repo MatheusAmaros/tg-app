@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -57,6 +58,17 @@ class _ChamadaViewState extends State<ChamadaView> {
       });
   }
 
+      void logout() async
+    {
+      FirebaseAuth user = FirebaseAuth.instance;
+      await user.signOut();
+
+      setState(() {
+        Navigator.pop(context);
+        
+      });
+    }
+
   @override
   Widget build(BuildContext context) {
     final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
@@ -68,7 +80,7 @@ class _ChamadaViewState extends State<ChamadaView> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 8, 56, 11),
-        automaticallyImplyLeading: false,
+        //automaticallyImplyLeading: false,
         title: Text(
           'Chamada - Pelotão $numPelotao',
           textAlign: TextAlign.justify,
@@ -78,7 +90,7 @@ class _ChamadaViewState extends State<ChamadaView> {
             fontSize: 22,
           ),
         ),
-        actions: [],
+        actions:[],
         centerTitle: false,
       ),
       
