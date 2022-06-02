@@ -10,7 +10,7 @@ class ChamadaPelotaoView extends StatelessWidget {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 8, 56, 11),
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         title: Text(
           'Selecione o pelotão',
           textAlign: TextAlign.justify,
