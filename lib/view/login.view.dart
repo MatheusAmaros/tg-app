@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -22,7 +23,6 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   String email = '';
   String senha = '';
-
   String erro = '';
 
   @override
@@ -40,7 +40,7 @@ class _LoginWidgetState extends State<LoginWidget> {
       erro = 'Usuário desabilitado no sistema';
     } else if (e.code == 'user-not-found') {
       //'O usuário informado não está cadastrado.'
-      erro = 'Usuário não cadastrado';
+      erro = 'Usuário não cadastrado no sistema';
     } else if (e.code == 'invalid-email') {
       //'O domínio do e-mail informado é inválido.'
       erro = 'Email ou senha invalido';
@@ -48,15 +48,13 @@ class _LoginWidgetState extends State<LoginWidget> {
       //'A senha informada está incorreta.'
       erro = 'Email ou senha invalido';
     } else {
-       erro = 'Entre em contato com o administrador do sistema';
+      erro = 'Entre em contato com o administrador do sistema';
     }
   }
 
   void save(BuildContext context) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
 
-    erro ='';
-    
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
@@ -65,12 +63,23 @@ class _LoginWidgetState extends State<LoginWidget> {
             email: email, password: senha);
 
         // result.user!.updateDisplayName(displayName)
-        Navigator.of(context).pushNamed('/home', arguments: {'userUid': result.user!.uid});
+        Navigator.of(context)
+            .pushNamed('/home', arguments: {'userUid': result.user!.uid});
       } on FirebaseAuthException catch (e, s) {
         _handleFirebaseLoginWithCredentialsException(e, s);
         setState(() {
-          email ='';
-          senha ='';
+          email = '';
+          senha = '';
+
+          Fluttertoast.showToast(
+              msg: erro,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb:3,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0,
+              webPosition: 'center');
         });
       }
     }
@@ -83,7 +92,6 @@ class _LoginWidgetState extends State<LoginWidget> {
       backgroundColor: Color(0xFF262D34),
       body: Center(
         child: Container(
-          
           decoration: BoxDecoration(
             color: Color(0xFFEEEEEE),
             image: DecorationImage(
@@ -126,16 +134,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        if (erro.isNotEmpty)
-                          Text(
-                            erro,
-                            style: TextStyle(
-                              fontFamily: 'Open Sans',
-                              color: Color.fromARGB(255, 196, 17, 17),
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
                         Text(
                           'Login',
                           style: TextStyle(

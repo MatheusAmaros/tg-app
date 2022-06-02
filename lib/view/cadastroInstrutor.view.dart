@@ -2,20 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class CadastroAtirador extends StatefulWidget {
+class CadastroInstrutor extends StatefulWidget {
   @override
-  State<CadastroAtirador> createState() => _CadastroAtiradorState();
+  State<CadastroInstrutor> createState() => _CadastroInstrutorState();
 }
 
-class _CadastroAtiradorState extends State<CadastroAtirador> {
+class _CadastroInstrutorState extends State<CadastroInstrutor> {
   var formKey = GlobalKey<FormState>();
 
   String nome = '';
 
   String cpf = '';
-
-  String numero = '';
 
   String telefone = '';
 
@@ -23,42 +22,8 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
   var emailValid = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
-  String anoIngresso = '';
-
-  String funcao = 'sentinela';
-
-  String graduacao = 'atirador';
-
   String senha = '';
 
-  String pelotao = 'pelotao1';
-
-  List<DropdownMenuItem<String>> get dropdownItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Pelotão 1"), value: "pelotao1"),
-      DropdownMenuItem(child: Text("Pelotão 2"), value: "pelotao2"),
-      DropdownMenuItem(child: Text("Pelotão 3"), value: "pelotao3"),
-    ];
-    return menuItems;
-  }
-
-  List<DropdownMenuItem<String>> get funcaoItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Comandante"), value: "comandante"),
-      DropdownMenuItem(child: Text("Cabo"), value: "cabo"),
-      DropdownMenuItem(child: Text("Sentinela"), value: "sentinela"),
-      DropdownMenuItem(child: Text("Permanente"), value: "permanente"),
-    ];
-    return menuItems;
-  }
-
-  List<DropdownMenuItem<String>> get graducaoItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Atirador"), value: "atirador"),
-      DropdownMenuItem(child: Text("Subtenente"), value: "subtenente"),
-    ];
-    return menuItems;
-  }
 
   var telephoneMask = new MaskTextInputFormatter(
       mask: '(##) #####-####',
@@ -83,7 +48,6 @@ Não aparece na tela:
     FirebaseFirestore db = FirebaseFirestore.instance;
     FirebaseAuth auth = FirebaseAuth.instance;
 
-    anoIngresso = DateTime.now().year.toString();
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
@@ -91,25 +55,37 @@ Não aparece na tela:
       var result = await auth.createUserWithEmailAndPassword(
           email: email, password: senha);
 
-      //await result.user!.updateDisplayName(nome);
-
       db
-          .collection("atiradores")
+          .collection("instrutores")
           .doc(result.user!.uid)
           .set({
         'nome': nome,
         'cpf': cpf,
-        'numero': numero,
         'telefone': telefone,
         'email': email,
-        'função': funcao,
-        'graduação': graduacao,
-        'pelotao':pelotao,
-        'anoIngresso':anoIngresso,
         'uid':result.user!.uid
       });
 
-      print('salvo');
+      setState(() {
+         nome = '';
+         cpf = '';
+         telefone = '';
+         email = '';
+         senha = '';
+
+      Fluttertoast.showToast(
+        msg: "Instrutor cadastrado com sucesso!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 3,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+        webPosition:'center',
+
+    );
+
+      });
     }
   }
 
@@ -152,7 +128,7 @@ Não aparece na tela:
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "CADASTRAR ATIRADOR",
+                          "CADASTRAR INSTRUTOR",
                           style: TextStyle(
                               fontSize: 18,
                               color: Color.fromARGB(255, 0, 0, 0),
@@ -296,88 +272,6 @@ Não aparece na tela:
                             return "Sua senha deve ter no mínimo 6 caracteres";
                           return null;
                         },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
-                      child: TextFormField(
-                        inputFormatters: [numberMask],
-                        decoration: InputDecoration(
-                            hintText: "Numero do Atirador",
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 165, 165, 165)),
-                            labelText: "Numero do Atirador",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: Colors.red)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    color: Color.fromARGB(255, 0, 0, 0))),
-                            prefixIcon: Icon(Icons.numbers)),
-                        onSaved: (value) => numero = value!,
-                        validator: (value) {
-                          if (value!.isEmpty) return "Campo Numero obrigatório";
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Pelotao'),
-                          DropdownButton(
-                            isExpanded: true,
-                            items: dropdownItems,
-                            value: pelotao,
-                            onChanged: (String? value) {
-                              setState(() {
-                                pelotao = value!;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Função'),
-                          DropdownButton(
-                            isExpanded: true,
-                            items: funcaoItems,
-                            value: funcao,
-                            onChanged: (String? value) {
-                              setState(() {
-                                funcao = value!;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Graduação'),
-                          DropdownButton(
-                            isExpanded: true,
-                            items: graducaoItems,
-                            value: graduacao,
-                            onChanged: (String? value) {
-                              setState(() {
-                                graduacao = value!;
-                              });
-                            },
-                          ),
-                        ],
                       ),
                     ),
                     ElevatedButton(

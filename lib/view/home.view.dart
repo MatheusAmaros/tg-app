@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
       await user.signOut();
 
       setState(() {
-        Navigator.pushNamed(context, '/login');
+        Navigator.pop(context);
         
       });
     }
@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
     //retornando 1 unico documento
     var user = await db.collection('atiradores').doc(arguments['userUid']).get();
     var usuario = user['nome'];
-    print(usuario);*/
+    print(usuario);
 
       final DateTime now = DateTime.now();
       final DateFormat formatter = DateFormat('dd-MM-yyyy');
@@ -54,11 +54,14 @@ class _HomeState extends State<Home> {
       var user = await db.collection('chamada').doc(datenow).get();
 
       print(user['01'][0]);
-      print(user['01'][1]);
+      print(user['01'][1]);*/
     }
 
     return Scaffold(
-        appBar: AppBar(title: const Text('Sistema Auxiliador do TG'),
+        appBar: AppBar(
+        leading: IconButton(onPressed:() => Navigator.pushNamed(context, "/perfil"), icon: Icon(Icons.person)),
+        centerTitle: true,
+        title: const Text('Sistema Auxiliador do TG'),
         actions: <Widget>[IconButton(onPressed:() => logout(), icon: Icon(Icons.logout))],
         backgroundColor: Color.fromARGB(228, 22, 37, 4),
         foregroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -81,10 +84,10 @@ class _HomeState extends State<Home> {
                             children: [
                               IconButton(
                                   onPressed: () {
-                                    carrega();
+                                    Navigator.pushNamed(context, "/chamada");
                                   },
                                   iconSize: 50,
-                                  icon: Icon(Icons.abc)),
+                                  icon: Icon(Icons.group)),
                               Text('Chamada')
                             ],
                           ),
@@ -99,11 +102,11 @@ class _HomeState extends State<Home> {
                             children: [
                               IconButton(
                                   onPressed: () {
-                                    carrega();
+                                    Navigator.pushNamed(context, '/guarnicao');
                                   },
                                   iconSize: 50,
-                                  icon: Icon(Icons.abc)),
-                              Text('Chamada')
+                                  icon: Icon(Icons.table_view)),
+                              Text('Guarnição')
                             ],
                           ),
                         ],
@@ -129,11 +132,11 @@ class _HomeState extends State<Home> {
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  carrega();
+                                  Navigator.pushNamed(context, '/cadastroAtirador');
                                 },
                                 iconSize: 50,
-                                icon: Icon(Icons.abc)),
-                            Text('Chamada')
+                                icon: Icon(Icons.person_add)),
+                            Text('Cadastrar Atirador')
                           ],
                         ),
                       ],
@@ -147,11 +150,11 @@ class _HomeState extends State<Home> {
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  carrega();
+                                  Navigator.pushNamed(context, '/cadastroInstrutor');
                                 },
                                 iconSize: 50,
-                                icon: Icon(Icons.abc)),
-                            Text('Chamada')
+                                icon: Icon(Icons.supervisor_account)),
+                            Text('Cadastrar Instrutor')
                           ],
                         ),
                       ],
