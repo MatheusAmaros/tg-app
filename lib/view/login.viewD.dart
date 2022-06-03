@@ -5,10 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
-
-
-
 class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
@@ -26,7 +22,6 @@ class _LoginState extends State<Login> {
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
   String erro = '';
-
 
   void _handleFirebaseLoginWithCredentialsException(
       FirebaseAuthException e, StackTrace s) {
@@ -52,32 +47,28 @@ class _LoginState extends State<Login> {
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      
 
       try {
         var result = await auth.signInWithEmailAndPassword(
             email: emailController.text, password: passwordController.text);
 
-  
         Navigator.of(context)
             .pushNamed('/home', arguments: {'userUid': result.user!.uid});
       } on FirebaseAuthException catch (e, s) {
         _handleFirebaseLoginWithCredentialsException(e, s);
-       
 
-          emailController.clear();
-          passwordController.clear();
+        emailController.clear();
+        passwordController.clear();
 
-          Fluttertoast.showToast(
-              msg: erro,
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb:3,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0,
-              webPosition: 'center');
-        
+        Fluttertoast.showToast(
+            msg: erro,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
+            webPosition: 'center');
       }
     }
   }
@@ -91,34 +82,38 @@ class _LoginState extends State<Login> {
           image: DecorationImage(
             fit: BoxFit.cover,
             //repeat: ImageRepeat.repeat,
-            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.25), BlendMode.dstATop),
-            image: Image.asset('assets/images/camuflagem2.jpg',).image,
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.25), BlendMode.dstATop),
+            image: Image.asset(
+              'assets/images/camuflagem2.jpg',
+            ).image,
           ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top: 25.0, left: 30.0, right: 30.0, bottom: 25.0),
+              padding: EdgeInsets.only(
+                  top: 25.0, left: 30.0, right: 30.0, bottom: 25.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center( child: Image(image: AssetImage('assets/images/exercito.png'), height: 150,),
-                   
+                  Center(
+                    child: Image(
+                      image: AssetImage('assets/images/exercito.png'),
+                      height: 150,
+                    ),
                   ),
                 ],
               ),
             ),
             Expanded(
-              
               child: Container(
-                
-                padding: EdgeInsets.symmetric(horizontal: 40.0),
-                
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(70.0)),
+                  padding: EdgeInsets.symmetric(horizontal: 40.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.only(topLeft: Radius.circular(70.0)),
                   ),
                   child: Form(
                     key: formKey,
@@ -126,18 +121,25 @@ class _LoginState extends State<Login> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(child: Text('Login',style: TextStyle(fontFamily: 'Montserrat',fontSize: 32,fontWeight: FontWeight.w900 ),),
+                        Container(
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                fontSize: 32,
+                                fontWeight: FontWeight.w900),
+                          ),
                         ),
                         Container(
                           child: TextFormField(
                             controller: emailController,
-                            style: TextStyle( fontFamily: 'Montserrat-S'),
+                            style: TextStyle(fontFamily: 'Montserrat-S'),
                             decoration: InputDecoration(
                               labelText: 'E-mail',
                               hintStyle: TextStyle(
                                 fontFamily: 'Montserrat-S',
-                                  color: Color.fromARGB(255, 165, 165, 165),),
-                              
+                                color: Color.fromARGB(255, 165, 165, 165),
+                              ),
                             ),
                             onSaved: (value) => emailController.text = value!,
                             validator: (value) {
@@ -150,29 +152,32 @@ class _LoginState extends State<Login> {
                               return null;
                             },
                           ),
-                         
                         ),
-                         Container(
-                          child:  TextFormField(
+                        Container(
+                          child: TextFormField(
                             obscureText: passwordVisibility,
                             controller: passwordController,
-                            style: TextStyle( fontFamily: 'Montserrat-S'),
+                            style: TextStyle(fontFamily: 'Montserrat-S'),
                             decoration: InputDecoration(
-                              labelText: 'Senha',
-                              hintStyle: TextStyle(
-                                fontFamily: 'Montserrat-S',
-                                  color: Color.fromARGB(255, 165, 165, 165),),
-                              suffixIcon:  IconButton(
-                icon: Icon(
-                  passwordVisibility ? Icons.visibility : Icons.visibility_off,
-                ),
-                onPressed:  (){ setState(() {
-                    passwordVisibility = !passwordVisibility;
-                  });})
-                                  
-                              
-                            ),
-                            onSaved: (value) => passwordController.text = value!,
+                                labelText: 'Senha',
+                                hintStyle: TextStyle(
+                                  fontFamily: 'Montserrat-S',
+                                  color: Color.fromARGB(255, 165, 165, 165),
+                                ),
+                                suffixIcon: IconButton(
+                                    icon: Icon(
+                                      passwordVisibility
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        passwordVisibility =
+                                            !passwordVisibility;
+                                      });
+                                    })),
+                            onSaved: (value) =>
+                                passwordController.text = value!,
                             validator: (value) {
                               if (value!.isEmpty)
                                 return "Campo Senha é obrigatório";
@@ -180,22 +185,22 @@ class _LoginState extends State<Login> {
                               return null;
                             },
                           ),
-                          
                         ),
                         ElevatedButton(
-                            onPressed: () => save(context),
-                            child: Text("Login"),
-                            style: ElevatedButton.styleFrom(
-                               shape: RoundedRectangleBorder(
-  borderRadius: BorderRadius.circular(18.0),
-),
-                                primary: Color.fromARGB(255, 36, 35, 35),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 130, vertical: 20),
-                                textStyle: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
-                          ),
-                      ],
+                          onPressed: () => save(context),
+                          child: Text("Login"),
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                              ),
+                              primary: Color.fromARGB(255, 36, 35, 35),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 130, vertical: 20),
+                              textStyle: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                        ),
+                        Text('Todos os direitos reservados'),]
+                      
                     ),
                   )),
             ),
