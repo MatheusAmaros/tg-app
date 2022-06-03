@@ -10,15 +10,15 @@ class _chamadaPelotaoVisualizarViewState extends State<ChamadaPelotaoVisualizarV
 
   List<DropdownMenuItem<String>> get dropdownItemsPelotao {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Pelotão 1"), value: "pelotao1"),
-      DropdownMenuItem(child: Text("Pelotão 2"), value: "pelotao2"),
-      DropdownMenuItem(child: Text("Pelotão 3"), value: "pelotao3"),
-      DropdownMenuItem(child: Text("Pelotão 4"), value: "pelotao4"),
+      DropdownMenuItem(child: Text("Pelotão 1"), value: "1"),
+      DropdownMenuItem(child: Text("Pelotão 2"), value: "2"),
+      DropdownMenuItem(child: Text("Pelotão 3"), value: "3"),
+      DropdownMenuItem(child: Text("Pelotão 4"), value: "4"),
     ];
     return menuItems;
   }
 
-  String pelotao = 'pelotao1';
+  String pelotao = '1';
   String dataInicial = DateTime.now().toString();
   String dataText = DateFormat("dd/MM/yyyy").format(DateTime.now()).toString();
 
@@ -29,7 +29,7 @@ class _chamadaPelotaoVisualizarViewState extends State<ChamadaPelotaoVisualizarV
           backgroundColor: Color.fromARGB(255, 8, 56, 11),
           automaticallyImplyLeading: true,
           title: Text(
-            'Visualizar chamada',
+            'Chamada',
             textAlign: TextAlign.justify,
             style: TextStyle(
               fontFamily: 'Poppins',
@@ -62,7 +62,6 @@ class _chamadaPelotaoVisualizarViewState extends State<ChamadaPelotaoVisualizarV
                           initialDate: DateTime.parse(dataInicial),
                           firstDate: DateTime(2020),
                           lastDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
-                          //#222118
                           builder: (context, child) => Theme(
                             data: ThemeData().copyWith(
                               colorScheme: ColorScheme.light(
@@ -106,6 +105,17 @@ class _chamadaPelotaoVisualizarViewState extends State<ChamadaPelotaoVisualizarV
                     ),
                   ],
                 ),
+              ),
+              Container(
+                width:double.infinity ,
+                padding: EdgeInsets.all(20),
+                alignment: Alignment.topCenter,
+                child:ElevatedButton(
+                  child: Text("Visualizar"),
+                  onPressed:() {
+                    Navigator.of(context).pushNamed('/chamadaV', arguments: {'pelotao': pelotao, 'dataText': dataText, 'dataInv': dataInicial});
+                  },
+                )
               ),
             ]
           )

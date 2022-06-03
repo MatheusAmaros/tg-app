@@ -31,7 +31,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
             const Locale('pt', 'BR'), 
       ],
 
-      initialRoute: auth.currentUser == null ? '/login':'/home',
+      initialRoute: auth.currentUser == null ? '/chamadaPelotaoV':'/home',
       routes: {
         '/login': (context) => LoginWidget(),
         '/chamadaPelotao': (context) => ChamadaPelotaoView(),
