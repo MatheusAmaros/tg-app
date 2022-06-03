@@ -4,12 +4,14 @@ class Design extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.black,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            fit: BoxFit.cover,
-            image: Image.asset('assets/images/Camuflagem.png',).image,
+            //fit: BoxFit.cover,
+            repeat: ImageRepeat.repeat,
+            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
+            image: Image.asset('assets/images/camuflagem2.jpg',).image,
           ),
         ),
         child: Column(
