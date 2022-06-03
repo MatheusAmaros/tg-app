@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Design extends StatelessWidget {
+  final value = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -8,9 +9,9 @@ class Design extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            //fit: BoxFit.cover,
-            repeat: ImageRepeat.repeat,
-            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
+            fit: BoxFit.cover,
+            //repeat: ImageRepeat.repeat,
+            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.25), BlendMode.dstATop),
             image: Image.asset('assets/images/camuflagem2.jpg',).image,
           ),
         ),
@@ -28,14 +29,14 @@ class Design extends StatelessWidget {
                       IconButton(
                         icon: Icon(Icons.arrow_back_ios_rounded),
                         iconSize: 30,
-                        color: Colors.black,
+                        color: Colors.white,
                         onPressed: () {},
                       ),
-                      Text('Home', style: TextStyle(fontSize: 20)),
+                      Text('Home', style: TextStyle(fontSize: 20, color: Colors.white)),
                       IconButton(
                         icon: Icon((Icons.perm_identity_sharp)),
                         iconSize: 30,
-                        color: Colors.black,
+                        color: Colors.white,
                         onPressed: () {},
                       ),
                     ],
@@ -52,6 +53,13 @@ class Design extends StatelessWidget {
                     topLeft: Radius.circular(50.0),
                     topRight: Radius.circular(50.0),
                   ),
+                ),
+                child: ListView.builder( 
+                  shrinkWrap: true,
+                  itemCount: 4,
+                  itemBuilder: (_, index){
+                    return Center( child: Text("Design"));
+                  },
                 ),
               ),
             ),
