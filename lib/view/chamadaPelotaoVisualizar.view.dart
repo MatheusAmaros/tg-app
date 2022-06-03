@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ChamadaPelotaoVisualizarView extends StatefulWidget {
   @override
@@ -18,10 +19,12 @@ class _chamadaPelotaoVisualizarViewState extends State<ChamadaPelotaoVisualizarV
   }
 
   String pelotao = 'pelotao1';
+  String dataInicial = DateTime.now().toString();
+  String dataText = DateFormat("dd/MM/yyyy").format(DateTime.now()).toString();
 
     Widget build(BuildContext context) {
       return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 8, 56, 11),
           automaticallyImplyLeading: true,
@@ -41,38 +44,53 @@ class _chamadaPelotaoVisualizarViewState extends State<ChamadaPelotaoVisualizarV
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                margin: EdgeInsets.fromLTRB(12, 12, 12, 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Selecione a data', 
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                       )
                     ),
                     ListTile(
-                      title: Text(pelotao, style: TextStyle(color: Colors.white)), 
-                      trailing: Icon(Icons.calendar_month_outlined, color: Colors.white), 
+                      title: Text(dataText), 
+                      trailing: Icon(Icons.calendar_month_outlined, color: Colors.black), 
                       onTap: () async {
-                        final datePicker = await showDatePicker(
+                        DateTime? datePicker = await showDatePicker(
                           context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(DateTime.now().year - 1),
-                          lastDate: DateTime(DateTime.now().year + 1),
+                          initialDate: DateTime.parse(dataInicial),
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
+                          //#222118
+                          builder: (context, child) => Theme(
+                            data: ThemeData().copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: Colors.grey.shade800,
+                                onPrimary: Colors.white,
+                              )
+                            ), 
+                            child: child!)
                         );
-                      },
-                    ),
+                        if(datePicker != null){
+                          setState(() {
+                            dataInicial = DateFormat("yyyy-MM-dd").format(datePicker).toString();
+                            dataText = DateFormat("dd/MM/yyyy").format(datePicker).toString();
+                          });
+                        }
+                      }
+                    )
                   ],
                 )
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(5, 12, 12, 12),
+                margin: EdgeInsets.fromLTRB(12, 12, 12, 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Selecione o pelotao', 
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                       )
                     ),
                     DropdownButton(
@@ -84,8 +102,6 @@ class _chamadaPelotaoVisualizarViewState extends State<ChamadaPelotaoVisualizarV
                           pelotao = value!;
                         });
                       },
-                      style: TextStyle(color: Colors.white),
-                      dropdownColor: Colors.black,
                       underline: Container(),
                     ),
                   ],

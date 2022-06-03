@@ -6,6 +6,7 @@ import 'package:tg_app/view/cadastroInstrutor.view.dart';
 import 'package:tg_app/view/chamada.view.dart';
 import 'package:tg_app/view/chamadaPelotao.view.dart';
 import 'package:tg_app/view/chamadaVisualizar.view.dart';
+import 'package:tg_app/view/design.view.dart';
 import 'package:tg_app/view/login.view.dart';
 import 'package:tg_app/view/home.view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,6 +24,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
       
       localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: [
@@ -38,7 +40,8 @@ FirebaseAuth auth = FirebaseAuth.instance;
         '/chamada': (context) => ChamadaView(),
         '/cadastroAtirador': (context) => CadastroAtirador(),
         '/cadastroInstrutor': (context) => CadastroInstrutor(),
-        '/home':(context) => Home()
+        '/home':(context) => Home(),
+        '/des': (context) => Design(),
       },
     );
   }

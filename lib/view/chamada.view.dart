@@ -112,21 +112,21 @@ class _ChamadaViewState extends State<ChamadaView> {
           }
 
           return ListView.builder( 
-            shrinkWrap: true,
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (_, index){
-              return CheckboxListTile(
-                title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(color: Colors.white)),
-                value: snapshot.data!.docs[index]['presenca'],
-                onChanged: (value){
-                  setState(() {
-                    salvarPresenca(pelotaoBusca, dataInv, snapshot.data!.docs[index]['uid'], value);
-                  });
-                },
-                activeColor: Color.fromARGB(255, 8, 56, 11),
-              );
-            },
-          );
+              shrinkWrap: true,
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (_, index){
+                return CheckboxListTile(
+                  title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(color: Colors.white)),
+                  value: snapshot.data!.docs[index]['presenca'],
+                  onChanged: (value){
+                    setState(() {
+                      salvarPresenca(pelotaoBusca, dataInv, snapshot.data!.docs[index]['uid'], value);
+                    });
+                  },
+                  activeColor: Color.fromARGB(255, 8, 56, 11),
+                );
+              },
+            );
         },
       )
       ),
