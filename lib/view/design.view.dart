@@ -32,7 +32,7 @@ class Design extends StatelessWidget {
                         color: Colors.white,
                         onPressed: () {},
                       ),
-                      Text('Home', style: TextStyle(fontSize: 20, color: Colors.white)),
+                      Text('Home', style: TextStyle(fontSize: 25, color: Colors.white, fontFamily: 'Montserrat-S',)),
                       IconButton(
                         icon: Icon((Icons.perm_identity_sharp)),
                         iconSize: 30,
