@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class ChamadaVizualizarView extends StatefulWidget {
   
@@ -21,14 +22,15 @@ class _ChamadaVizualizarViewState extends State<ChamadaVizualizarView> {
     final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
     final numPelotao = arguments['pelotao'];
     final pelotaoBusca = 'pelotao$numPelotao';
-    final dataInv = arguments['data'];
+    final dataInv = DateFormat("yyyy-MM-dd").format(DateTime.parse(arguments['dataInv'])).toString();
+    final dataText = arguments['dataText'];
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 8, 56, 11),
         automaticallyImplyLeading: true,
         title: Text(
-          'Chamada - Pelotão $numPelotao',
+          'Chamada',
           textAlign: TextAlign.justify,
           style: TextStyle(
             fontFamily: 'Poppins',
@@ -54,20 +56,25 @@ class _ChamadaVizualizarViewState extends State<ChamadaVizualizarView> {
             return Text("Erro");
           }
           if(snapshot.data!.docs.length == 0){
-            return Center(child: Text("Sem atiradores cadastrados para o pelotão selecionado."));
+            return Center(child: Text("Sem chamada cadastrada."));
           }
 
-          return ListView.builder( 
-            shrinkWrap: true,
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (_, index){
-              return CheckboxListTile(
-                title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(color: Colors.white)),
-                value: snapshot.data!.docs[index]['presenca'],
-                activeColor: Color.fromARGB(255, 8, 56, 11), 
-                onChanged: (value){},
-              );
-            },
+          return Column(
+            children:[
+              Text("Pelotão $numPelotao - $dataText", style: TextStyle(color: Colors.white),),
+              ListView.builder( 
+                shrinkWrap: true,
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (_, index){
+                  return CheckboxListTile(
+                    title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(color: Colors.white)),
+                    value: snapshot.data!.docs[index]['presenca'],
+                    activeColor: Color.fromARGB(255, 8, 56, 11), 
+                    onChanged: (value){},
+                  );
+                },
+              ),
+            ]
           );
         },
       )
