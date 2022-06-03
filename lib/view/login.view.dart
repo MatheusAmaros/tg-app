@@ -57,11 +57,14 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
+      
 
       try {
         var result = await auth.signInWithEmailAndPassword(
             email: email, password: senha);
 
+        print(result.user!.providerData);
+        
         // result.user!.updateDisplayName(displayName)
         Navigator.of(context)
             .pushNamed('/home', arguments: {'userUid': result.user!.uid});

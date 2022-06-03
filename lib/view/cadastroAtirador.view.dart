@@ -89,6 +89,7 @@ Não aparece na tela:
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
+    
       var result = await auth.createUserWithEmailAndPassword(
           email: email, password: senha);
 

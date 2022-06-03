@@ -7,9 +7,9 @@ import 'package:tg_app/view/chamada.view.dart';
 import 'package:tg_app/view/chamadaPelotao.view.dart';
 import 'package:tg_app/view/chamadaVisualizar.view.dart';
 import 'package:tg_app/view/design.view.dart';
-import 'package:tg_app/view/login.view.dart';
 import 'package:tg_app/view/home.view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tg_app/view/login.viewD.dart';
 
 import 'chamadaPelotaoVisualizar.view.dart';
 
@@ -33,7 +33,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
 
       initialRoute: auth.currentUser == null ? '/login':'/home',
       routes: {
-        '/login': (context) => LoginWidget(),
+        '/login': (context) => Login(),
         '/chamadaPelotao': (context) => ChamadaPelotaoView(),
         '/chamadaPelotaoV': (context) => ChamadaPelotaoVisualizarView(),
         '/chamadaV': (context) => ChamadaVizualizarView(),
