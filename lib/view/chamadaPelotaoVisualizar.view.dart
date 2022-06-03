@@ -53,8 +53,13 @@ class _chamadaPelotaoVisualizarViewState extends State<ChamadaPelotaoVisualizarV
                     ListTile(
                       title: Text(pelotao, style: TextStyle(color: Colors.white)), 
                       trailing: Icon(Icons.calendar_month_outlined, color: Colors.white), 
-                      onTap: () {
-                        print("clicou!");
+                      onTap: () async {
+                        final datePicker = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(DateTime.now().year - 1),
+                          lastDate: DateTime(DateTime.now().year + 1),
+                        );
                       },
                     ),
                   ],

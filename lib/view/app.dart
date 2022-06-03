@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tg_app/view/cadastroAtirador.view.dart';
 import 'package:tg_app/view/cadastroGuarnicaoCompleta.view.dart';
 import 'package:tg_app/view/cadastroInstrutor.view.dart';
@@ -19,6 +20,14 @@ FirebaseAuth auth = FirebaseAuth.instance;
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      
+      localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+            const Locale('pt', 'BR'), 
+      ],
 
       initialRoute: auth.currentUser == null ? '/login':'/home',
       routes: {
