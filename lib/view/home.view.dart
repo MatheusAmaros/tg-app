@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,15 +15,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-
-    void logout() async
-    {
+    void logout() async {
       FirebaseAuth user = FirebaseAuth.instance;
       await user.signOut();
 
       setState(() {
         Navigator.pop(context);
-        
       });
     }
 
@@ -59,24 +55,27 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
         appBar: AppBar(
-        leading: IconButton(onPressed:() => Navigator.pushNamed(context, "/perfil"), icon: Icon(Icons.person)),
-        centerTitle: true,
-        title: const Text('Sistema Auxiliador do TG'),
-        actions: <Widget>[IconButton(onPressed:() => logout(), icon: Icon(Icons.logout))],
-        backgroundColor: Color.fromARGB(228, 22, 37, 4),
-        foregroundColor: Color.fromARGB(255, 255, 255, 255),
+          leading: IconButton(
+              onPressed: () => Navigator.pushNamed(context, "/perfil"),
+              icon: Icon(Icons.person)),
+          centerTitle: true,
+          title: const Text('Sistema Auxiliador do TG'),
+          actions: <Widget>[
+            IconButton(onPressed: () => logout(), icon: Icon(Icons.logout))
+          ],
+          backgroundColor: Color.fromARGB(228, 22, 37, 4),
+          foregroundColor: Color.fromARGB(255, 255, 255, 255),
         ),
-        
         body: ListView(
           children: [
             Container(
               child: Container(
                 margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
                 child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
                         children: [
                           Column(
                             mainAxisSize: MainAxisSize.max,
@@ -93,8 +92,7 @@ class _HomeState extends State<Home> {
                           ),
                         ],
                       ),
-
-                                        Column(
+                      Column(
                         children: [
                           Column(
                             mainAxisSize: MainAxisSize.max,
@@ -102,7 +100,7 @@ class _HomeState extends State<Home> {
                             children: [
                               IconButton(
                                   onPressed: () {
-                                    Navigator.pushNamed(context, '/guarnicao');
+                                    Navigator.pushNamed(context, '/calendario');
                                   },
                                   iconSize: 50,
                                   icon: Icon(Icons.table_view)),
@@ -111,20 +109,16 @@ class _HomeState extends State<Home> {
                           ),
                         ],
                       ),
-                
-
-
-                  ]),
+                    ]),
               ),
             ),
-            
-             Container(
-               margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
-               child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
+            Container(
+              margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
+              child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
                       children: [
                         Column(
                           mainAxisSize: MainAxisSize.max,
@@ -132,7 +126,8 @@ class _HomeState extends State<Home> {
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/cadastroAtirador');
+                                  Navigator.pushNamed(
+                                      context, '/cadastroAtirador');
                                 },
                                 iconSize: 50,
                                 icon: Icon(Icons.person_add)),
@@ -141,8 +136,7 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
-
-                                      Column(
+                    Column(
                       children: [
                         Column(
                           mainAxisSize: MainAxisSize.max,
@@ -150,7 +144,8 @@ class _HomeState extends State<Home> {
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/cadastroInstrutor');
+                                  Navigator.pushNamed(
+                                      context, '/cadastroInstrutor');
                                 },
                                 iconSize: 50,
                                 icon: Icon(Icons.supervisor_account)),
@@ -159,13 +154,8 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
-              
-
-
-                ]),
+                  ]),
             ),
-
-                
           ],
         ));
   }
