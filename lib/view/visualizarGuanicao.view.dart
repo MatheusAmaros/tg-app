@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
 /*
 class VisualizacaoGuarnicao extends StatefulWidget {
   const VisualizacaoGuarnicao({Key? key}) : super(key: key);
@@ -75,7 +76,8 @@ class ItemNome extends StatelessWidget {
 }*/
 
 class VisualizacaoGuarnicao extends StatefulWidget {
-  const VisualizacaoGuarnicao({Key? key}) : super(key: key);
+  final DateTime data;
+  const VisualizacaoGuarnicao({Key? key, required this.data}) : super(key: key);
 
   @override
   State<VisualizacaoGuarnicao> createState() => _VisualizacaoGuarnicaoState();
@@ -114,7 +116,7 @@ class _VisualizacaoGuarnicaoState extends State<VisualizacaoGuarnicao> {
   requisicao01() async {
     await firestore
         .collection('guardas')
-        .doc("2022-06-10")
+        .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
         .get()
         .then((value) async {
       await firestore
@@ -138,7 +140,7 @@ class _VisualizacaoGuarnicaoState extends State<VisualizacaoGuarnicao> {
     });
     await firestore
         .collection('guardas')
-        .doc('2022-06-10')
+        .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
         .collection('guarnicao')
         .get()
         .then((value) async {
@@ -172,103 +174,104 @@ class _VisualizacaoGuarnicaoState extends State<VisualizacaoGuarnicao> {
     while (map == null) {
       return CircularProgressIndicator();
     }
-    return ListView(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.black, width: 0.5)),
-            child: Column(
-              children: [
-                Container(
-                  child: Text(
-                    "Comandante",
-                    style: stylo,
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  child: Text(
-                    nomeCom.toString(),
-                    style: stylo,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.black, width: 0.5)),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  child: Text(
-                    "Cabo da Guarda",
-                    style: stylo,
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  child: Text(
-                    nomeCabo.toString(),
-                    style: stylo,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
         Container(
-          color: Colors.white,
-          child: Container(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: map.length,
-              itemBuilder: (_, index) {
-                return Padding(
+          margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+          child: Column(
+            children: [
+              Container(
+                width: 500,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.black)),
+                child: Column(
+                  children: [
+                    Container(
+                      child: Text(
+                        "Comandante",
+                        style: stylo,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      child: Text(
+                        nomeCom.toString(),
+                        style: stylo,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: 500,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.black)),
+                child: Column(
+                  children: [
+                    Container(
+                      child: Text(
+                        "Cabo da Guarda",
+                        style: stylo,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      child: Text(
+                        nomeCabo.toString(),
+                        style: stylo,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                color: Colors.white,
+                child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 0.5)),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Container(
-                          child: Text(
-                            "Sentinela",
-                            style: stylo,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: map.length,
+                      itemBuilder: (_, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)),
+                            child: Column(
+                              children: [
+                                Container(
+                                  child: Text(
+                                    "Sentinela",
+                                    style: stylo,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Container(
+                                  child: Text(
+                                    map[index]["nome"].toString(),
+                                    style: stylo,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          child: Text(
-                            map[index]["nome"].toString(),
-                            style: stylo,
-                          ),
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              ),
+            ],
           ),
         ),
       ],

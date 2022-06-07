@@ -4,14 +4,15 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:tg_app/view/cadastroGuarnicaoComandantes.view.dart';
+import 'package:tg_app/view/visualizarGuanicao.view.dart';
 import 'package:timeago/timeago.dart';
 
-class CalendarPage extends StatefulWidget {
+class CalendarPageView extends StatefulWidget {
   @override
   _StartPageState createState() => _StartPageState();
 }
 
-class _StartPageState extends State<CalendarPage> {
+class _StartPageState extends State<CalendarPageView> {
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
@@ -21,7 +22,7 @@ class _StartPageState extends State<CalendarPage> {
   String nomeCom = "";
   requisicao01(focusDay) async {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => CadastroGuarnicaoComandantes(
+        builder: (context) => VisualizacaoGuarnicao(
               data: focusDay,
             )));
   }

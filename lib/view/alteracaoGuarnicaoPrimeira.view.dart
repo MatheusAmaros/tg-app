@@ -10,11 +10,9 @@ import 'package:tg_app/view/cadastroGuarnicaoSegunda.view.dart';
 class CadastroGuarnicaoCompleta extends StatefulWidget {
   final DateTime data;
   final List<String>? selecionados;
-  const CadastroGuarnicaoCompleta({
-    Key? key,
-    required this.data,
-    required this.selecionados,
-  }) : super(key: key);
+  CadastroGuarnicaoCompleta(
+      {Key? key, required this.data, required this.selecionados})
+      : super(key: key);
 
   @override
   State<CadastroGuarnicaoCompleta> createState() =>
@@ -22,12 +20,12 @@ class CadastroGuarnicaoCompleta extends StatefulWidget {
 }
 
 class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoCompleta> {
-  Map<dynamic, dynamic> map = {};
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> Atiradores = [];
   List<Map<String, dynamic>> Cabo = [];
   List<Map<String, dynamic>> Comandante = [];
+  Map<dynamic, dynamic> map = {};
   String? dropdownValue = '';
   final formKey = GlobalKey<FormState>();
   late String? date = DateFormat("dd/MM/yyyy").format(widget.data).toString();
@@ -43,6 +41,31 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoCompleta> {
     return menuItems;
   }
 
+  PegarSelecionados() async {
+    await firestore
+        .collection('guardas')
+        .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
+        .collection('guarnicao')
+        .get()
+        .then((value) async {
+      for (var i = 0; i < value.docs.length; i++) {
+        // map[i] = value.docs[i].data();
+        //print(value.docs[i]["uid"]);
+        await firestore
+            .collection('atiradores')
+            .doc(value.docs[i]['uid'])
+            .get()
+            .then((value02) {
+          // print(value02['nome']);
+          map[i] = value02.data();
+        });
+      }
+    });
+    setState(() {
+      map = map;
+    });
+  }
+
   void guardarSelecionados(BuildContext context) {
     if (formKey.currentState!.validate()) {
       widget.selecionados!.add(selected1);
@@ -50,14 +73,13 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoCompleta> {
       widget.selecionados!.add(selected3);
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => CadastroGuarnicaoSegunda(
-                data: widget.data,
-                Selecionados: widget.selecionados,
-              )));
+              data: widget.data, Selecionados: widget.selecionados)));
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    PegarSelecionados();
     return Scaffold(
         body: Container(
       color: Colors.black,
@@ -129,6 +151,65 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoCompleta> {
                                       ),
                                       value: "${snapshot.data!.docs[i].id}",
                                     ),
+                                  );
+                                }
+                                if (map[0]['nome'] != null) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "1º Sentinela: ${map[0]['nome']}",
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Arial',
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      DropdownButtonFormField<dynamic>(
+                                        items: currencyItems,
+                                        value: selected1,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(10),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 241, 240, 240)),
+                                          hintText: "Name",
+                                          fillColor:
+                                              Color.fromARGB(90, 27, 134, 0),
+                                        ),
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return "selecione o sentinela";
+                                          } else if (value == selected2 ||
+                                              value == selected3) {
+                                            return "Não é possível repetir o mesmo atirador";
+                                          }
+
+                                          return null;
+                                        },
+                                        onChanged: (currencyValue) {
+                                          setState(() {
+                                            selected1 = currencyValue;
+                                            print(selected1);
+                                          });
+                                        },
+                                        isExpanded: false,
+                                        hint: new Text(
+                                          "Selecione o Sentinela",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255)),
+                                        ),
+                                      ),
+                                    ],
                                   );
                                 }
                                 return Column(
@@ -217,6 +298,65 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoCompleta> {
                                     ),
                                   );
                                 }
+                                if (map[1]['nome'] != null) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "2º Sentinela: ${map[1]['nome']}",
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Arial',
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      DropdownButtonFormField<dynamic>(
+                                        items: currencyItems,
+                                        value: selected2,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(10),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 241, 240, 240)),
+                                          hintText: "Name",
+                                          fillColor:
+                                              Color.fromARGB(90, 27, 134, 0),
+                                        ),
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return "selecione o Sentinela";
+                                          } else if (value == selected1 ||
+                                              value == selected3) {
+                                            return "Não é possível repetir o mesmo atirador";
+                                          }
+
+                                          return null;
+                                        },
+                                        onChanged: (currencyValue) {
+                                          setState(() {
+                                            selected2 = currencyValue;
+                                            print(selected2);
+                                          });
+                                        },
+                                        isExpanded: false,
+                                        hint: new Text(
+                                          "Selecione o Sentinela",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255)),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
                                 return Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -301,6 +441,65 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoCompleta> {
                                       ),
                                       value: "${snapshot.data!.docs[i].id}",
                                     ),
+                                  );
+                                }
+                                if (map[2]['nome'] != null) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "3º Sentinela: ${map[2]['nome']}",
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Arial',
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      DropdownButtonFormField<dynamic>(
+                                        items: currencyItems,
+                                        value: selected3,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(10),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 241, 240, 240)),
+                                          hintText: "Name",
+                                          fillColor:
+                                              Color.fromARGB(90, 27, 134, 0),
+                                        ),
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return "selecione o sentinela";
+                                          } else if (value == selected1 ||
+                                              value == selected2) {
+                                            return "Não é possível repetir o mesmo atirador";
+                                          }
+
+                                          return null;
+                                        },
+                                        onChanged: (currencyValue) {
+                                          setState(() {
+                                            selected3 = currencyValue;
+                                            print(selected3);
+                                          });
+                                        },
+                                        isExpanded: false,
+                                        hint: new Text(
+                                          "Selecione o Sentinela",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255)),
+                                        ),
+                                      ),
+                                    ],
                                   );
                                 }
                                 return Column(

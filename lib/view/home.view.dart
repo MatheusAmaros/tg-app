@@ -134,6 +134,20 @@ class _HomeState extends State<Home> {
                             Text('Cadastrar Atirador')
                           ],
                         ),
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, '/calendarioVizu');
+                                },
+                                iconSize: 50,
+                                icon: Icon(Icons.table_view)),
+                            Text('Visualizar Guarnição')
+                          ],
+                        ),
                       ],
                     ),
                     Column(

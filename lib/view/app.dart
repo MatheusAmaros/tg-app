@@ -4,6 +4,7 @@ import 'package:tg_app/view/cadastroAtirador.view.dart';
 //import 'package:tg_app/view/cadastroGuarnicaoCompleta.view.dart';
 import 'package:tg_app/view/cadastroInstrutor.view.dart';
 import 'package:tg_app/view/calendar.view.dart';
+import 'package:tg_app/view/calendarVisualizacao.view.dart';
 import 'package:tg_app/view/chamada.view.dart';
 import 'package:tg_app/view/chamadaPelotao.view.dart';
 import 'package:tg_app/view/chamadaVisualizar.view.dart';
@@ -29,7 +30,7 @@ class App extends StatelessWidget {
       supportedLocales: [
         const Locale('pt', 'BR'),
       ],
-      initialRoute: auth.currentUser == null ? '/chamadaPelotaoV' : '/home',
+      initialRoute: auth.currentUser == null ? '/home' : '/home',
       routes: {
         '/login': (context) => Login(),
         '/chamadaPelotao': (context) => ChamadaPelotaoView(),
@@ -41,6 +42,8 @@ class App extends StatelessWidget {
         '/home': (context) => Home(),
         '/des': (context) => Design(),
         '/calendario': (context) => CalendarPage(),
+        '/calendarioVizu': (context) => CalendarPageView(),
+        '/vizualizarGuarnicao': (context) => CalendarPage(),
       },
     );
   }

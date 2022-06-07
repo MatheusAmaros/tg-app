@@ -7,9 +7,11 @@ import 'package:flutter/rendering.dart';
 class CadastroGuarnicaoSegunda extends StatefulWidget {
   final DateTime data;
   final List<String>? Selecionados;
-  CadastroGuarnicaoSegunda(
-      {Key? key, required this.data, required this.Selecionados})
-      : super(key: key);
+  CadastroGuarnicaoSegunda({
+    Key? key,
+    required this.data,
+    required this.Selecionados,
+  }) : super(key: key);
 
   @override
   State<CadastroGuarnicaoSegunda> createState() =>
@@ -386,7 +388,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
   PegarSelecionados() async {
     await firestore
         .collection('guardas')
-        .doc('2022-06-10')
+        .doc(DateFormat('yyyy-MM-dd').format(widget.data))
         .collection('guarnicao')
         .get()
         .then((value) async {
@@ -410,6 +412,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
 
   @override
   Widget build(BuildContext context) {
+    PegarSelecionados();
     return Scaffold(
         body: Container(
       color: Colors.black,
@@ -483,65 +486,129 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
                                     ),
                                   );
                                 }
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      "4º Sentinela:",
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Arial',
-                                      ),
-                                    ),
-                                    SizedBox(width: 5),
-                                    DropdownButtonFormField<dynamic>(
-                                      items: currencyItems,
-                                      value: selected4,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius: const BorderRadius.all(
-                                            const Radius.circular(10),
-                                          ),
-                                        ),
-                                        filled: true,
-                                        hintStyle: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 241, 240, 240)),
-                                        hintText: "Name",
-                                        fillColor:
-                                            Color.fromARGB(90, 27, 134, 0),
-                                      ),
-                                      validator: (value) {
-                                        if (value == null) {
-                                          return "selecione o sentinela";
-                                        } else if (value == selected5 ||
-                                            value == selected6) {
-                                          return "Não é possível repetir o mesmo atirador";
-                                        } else if (widget.Selecionados!.any(
-                                            (element) => element == value)) {
-                                          return "atirador selecionado na tela anterior";
-                                        }
-
-                                        return null;
-                                      },
-                                      onChanged: (currencyValue) {
-                                        setState(() {
-                                          selected4 = currencyValue;
-                                          print(selected4);
-                                        });
-                                      },
-                                      isExpanded: false,
-                                      hint: new Text(
-                                        "Selecione o Sentinela",
+                                if (map[3]['nome'] != null) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "4º Sentinela: ${map[3]['nome']}",
                                         style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255)),
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Arial',
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                );
+                                      SizedBox(width: 5),
+                                      DropdownButtonFormField<dynamic>(
+                                        items: currencyItems,
+                                        value: selected4,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(10),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 241, 240, 240)),
+                                          hintText: "Name",
+                                          fillColor:
+                                              Color.fromARGB(90, 27, 134, 0),
+                                        ),
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return "selecione o sentinela";
+                                          } else if (value == selected5 ||
+                                              value == selected6) {
+                                            return "Não é possível repetir o mesmo atirador";
+                                          } else if (widget.Selecionados!.any(
+                                              (element) => element == value)) {
+                                            return "atirador selecionado na tela anterior";
+                                          }
+
+                                          return null;
+                                        },
+                                        onChanged: (currencyValue) {
+                                          setState(() {
+                                            selected4 = currencyValue;
+                                            print(selected4);
+                                          });
+                                        },
+                                        isExpanded: false,
+                                        hint: new Text(
+                                          "Selecione o Sentinela",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255)),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "4º Sentinela:",
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Arial',
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      DropdownButtonFormField<dynamic>(
+                                        items: currencyItems,
+                                        value: selected4,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(10),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 241, 240, 240)),
+                                          hintText: "Name",
+                                          fillColor:
+                                              Color.fromARGB(90, 27, 134, 0),
+                                        ),
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return "selecione o sentinela";
+                                          } else if (value == selected5 ||
+                                              value == selected6) {
+                                            return "Não é possível repetir o mesmo atirador";
+                                          } else if (widget.Selecionados!.any(
+                                              (element) => element == value)) {
+                                            return "atirador selecionado na tela anterior";
+                                          }
+
+                                          return null;
+                                        },
+                                        onChanged: (currencyValue) {
+                                          setState(() {
+                                            selected4 = currencyValue;
+                                            print(selected4);
+                                          });
+                                        },
+                                        isExpanded: false,
+                                        hint: new Text(
+                                          "Selecione o Sentinela",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255)),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
                               }
                               return Container();
                             }),
@@ -572,65 +639,129 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
                                     ),
                                   );
                                 }
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      "5º Sentinela:",
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Arial',
-                                      ),
-                                    ),
-                                    SizedBox(width: 5),
-                                    DropdownButtonFormField<dynamic>(
-                                      items: currencyItems,
-                                      value: selected5,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius: const BorderRadius.all(
-                                            const Radius.circular(10),
-                                          ),
-                                        ),
-                                        filled: true,
-                                        hintStyle: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 241, 240, 240)),
-                                        hintText: "Name",
-                                        fillColor:
-                                            Color.fromARGB(90, 27, 134, 0),
-                                      ),
-                                      validator: (value) {
-                                        if (value == null) {
-                                          return "selecione o sentinela";
-                                        } else if (value == selected1 ||
-                                            value == selected2 ||
-                                            value == selected3 ||
-                                            value == selected4 ||
-                                            value == selected6) {
-                                          return "Não é possível repetir o mesmo atirador";
-                                        }
-
-                                        return null;
-                                      },
-                                      onChanged: (currencyValue) {
-                                        setState(() {
-                                          selected5 = currencyValue;
-                                          print(selected5);
-                                        });
-                                      },
-                                      isExpanded: false,
-                                      hint: new Text(
-                                        "Selecione o Sentinela",
+                                if (map[4]['nome'] != null) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "5º Sentinela: ${map[4]['nome']}",
                                         style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255)),
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Arial',
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                );
+                                      SizedBox(width: 5),
+                                      DropdownButtonFormField<dynamic>(
+                                        items: currencyItems,
+                                        value: selected5,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(10),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 241, 240, 240)),
+                                          hintText: "Name",
+                                          fillColor:
+                                              Color.fromARGB(90, 27, 134, 0),
+                                        ),
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return "selecione o sentinela";
+                                          } else if (value == selected1 ||
+                                              value == selected2 ||
+                                              value == selected3 ||
+                                              value == selected4 ||
+                                              value == selected6) {
+                                            return "Não é possível repetir o mesmo atirador";
+                                          }
+
+                                          return null;
+                                        },
+                                        onChanged: (currencyValue) {
+                                          setState(() {
+                                            selected5 = currencyValue;
+                                            print(selected5);
+                                          });
+                                        },
+                                        isExpanded: false,
+                                        hint: new Text(
+                                          "Selecione o Sentinela",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255)),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "5º Sentinela:",
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Arial',
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      DropdownButtonFormField<dynamic>(
+                                        items: currencyItems,
+                                        value: selected5,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(10),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 241, 240, 240)),
+                                          hintText: "Name",
+                                          fillColor:
+                                              Color.fromARGB(90, 27, 134, 0),
+                                        ),
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return "selecione o sentinela";
+                                          } else if (value == selected1 ||
+                                              value == selected2 ||
+                                              value == selected3 ||
+                                              value == selected4 ||
+                                              value == selected6) {
+                                            return "Não é possível repetir o mesmo atirador";
+                                          }
+
+                                          return null;
+                                        },
+                                        onChanged: (currencyValue) {
+                                          setState(() {
+                                            selected5 = currencyValue;
+                                            print(selected5);
+                                          });
+                                        },
+                                        isExpanded: false,
+                                        hint: new Text(
+                                          "Selecione o Sentinela",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255)),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
                               }
                               return Container();
                             }),
@@ -661,65 +792,129 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
                                     ),
                                   );
                                 }
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      "6º Sentinela:",
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Arial',
-                                      ),
-                                    ),
-                                    SizedBox(width: 5),
-                                    DropdownButtonFormField<dynamic>(
-                                      items: currencyItems,
-                                      value: selected6,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius: const BorderRadius.all(
-                                            const Radius.circular(10),
-                                          ),
-                                        ),
-                                        filled: true,
-                                        hintStyle: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 241, 240, 240)),
-                                        hintText: "Name",
-                                        fillColor:
-                                            Color.fromARGB(90, 27, 134, 0),
-                                      ),
-                                      validator: (value) {
-                                        if (value == null) {
-                                          return "selecione o Sentinela";
-                                        } else if (value == selected1 ||
-                                            value == selected2 ||
-                                            value == selected3 ||
-                                            value == selected4 ||
-                                            value == selected5) {
-                                          return "Não é possível repetir o mesmo atirador";
-                                        }
-
-                                        return null;
-                                      },
-                                      onChanged: (currencyValue) {
-                                        setState(() {
-                                          selected6 = currencyValue;
-                                          print(selected6);
-                                        });
-                                      },
-                                      isExpanded: false,
-                                      hint: new Text(
-                                        "Selecione o Sentinela",
+                                if (map[5]['nome'] != null) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "6º Sentinela: ${map[5]['nome']}",
                                         style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255)),
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Arial',
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                );
+                                      SizedBox(width: 5),
+                                      DropdownButtonFormField<dynamic>(
+                                        items: currencyItems,
+                                        value: selected6,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(10),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 241, 240, 240)),
+                                          hintText: "Name",
+                                          fillColor:
+                                              Color.fromARGB(90, 27, 134, 0),
+                                        ),
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return "selecione o Sentinela";
+                                          } else if (value == selected1 ||
+                                              value == selected2 ||
+                                              value == selected3 ||
+                                              value == selected4 ||
+                                              value == selected5) {
+                                            return "Não é possível repetir o mesmo atirador";
+                                          }
+
+                                          return null;
+                                        },
+                                        onChanged: (currencyValue) {
+                                          setState(() {
+                                            selected6 = currencyValue;
+                                            print(selected6);
+                                          });
+                                        },
+                                        isExpanded: false,
+                                        hint: new Text(
+                                          "Selecione o Sentinela",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255)),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                } else {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        "6º Sentinela:",
+                                        style: TextStyle(
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Arial',
+                                        ),
+                                      ),
+                                      SizedBox(width: 5),
+                                      DropdownButtonFormField<dynamic>(
+                                        items: currencyItems,
+                                        value: selected6,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              const Radius.circular(10),
+                                            ),
+                                          ),
+                                          filled: true,
+                                          hintStyle: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 241, 240, 240)),
+                                          hintText: "Name",
+                                          fillColor:
+                                              Color.fromARGB(90, 27, 134, 0),
+                                        ),
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return "selecione o Sentinela";
+                                          } else if (value == selected1 ||
+                                              value == selected2 ||
+                                              value == selected3 ||
+                                              value == selected4 ||
+                                              value == selected5) {
+                                            return "Não é possível repetir o mesmo atirador";
+                                          }
+
+                                          return null;
+                                        },
+                                        onChanged: (currencyValue) {
+                                          setState(() {
+                                            selected6 = currencyValue;
+                                            print(selected6);
+                                          });
+                                        },
+                                        isExpanded: false,
+                                        hint: new Text(
+                                          "Selecione o Sentinela",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255)),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
                               }
                               return Container();
                             }),
