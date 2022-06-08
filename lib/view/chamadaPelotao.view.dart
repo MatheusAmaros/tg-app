@@ -59,7 +59,7 @@ class ChamadaPelotaoView extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                   children: <Widget>[
                     ListTile(
-                      title: Text("Pelotão 1", style: TextStyle(color: Colors.grey.shade900)),
+                      title: Text("Pelotão 1", style: TextStyle(color: Colors.grey.shade900, fontFamily: 'Montserrat-S',)),
                       trailing: Icon(Icons.chevron_right, color: Colors.grey.shade900),
                       onTap: () {
                         Navigator.of(context)
@@ -67,7 +67,7 @@ class ChamadaPelotaoView extends StatelessWidget {
                       }
                     ),
                     ListTile(
-                      title: Text("Pelotão 2", style: TextStyle(color: Colors.grey.shade900)),
+                      title: Text("Pelotão 2", style: TextStyle(color: Colors.grey.shade900, fontFamily: 'Montserrat-S',)),
                       trailing: Icon(Icons.chevron_right, color: Colors.grey.shade900),
                       onTap: () {
                         Navigator.of(context)
@@ -75,7 +75,7 @@ class ChamadaPelotaoView extends StatelessWidget {
                       }
                     ),
                     ListTile(
-                      title: Text("Pelotão 3", style: TextStyle(color: Colors.grey.shade900)),
+                      title: Text("Pelotão 3", style: TextStyle(color: Colors.grey.shade900, fontFamily: 'Montserrat-S',)),
                       trailing: Icon(Icons.chevron_right, color: Colors.grey.shade900),
                       onTap: () {
                         Navigator.of(context)
@@ -83,7 +83,7 @@ class ChamadaPelotaoView extends StatelessWidget {
                       }
                     ),
                     ListTile(
-                      title: Text("Pelotão 4", style: TextStyle(color: Colors.grey.shade900)),
+                      title: Text("Pelotão 4", style: TextStyle(color: Colors.grey.shade900, fontFamily: 'Montserrat-S',)),
                       trailing: Icon(Icons.chevron_right, color: Colors.grey.shade900),
                       onTap: () {
                         Navigator.of(context)
