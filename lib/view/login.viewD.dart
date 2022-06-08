@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -122,89 +120,88 @@ class _LoginState extends State<Login> {
                     key: formKey,
                     autovalidateMode: AutovalidateMode.disabled,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontSize: 32,
-                                fontWeight: FontWeight.w900),
-                          ),
-                        ),
-                        Container(
-                          child: TextFormField(
-                            controller: emailController,
-                            style: TextStyle(fontFamily: 'Montserrat-S'),
-                            decoration: InputDecoration(
-                              labelText: 'E-mail',
-                              hintStyle: TextStyle(
-                                fontFamily: 'Montserrat-S',
-                                color: Color.fromARGB(255, 165, 165, 165),
-                              ),
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            child: Text(
+                              'Login',
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w900),
                             ),
-                            onSaved: (value) => emailController.text = value!,
-                            validator: (value) {
-                              if (value!.isEmpty)
-                                return "Campo E-mail é obrigatório";
-
-                              if (!emailValid.hasMatch(value))
-                                return "Formato de email inserido está incorreto";
-
-                              return null;
-                            },
                           ),
-                        ),
-                        Container(
-                          child: TextFormField(
-                            obscureText: passwordVisibility,
-                            controller: passwordController,
-                            style: TextStyle(fontFamily: 'Montserrat-S'),
-                            decoration: InputDecoration(
-                                labelText: 'Senha',
+                          Container(
+                            child: TextFormField(
+                              controller: emailController,
+                              style: TextStyle(fontFamily: 'Montserrat-S'),
+                              decoration: InputDecoration(
+                                labelText: 'E-mail',
                                 hintStyle: TextStyle(
                                   fontFamily: 'Montserrat-S',
                                   color: Color.fromARGB(255, 165, 165, 165),
                                 ),
-                                suffixIcon: IconButton(
-                                    icon: Icon(
-                                      passwordVisibility
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        passwordVisibility =
-                                            !passwordVisibility;
-                                      });
-                                    })),
-                            onSaved: (value) =>
-                                passwordController.text = value!,
-                            validator: (value) {
-                              if (value!.isEmpty)
-                                return "Campo Senha é obrigatório";
-
-                              return null;
-                            },
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () => save(context),
-                          child: Text("Login"),
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
                               ),
-                              primary: Color.fromARGB(255, 36, 35, 35),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 130, vertical: 20),
-                              textStyle: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold)),
-                        ),
-                        Text('Todos os direitos reservados'),]
-                      
-                    ),
+                              onSaved: (value) => emailController.text = value!,
+                              validator: (value) {
+                                if (value!.isEmpty)
+                                  return "Campo E-mail é obrigatório";
+
+                                if (!emailValid.hasMatch(value))
+                                  return "Formato de email inserido está incorreto";
+
+                                return null;
+                              },
+                            ),
+                          ),
+                          Container(
+                            child: TextFormField(
+                              obscureText: passwordVisibility,
+                              controller: passwordController,
+                              style: TextStyle(fontFamily: 'Montserrat-S'),
+                              decoration: InputDecoration(
+                                  labelText: 'Senha',
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'Montserrat-S',
+                                    color: Color.fromARGB(255, 165, 165, 165),
+                                  ),
+                                  suffixIcon: IconButton(
+                                      icon: Icon(
+                                        passwordVisibility
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          passwordVisibility =
+                                              !passwordVisibility;
+                                        });
+                                      })),
+                              onSaved: (value) =>
+                                  passwordController.text = value!,
+                              validator: (value) {
+                                if (value!.isEmpty)
+                                  return "Campo Senha é obrigatório";
+
+                                return null;
+                              },
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => save(context),
+                            child: Text("Login"),
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                                primary: Color.fromARGB(255, 36, 35, 35),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 130, vertical: 20),
+                                textStyle: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                          ),
+                          Text('Todos os direitos reservados'),
+                        ]),
                   )),
             ),
           ],
