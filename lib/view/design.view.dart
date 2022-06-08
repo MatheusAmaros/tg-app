@@ -5,12 +5,11 @@ class Design extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 0, 34, 2),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
-            //repeat: ImageRepeat.repeat,
             colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.25), BlendMode.dstATop),
             image: Image.asset('assets/images/camuflagem2.jpg',).image,
           ),
