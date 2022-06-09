@@ -5,12 +5,11 @@ class Design extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 0, 34, 2),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
             fit: BoxFit.cover,
-            //repeat: ImageRepeat.repeat,
             colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.25), BlendMode.dstATop),
             image: Image.asset('assets/images/camuflagem2.jpg',).image,
           ),
@@ -30,7 +29,9 @@ class Design extends StatelessWidget {
                         icon: Icon(Icons.arrow_back_ios_rounded),
                         iconSize: 30,
                         color: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
                       ),
                       Text('Home', style: TextStyle(fontSize: 25, color: Colors.white, fontFamily: 'Montserrat-S',)),
                       IconButton(
@@ -55,6 +56,7 @@ class Design extends StatelessWidget {
                   ),
                 ),
                 child: ListView.builder( 
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                   shrinkWrap: true,
                   itemCount: 4,
                   itemBuilder: (_, index){
