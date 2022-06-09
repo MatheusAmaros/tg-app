@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tg_app/view/cadastroAtirador.view.dart';
+import 'package:tg_app/view/cadastroAtirador.viewD.dart';
 //import 'package:tg_app/view/cadastroGuarnicaoCompleta.view.dart';
 import 'package:tg_app/view/cadastroInstrutor.view.dart';
 import 'package:tg_app/view/calendar.view.dart';
@@ -37,7 +37,6 @@ class App extends StatelessWidget {
         '/login': (context) => Login(),
         '/chamadaPelotao': (context) => ChamadaPelotaoView(),
         '/chamadaPelotaoV': (context) => ChamadaPelotaoVisualizarView(),
-        '/chamadaV': (context) => ChamadaVizualizarView(),
         '/chamada': (context) => ChamadaView(),
         '/cadastroAtirador': (context) => CadastroAtirador(),
         '/cadastroInstrutor': (context) => CadastroInstrutor(),
