@@ -215,7 +215,7 @@ class _HomeState extends State<Home> {
                                           IconButton(
                                               onPressed: () {
                                                 Navigator.pushNamed(
-                                                    context, "/chamadaPelotao");
+                                                    context, "/chamadaPelotaoV");
                                               },
                                               iconSize: 50,
                                               icon: Icon(Icons.group)),
