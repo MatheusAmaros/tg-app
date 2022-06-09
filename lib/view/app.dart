@@ -38,6 +38,7 @@ class App extends StatelessWidget {
         '/chamadaPelotao': (context) => ChamadaPelotaoView(),
         '/chamadaPelotaoV': (context) => ChamadaPelotaoVisualizarView(),
         '/chamada': (context) => ChamadaView(),
+        '/chamadaV': (context) => ChamadaVizualizarView(),
         '/cadastroAtirador': (context) => CadastroAtirador(),
         '/cadastroInstrutor': (context) => CadastroInstrutor(),
         '/home': (context) => Home(),

@@ -331,7 +331,7 @@ class _HomeState extends State<Home> {
                                       IconButton(
                                           onPressed: () {
                                             Navigator.pushNamed(
-                                                context, '/calendario');
+                                                context, '/chamadaPelotaoV');
                                           },
                                           iconSize: 50,
                                           icon: Icon(Icons.table_view)),
