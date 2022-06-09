@@ -523,10 +523,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                               onPressed: () => cadastrarUsuario(context),
                               child: Text("Cadastrar"),
                               style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  ),
-                                  primary: Color.fromARGB(255, 36, 35, 35),
+                                  primary: Color.fromARGB(255, 0, 34, 2),
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 130, vertical: 20),
                                   textStyle: TextStyle(

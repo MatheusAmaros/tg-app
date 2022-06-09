@@ -5,7 +5,7 @@ class ChamadaPelotaoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 0, 34, 2),
+      backgroundColor: Color.fromARGB(255, 0, 37, 3),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

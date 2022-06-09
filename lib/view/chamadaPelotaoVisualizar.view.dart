@@ -151,7 +151,7 @@ class _chamadaPelotaoVisualizarViewState extends State<ChamadaPelotaoVisualizarV
                         child: Text("Visualizar", style: TextStyle(fontSize: 15, color: Colors.white, fontFamily: 'Montserrat',)),
                         style: ElevatedButton.styleFrom(
                           primary: Color.fromARGB(255, 0, 34, 2),
-                          padding: EdgeInsets.symmetric(horizontal: 70, vertical: 20),
+                          padding: EdgeInsets.symmetric(horizontal: 130, vertical: 20),
                         ),
                         onPressed:() {
                           Navigator.of(context).pushNamed('/chamadaV', arguments: {'pelotao': pelotao, 'dataText': dataText, 'dataInv': dataInicial});

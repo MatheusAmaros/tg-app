@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 0, 34, 2),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -126,7 +126,7 @@ class _LoginState extends State<Login> {
                             child: Text(
                               'Login',
                               style: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                  fontFamily: 'Montserrat-S',
                                   fontSize: 32,
                                   fontWeight: FontWeight.w900),
                             ),
@@ -134,12 +134,12 @@ class _LoginState extends State<Login> {
                           Container(
                             child: TextFormField(
                               controller: emailController,
-                              style: TextStyle(fontFamily: 'Montserrat-S'),
+                              style: TextStyle(fontFamily: 'Montserrat', color: Colors.black),
                               decoration: InputDecoration(
                                 labelText: 'E-mail',
                                 hintStyle: TextStyle(
-                                  fontFamily: 'Montserrat-S',
-                                  color: Color.fromARGB(255, 165, 165, 165),
+                                  fontFamily: 'Montserrat',
+                                  color: Colors.black,
                                 ),
                               ),
                               onSaved: (value) => emailController.text = value!,
@@ -158,12 +158,12 @@ class _LoginState extends State<Login> {
                             child: TextFormField(
                               obscureText: passwordVisibility,
                               controller: passwordController,
-                              style: TextStyle(fontFamily: 'Montserrat-S'),
+                              style: TextStyle(fontFamily: 'Montserrat', color: Colors.black),
                               decoration: InputDecoration(
                                   labelText: 'Senha',
                                   hintStyle: TextStyle(
-                                    fontFamily: 'Montserrat-S',
-                                    color: Color.fromARGB(255, 165, 165, 165),
+                                    fontFamily: 'Montserrat',
+                                    color: Colors.black,
                                   ),
                                   suffixIcon: IconButton(
                                       icon: Icon(
@@ -189,16 +189,16 @@ class _LoginState extends State<Login> {
                           ),
                           ElevatedButton(
                             onPressed: () => save(context),
-                            child: Text("Login"),
+                            child: Text("Entrar", style: TextStyle(fontFamily: 'Montserrat'),),
                             style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
+                                /*shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
-                                ),
-                                primary: Color.fromARGB(255, 36, 35, 35),
+                                ),*/
+                                primary: Color.fromARGB(255, 0, 34, 2),
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 130, vertical: 20),
                                 textStyle: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold)),
+                                    fontSize: 18)),
                           ),
                           Text('Todos os direitos reservados'),
                         ]),
