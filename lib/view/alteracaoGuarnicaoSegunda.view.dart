@@ -4,21 +4,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 
-class CadastroGuarnicaoSegunda extends StatefulWidget {
+class alteracaoGuarnicaoSegunda extends StatefulWidget {
   final DateTime data;
   final List<String>? Selecionados;
-  CadastroGuarnicaoSegunda({
+  alteracaoGuarnicaoSegunda({
     Key? key,
     required this.data,
     required this.Selecionados,
   }) : super(key: key);
 
   @override
-  State<CadastroGuarnicaoSegunda> createState() =>
+  State<alteracaoGuarnicaoSegunda> createState() =>
       _CadastroGuarnicaoCompletaState();
 }
 
-class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
+class _CadastroGuarnicaoCompletaState extends State<alteracaoGuarnicaoSegunda> {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> Atiradores = [];

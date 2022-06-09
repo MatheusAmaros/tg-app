@@ -41,6 +41,9 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
     return menuItems;
   }
 
+  late Timestamp dataFormat =
+      Timestamp.fromDate(widget.data.add(Duration(hours: 3)));
+
   void saveGuarnicaoPreta(BuildContext context) async {
     if (formKey.currentState!.validate()) {
       var a = await firestore
@@ -55,18 +58,19 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
           'uidComandante': widget.Selecionados![0],
           'uidCabo': widget.Selecionados![1],
         });
-        firestore
-            .collection('atiradores')
-            .doc(widget.Selecionados![0])
-            .update({'DtUltimaGuardaPreta': widget.data});
+        print(dataFormat);
+        firestore.collection('atiradores').doc(widget.Selecionados![0]).update({
+          'DtUltimaGuardaPreta':
+              Timestamp.fromDate(widget.data.add(Duration(hours: 3)))
+        });
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![1])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![2])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -76,7 +80,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![3])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -86,7 +90,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![4])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -96,7 +100,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected4)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -106,7 +110,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected5)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -116,7 +120,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected6)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -134,15 +138,15 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![0])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![1])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![2])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -152,7 +156,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![3])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -162,7 +166,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![4])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -172,7 +176,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected4)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -182,7 +186,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected5)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -192,7 +196,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected6)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -220,19 +224,18 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
           'uidComandante': widget.Selecionados![0],
           'uidCabo': widget.Selecionados![1],
         });
-        firestore
-            .collection('atiradores')
-            .doc(widget.Selecionados![0])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+        firestore.collection('atiradores').doc(widget.Selecionados![0]).update({
+          'DtUltimaGuardaVermelha': Timestamp.fromDate(widget.data.toUtc())
+        });
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![1])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
 
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![2])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -243,7 +246,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![3])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -254,7 +257,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![4])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -265,7 +268,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected4)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -276,7 +279,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected5)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -287,7 +290,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected6)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -302,19 +305,18 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
           'uidComandante': widget.Selecionados![0],
           'uidCabo': widget.Selecionados![1],
         });
-        firestore
-            .collection('atiradores')
-            .doc(widget.Selecionados![0])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+        firestore.collection('atiradores').doc(widget.Selecionados![0]).update({
+          'DtUltimaGuardaVermelha': Timestamp.fromDate(widget.data.toUtc())
+        });
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![1])
-            .set({'DtUltimaGuardaVermelha': widget.data});
+            .set({'DtUltimaGuardaVermelha': dataFormat});
 
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![2])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -325,7 +327,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![3])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -336,7 +338,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![4])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -347,7 +349,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected4)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -358,7 +360,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected5)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -369,7 +371,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected6)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())

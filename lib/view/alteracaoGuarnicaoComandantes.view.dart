@@ -3,22 +3,23 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
+import 'package:tg_app/view/alteracaoGuarnicaoPrimeira.view.dart';
 import 'package:tg_app/view/cadastroGuarnicaoPrimeira.view.dart';
 
-class CadastroGuarnicaoComandantes extends StatefulWidget {
+class alteracaoGuarnicaoComandantes extends StatefulWidget {
   final DateTime data;
-  CadastroGuarnicaoComandantes({
+  alteracaoGuarnicaoComandantes({
     Key? key,
     required this.data,
   }) : super(key: key);
 
   @override
-  State<CadastroGuarnicaoComandantes> createState() =>
+  State<alteracaoGuarnicaoComandantes> createState() =>
       _CadastroGuarnicaoCompletaState();
 }
 
 class _CadastroGuarnicaoCompletaState
-    extends State<CadastroGuarnicaoComandantes> {
+    extends State<alteracaoGuarnicaoComandantes> {
   FirebaseAuth auth = FirebaseAuth.instance;
   final formKey = GlobalKey<FormState>();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -45,7 +46,7 @@ class _CadastroGuarnicaoCompletaState
       Selecionados.add(selectedComandante);
       Selecionados.add(selectedCabo);
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => CadastroGuarnicaoCompleta(
+          builder: (context) => alteracaoGuarnicaoCompleta(
               data: widget.data, selecionados: Selecionados)));
     }
   }
