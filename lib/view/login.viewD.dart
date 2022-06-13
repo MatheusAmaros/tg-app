@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -53,8 +54,9 @@ class _LoginState extends State<Login> {
         var result = await auth.signInWithEmailAndPassword(
             email: emailController.text, password: passwordController.text);
 
+        await SessionManager().set('userUid', result.user!.uid);
         Navigator.of(context)
-            .pushNamed('/home', arguments: {'userUid': result.user!.uid});
+            .pushNamed('/home');
       } on FirebaseAuthException catch (e, s) {
         _handleFirebaseLoginWithCredentialsException(e, s);
 
@@ -133,6 +135,7 @@ class _LoginState extends State<Login> {
                           ),
                           Container(
                             child: TextFormField(
+                              maxLength: 80,
                               controller: emailController,
                               style: TextStyle(fontFamily: 'Montserrat', color: Colors.black),
                               decoration: InputDecoration(
@@ -156,6 +159,7 @@ class _LoginState extends State<Login> {
                           ),
                           Container(
                             child: TextFormField(
+                              maxLength: 30,
                               obscureText: passwordVisibility,
                               controller: passwordController,
                               style: TextStyle(fontFamily: 'Montserrat', color: Colors.black),
