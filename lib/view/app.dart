@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tg_app/view/buscaUsuario.view.dart';
 import 'package:tg_app/view/cadastroAtirador.viewD.dart';
 //import 'package:tg_app/view/cadastroGuarnicaoCompleta.view.dart';
 import 'package:tg_app/view/cadastroInstrutor.view.dart';
@@ -46,6 +47,8 @@ class App extends StatelessWidget {
         '/calendario': (context) => CalendarPage(),
         '/calendarioVizu': (context) => CalendarPageView(),
         '/vizualizarGuarnicao': (context) => CalendarPage(),
+        '/buscarUsuario': (context) => BuscarUsuario(),
+        
       },
     );
   }
