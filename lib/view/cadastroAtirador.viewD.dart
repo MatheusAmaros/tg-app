@@ -65,10 +65,9 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
 
   List<DropdownMenuItem<String>> get funcaoItems {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Comandante"), value: "comandante"),
-      DropdownMenuItem(child: Text("Cabo"), value: "cabo"),
-      DropdownMenuItem(child: Text("Sentinela"), value: "sentinela"),
-      DropdownMenuItem(child: Text("Permanente"), value: "permanente"),
+      DropdownMenuItem(child: Text("Comandante"), value: "Comandante"),
+      DropdownMenuItem(child: Text("Cabo"), value: "Cabo"),
+      DropdownMenuItem(child: Text("Sentinela"), value: "Sentinela"),
     ];
     return menuItems;
   }
@@ -101,7 +100,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
   }
 
   _CadastroAtiradorState() {
-    funcaoController.text = 'sentinela';
+    funcaoController.text = 'Sentinela';
     pelotaoController.text = 'pelotao1';
   }
 
@@ -124,14 +123,14 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
 
   void cadastrarUsuario(BuildContext context) async {
     FirebaseFirestore db = FirebaseFirestore.instance;
-    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseAuth cadastro = FirebaseAuth.instance;
 
     var anoIngresso = DateTime.now().year.toString();
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
-      var result = await auth.createUserWithEmailAndPassword(
+      var result = await cadastro.createUserWithEmailAndPassword(
           email: emailController.text, password: senhaController.text);
 
       //await result.user!.updateDisplayName(nome);
@@ -154,7 +153,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
       telefoneController.clear();
       emailController.clear();
       senhaController.clear();
-      funcaoController.text = 'sentinela';
+      funcaoController.text = 'Sentinela';
       pelotaoController.text = 'pelotao1';
 
       setState(() {

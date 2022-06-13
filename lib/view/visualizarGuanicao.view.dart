@@ -162,7 +162,7 @@ class _VisualizacaoGuarnicaoState extends State<VisualizacaoGuarnicao> {
     });
   }
 
-  TextStyle stylo = TextStyle(
+  TextStyle stylo = const TextStyle(
     color: Colors.black,
     fontSize: 15,
     fontWeight: FontWeight.bold,
@@ -172,106 +172,82 @@ class _VisualizacaoGuarnicaoState extends State<VisualizacaoGuarnicao> {
   Widget build(BuildContext context) {
     requisicao01();
     while (map == null) {
-      return CircularProgressIndicator();
+      return const Center(child: CircularProgressIndicator());
     }
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+    return ListView(
       children: [
         Container(
-          margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+          // width: 500,
+          decoration: BoxDecoration(
+              color: Colors.white, border: Border.all(color: Colors.black)),
           child: Column(
             children: [
-              Container(
-                width: 500,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.black)),
-                child: Column(
-                  children: [
-                    Container(
-                      child: Text(
-                        "Comandante",
-                        style: stylo,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      child: Text(
-                        nomeCom.toString(),
-                        style: stylo,
-                      ),
-                    ),
-                  ],
-                ),
+              Text(
+                "Comandante",
+                style: stylo,
               ),
-              Container(
-                width: 500,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.black)),
-                child: Column(
-                  children: [
-                    Container(
-                      child: Text(
-                        "Cabo da Guarda",
-                        style: stylo,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      child: Text(
-                        nomeCabo.toString(),
-                        style: stylo,
-                      ),
-                    ),
-                  ],
-                ),
+              const SizedBox(
+                height: 15,
               ),
-              Container(
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: map.length,
-                      itemBuilder: (_, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black)),
-                            child: Column(
-                              children: [
-                                Container(
-                                  child: Text(
-                                    "Sentinela",
-                                    style: stylo,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Container(
-                                  child: Text(
-                                    map[index]["nome"].toString(),
-                                    style: stylo,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
+              Text(
+                nomeCom.toString(),
+                style: stylo,
               ),
             ],
+          ),
+        ),
+        Container(
+          width: 500,
+          decoration: BoxDecoration(
+              color: Colors.white, border: Border.all(color: Colors.black)),
+          child: Column(
+            children: [
+              Text(
+                "Cabo da Guarda",
+                style: stylo,
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                nomeCabo.toString(),
+                style: stylo,
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(15),
+          color: Colors.white,
+          child: ListView.separated(
+            separatorBuilder: (context, index) => Divider(
+              color: Colors.black,
+            ),
+            shrinkWrap: true,
+            itemCount: map.length,
+            itemBuilder: (_, index) {
+              return Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "Sentinela",
+                      style: stylo,
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      map[index]["nome"].toString(),
+                      style: stylo,
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ],

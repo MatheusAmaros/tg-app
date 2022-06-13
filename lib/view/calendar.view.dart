@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tg_app/view/alteracaoGuarnicaoComandantes.view.dart';
 import 'package:tg_app/view/cadastroGuarnicaoComandantes.view.dart';
 import 'package:timeago/timeago.dart';
 
@@ -19,11 +20,23 @@ class _StartPageState extends State<CalendarPage> {
   Map<dynamic, dynamic> map = {};
   String nomeCabo = "";
   String nomeCom = "";
-  requisicao01(focusDay) async {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => CadastroGuarnicaoComandantes(
-              data: focusDay,
-            )));
+
+  verificaExistenciaData(focusDay) async {
+    var a = await firestore
+        .collection('guardas')
+        .doc(DateFormat('yyyy-MM-dd').format(focusDay).toString())
+        .get();
+    if (a.exists) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => alteracaoGuarnicaoComandantes(
+                data: focusDay,
+              )));
+    } else {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => CadastroGuarnicaoComandantes(
+                data: focusDay,
+              )));
+    }
   }
 
   @override
@@ -78,7 +91,7 @@ class _StartPageState extends State<CalendarPage> {
                   selectedDay = selectDay;
                   focusedDay = focusDay;
                   print(focusDay);
-                  requisicao01(focusDay);
+                  verificaExistenciaData(focusDay);
                 });
               },
             ),
