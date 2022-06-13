@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,37 +16,50 @@ class _HomeState extends State<Home> {
   String nome = '';
   String email = '';
   String userType = '';
+  var userUid = '';
+  
 
   Future carregaUsuario() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    var user = auth.currentUser!;
+
+    if(await SessionManager().containsKey('userUid'))
+    {
+       userUid = await SessionManager().get('userUid');
+    }
+    else{
+          FirebaseAuth auth = FirebaseAuth.instance;
+          var user = auth.currentUser!;
+           userUid = user.uid;
+    }
+    print(userUid);
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    var usuario = await firestore.collection('atiradores').doc(user.uid).get();
+     var usuario = await firestore.collection('atiradores').doc(userUid).get();
     if (usuario.exists) {
       userType = 'atirador';
-      nome = usuario['nome'] ?? '';
-      print('usuario Atirador');
-    } else {
-      var usuario =
-          await firestore.collection('instrutores').doc(user.uid).get();
+    } 
+    else {
+       usuario = await firestore.collection('instrutores').doc(userUid).get();
       if (usuario.exists) {
         userType = 'instrutor';
-        nome = usuario['nome'] ?? '';
-        print('usuario Instrutor');
       }
     }
-    email = user.email.toString();
+
+    nome = usuario['nome'];
+    email = usuario['email'];
 
     setState(() {});
 
-    return user;
+    return userUid;
   }
 
   void logout() async {
     FirebaseAuth user = FirebaseAuth.instance;
     await user.signOut();
+
+    await SessionManager().remove('userUid');
+
+    SessionManager().destroy;
 
     setState(() {
       Navigator.popAndPushNamed(context, '/login');
@@ -79,7 +93,7 @@ class _HomeState extends State<Home> {
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Color.fromARGB(255, 109, 173, 236),
                 child: Text(
-                  "A",
+                nome.length >2 ? nome.substring(0,2): 'A',
                   style: TextStyle(
                       fontSize: 40.0, color: Color.fromARGB(255, 15, 15, 84)),
                 ),
@@ -356,9 +370,5 @@ class _HomeState extends State<Home> {
     super.initState();
 
     final user = carregaUsuario();
-    //validar se o usuário está logado
-    /* if (user == null) {
-      Navigator.pushNamed(context, '/login');
-    }*/
   }
 }

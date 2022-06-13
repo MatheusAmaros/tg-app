@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tg_app/view/cadastroAtirador.viewD.dart';
 //import 'package:tg_app/view/cadastroGuarnicaoCompleta.view.dart';
-import 'package:tg_app/view/cadastroInstrutor.view.dart';
+import 'package:tg_app/view/cadastroInstrutor.viewD.dart';
 import 'package:tg_app/view/calendar.view.dart';
 import 'package:tg_app/view/calendarVisualizacao.view.dart';
 import 'package:tg_app/view/chamada.view.dart';
