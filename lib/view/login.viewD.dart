@@ -55,6 +55,7 @@ class _LoginState extends State<Login> {
             email: emailController.text, password: passwordController.text);
 
         await SessionManager().set('userUid', result.user!.uid);
+        
         Navigator.of(context)
             .pushNamed('/home');
       } on FirebaseAuthException catch (e, s) {
