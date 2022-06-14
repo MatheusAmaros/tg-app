@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -54,7 +56,7 @@ class _BuscarUsuarioState extends State<BuscarUsuario> {
                               Navigator.of(context).pop();
                             },
                           ),
-                          Text('Alteração',
+                          Text('Alterar',
                               style: TextStyle(
                                 fontSize: 25,
                                 color: Colors.white,
@@ -63,7 +65,7 @@ class _BuscarUsuarioState extends State<BuscarUsuario> {
                           IconButton(
                             icon: Icon((Icons.perm_identity_sharp)),
                             iconSize: 30,
-                            color: Colors.white,
+                            color: Colors.transparent,
                             onPressed: () {},
                           ),
                         ],
@@ -107,7 +109,7 @@ class _BuscarUsuarioState extends State<BuscarUsuario> {
                                 },
                               ),
                               StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                                stream: firestore.collection('instrutores').orderBy('nome').startAt([filtroInstrutorCtrl.text]).snapshots(),
+                                stream: firestore.collection('instrutores').orderBy('nome'.toLowerCase()).startAt([filtroInstrutorCtrl.text.toLowerCase()]).snapshots(),
                                 builder: (_, snapshot){
                                   if (!snapshot.hasData) {
                                     return Center(child: CircularProgressIndicator());
@@ -125,8 +127,7 @@ class _BuscarUsuarioState extends State<BuscarUsuario> {
                                       itemCount: snapshot.data!.docs.length,
                                       itemBuilder: (_, index) {
                                         return ListTile(
-                                          title: Text("Nome: " + snapshot.data!.docs[index]['nome']),
-                                          leading: Icon(Icons.person),
+                                          title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(fontFamily: 'Montserrat', fontSize: 15),),
                                           trailing: IconButton(icon: Icon(Icons.edit),
                                           onPressed: (){},),
                                           selectedTileColor: Colors.green[400],
@@ -153,7 +154,7 @@ class _BuscarUsuarioState extends State<BuscarUsuario> {
                                 },
                               ),
                               StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                                stream: firestore.collection('atiradores').orderBy('nome').startAt([filtroAtiradorCtrl.text]).snapshots(),
+                                stream: firestore.collection('atiradores').orderBy('nome'.toLowerCase()).startAt([filtroAtiradorCtrl.text.toLowerCase()]).snapshots(),
                                 builder: (_, snapshot){
                                   if (!snapshot.hasData) {
                                     return Center(child: CircularProgressIndicator());
@@ -171,8 +172,8 @@ class _BuscarUsuarioState extends State<BuscarUsuario> {
                                       itemCount: snapshot.data!.docs.length,
                                       itemBuilder: (_, index) {
                                         return ListTile(
-                                          title: Text("Nome: " + snapshot.data!.docs[index]['nome']),
-                                          leading: Icon(Icons.person),
+                                          title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(fontFamily: 'Montserrat', fontSize: 15),),
+                                          subtitle: Text("Número: " + snapshot.data!.docs[index]['numero'], style: TextStyle(fontFamily: 'Montserrat', fontSize: 12),),
                                           trailing: IconButton(icon: Icon(Icons.edit),
                                           onPressed: (){},),
                                           selectedTileColor: Colors.green[400],
