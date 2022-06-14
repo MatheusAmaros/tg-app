@@ -86,7 +86,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
           var user = auth.currentUser!;
            userUid = user.uid;
     }
-    print(userUid);
+    //print(userUid);
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
      var usuario = await firestore.collection('atiradores').doc(userUid).get();
@@ -219,7 +219,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
               ),
               onTap: () {
                 setState(() {
-                  // Navigator.pop(context);
+                   Navigator.pushNamed(context, '/perfil');
                 });
               },
             ),
@@ -258,7 +258,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
           ],
         ),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 0, 34, 2),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -289,7 +289,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                         color: Colors.white,
                         onPressed: _openDrawer,
                       ),
-                      Text('',
+                      Text('Cadastrar Atirador',
                           style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,
@@ -298,8 +298,10 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                       IconButton(
                         icon: Icon((Icons.person)),
                         iconSize: 30,
-                        color: Colors.white,
+                        enableFeedback: false,
+                        color: Colors.transparent,
                         onPressed: () {},
+                        
                       ),
                     ],
                   )
@@ -326,16 +328,6 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                         children: [
                           Container(
                             margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                            child: Text(
-                              'Cadastrar Atirador',
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
                             child: TextFormField(
                               maxLength: 50,
                               //obscureText: passwordVisibility,
@@ -358,7 +350,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                            margin: EdgeInsets.fromLTRB(15, 12, 15, 0),
                             child: TextFormField(
                               inputFormatters: [cpfMask],
                               controller: cpfController,

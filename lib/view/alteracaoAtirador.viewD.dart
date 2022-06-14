@@ -149,7 +149,7 @@ class _EditarAtiradorState extends State<EditarAtirador> {
               ),
               onTap: () {
                 setState(() {
-                  // Navigator.pop(context);
+                   Navigator.pushNamed(context, '/perfil');
                 });
               },
             ),

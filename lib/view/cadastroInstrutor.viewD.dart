@@ -178,7 +178,7 @@ class _CadastroInstrutorState extends State<CadastroInstrutor> {
               ),
               onTap: () {
                 setState(() {
-                  // Navigator.pop(context);
+                   Navigator.pushNamed(context, '/perfil');
                 });
               },
             ),
@@ -217,7 +217,7 @@ class _CadastroInstrutorState extends State<CadastroInstrutor> {
           ],
         ),
       ),
-      backgroundColor: Colors.black,
+     backgroundColor: Color.fromARGB(255, 0, 34, 2),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -248,7 +248,7 @@ class _CadastroInstrutorState extends State<CadastroInstrutor> {
                         color: Colors.white,
                         onPressed: _openDrawer,
                       ),
-                      Text('',
+                      Text('Cadastrar Instrutor',
                           style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,
@@ -257,7 +257,8 @@ class _CadastroInstrutorState extends State<CadastroInstrutor> {
                       IconButton(
                         icon: Icon((Icons.person)),
                         iconSize: 30,
-                        color: Colors.white,
+                        enableFeedback: false,
+                        color: Colors.transparent,
                         onPressed: () {},
                       ),
                     ],
@@ -283,16 +284,6 @@ class _CadastroInstrutorState extends State<CadastroInstrutor> {
                     Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                            child: Text(
-                              'Cadastrar Instrutor',
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                          ),
                           Container(
                             margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
                             child: TextFormField(
