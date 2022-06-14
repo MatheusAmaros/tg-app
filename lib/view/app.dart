@@ -49,7 +49,7 @@ class App extends StatelessWidget {
         '/calendario': (context) => CalendarPage(),
         '/calendarioVizu': (context) => CalendarPageView(),
         '/vizualizarGuarnicao': (context) => CalendarPage(),
-        '/buscarUsuario': (context) => BuscarUsuario(),
+        '/busca': (context) => BuscarUsuario(),
         '/perfil': (context) => Perfil(),
         '/alterarAtirador': (context) => AlteraAtirador(),
         

@@ -12,6 +12,19 @@ class AlteraAtirador extends StatefulWidget {
 }
 
 class _AlteraAtiradorState extends State<AlteraAtirador> {
+
+  _AlteraAtiradorState()
+  {
+      funcaoController.text = 'cabo';
+    pelotaoController.text = 'pelotao4';
+    nomeController.text = '';
+    cpfController.text = '';
+    numeroController.text = '';
+    telefoneController.text = '';
+    emailController.text = '';
+    senhaController.text = '';
+    uid ='';
+  }
   var formKey = GlobalKey<FormState>();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -38,7 +51,7 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
   String email = '';
   String userType = '';
    var userUid = '';
-   var alteraUid ='';
+   var uid ='';
   bool passwordVisibility = true;
 
   var emailValid = RegExp(
@@ -78,6 +91,25 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
     return menuItems;
   }
 
+  Future getUsuario() async{
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      var usuario = await firestore.collection('atiradores').doc(uid).get();
+
+ 
+      /*
+    if (usuario.exists) {
+        nomeController.text =usuario['nome'];
+        cpfController.text =usuario['cpf'];
+        numeroController.text =usuario['numero'];
+        telefoneController.text =usuario['telefone'];
+        emailController.text =usuario['email'];
+        //senhaController.text =usuario['nome'];
+        funcaoController.text =usuario['funcao'];
+        pelotaoController.text =usuario['pelotao'];
+    }
+     */
+  }
+
   Future carregaUsuario() async {
 
     if(await SessionManager().containsKey('userUid'))
@@ -111,22 +143,6 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
     return userUid;
   }
 
-  _AlteraAtiradorState() {
-
-    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
-    final numPelotao = arguments['pelotao'];
-    
-    funcaoController.text = 'cabo';
-    pelotaoController.text = 'pelotao4';
-    nomeController.text = '';
-    cpfController.text = '';
-    numeroController.text = '';
-    telefoneController.text = '';
-    emailController.text = '';
-    senhaController.text = '';
-    alteraUid ='';
-
-  }
 
   void logout() async {
     FirebaseAuth user = FirebaseAuth.instance;
@@ -157,7 +173,7 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
       formKey.currentState!.save();
       //await result.user!.updateDisplayName(nome);
 
-      db.collection("atiradores").doc(alteraUid).set({
+      db.collection("atiradores").doc(uid).set({
         'nome': nomeController.text,
         'cpf': cpfController.text,
         'numero': numeroController.text,
@@ -166,7 +182,7 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
         'funcao': funcaoController.text,
         'pelotao': pelotaoController.text,
         'anoIngresso': anoIngresso,
-        'uid': alteraUid
+        'uid': uid
       });
 
       setState(() {
@@ -186,6 +202,16 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
 
   @override
   Widget build(BuildContext context) {
+
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
+     uid = arguments['uid'];
+
+    print(uid);
+    
+
+  
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(
@@ -376,31 +402,7 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
                               },
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                            child: TextFormField(
-                              maxLength: 80,
-                              controller: emailController,
-                              style: TextStyle(fontFamily: 'Montserrat-S'),
-                              decoration: InputDecoration(
-                                labelText: 'E-mail:',
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Montserrat-S',
-                                  color: Color.fromARGB(255, 165, 165, 165),
-                                ),
-                              ),
-                              onSaved: (value) => emailController.text = value!,
-                              validator: (value) {
-                                if (value!.isEmpty)
-                                  return "Campo E-mail obrigatório";
-
-                                if (!emailValid.hasMatch(value))
-                                  return "Formato de email inserido está incorreto";
-
-                                return null;
-                              },
-                            ),
-                          ),
+                          
                           Container(
                             margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
                             child: TextFormField(
@@ -427,43 +429,7 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
                               },
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                            child: TextFormField(
-                              maxLength: 30,
-                              obscureText: passwordVisibility,
-                              controller: senhaController,
-                              style: TextStyle(fontFamily: 'Montserrat-S'),
-                              decoration: InputDecoration(
-                                labelText: 'Senha:',
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Montserrat-S',
-                                  color: Color.fromARGB(255, 165, 165, 165),
-                                ),
-                                suffixIcon: IconButton(
-                                      icon: Icon(
-                                        passwordVisibility
-                                            ? Icons.visibility
-                                            : Icons.visibility_off,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          passwordVisibility =
-                                              !passwordVisibility;
-                                        });
-                                      })
-                              ),
-                              onSaved: (value) => senhaController.text = value!,
-                              validator: (value) {
-                                if (value!.isEmpty)
-                                  return "Campo Senha obrigatório";
-
-                                if (value.length < 6)
-                                  return "Sua senha deve ter no mínimo 6 caracteres";
-                                return null;
-                              },
-                            ),
-                          ),
+                         
                           Container(
                             margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
                             child: TextFormField(
@@ -564,11 +530,9 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
 
   void initState() {
     super.initState();
-
     final user = carregaUsuario();
-    //validar se o usuário está logado
-    /* if (user == null) {
-      Navigator.pushNamed(context, '/login');
-    }*/
+
+    //codigo
+
   }
 }
