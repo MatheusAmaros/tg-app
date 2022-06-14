@@ -191,7 +191,7 @@ class _HomeState extends State<Home> {
                       IconButton(
                         icon: Icon((Icons.person)),
                         iconSize: 30,
-                        color: Colors.white,
+                        color: Colors.transparent,
                         onPressed: () {},
                       ),
                     ],
@@ -336,22 +336,7 @@ class _HomeState extends State<Home> {
                                 ],
                               ),
                               Column(
-                                children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            Navigator.pushNamed(
-                                                context, '/chamadaPelotaoV');
-                                          },
-                                          iconSize: 50,
-                                          icon: Icon(Icons.table_view)),
-                                      Text('Ver chamada')
-                                    ],
-                                  ),
-                                ],
+                                children: [Container(margin: EdgeInsets.fromLTRB(0, 0, 95, 0),)], //layout da tela
                               ),
                             ]),
                       ),
