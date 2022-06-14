@@ -86,7 +86,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
           var user = auth.currentUser!;
            userUid = user.uid;
     }
-    print(userUid);
+    //print(userUid);
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
      var usuario = await firestore.collection('atiradores').doc(userUid).get();
@@ -219,7 +219,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
               ),
               onTap: () {
                 setState(() {
-                  // Navigator.pop(context);
+                   Navigator.pushNamed(context, '/perfil');
                 });
               },
             ),

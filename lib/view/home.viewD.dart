@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
           var user = auth.currentUser!;
            userUid = user.uid;
     }
-    print(userUid);
+    //print(userUid);
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -113,7 +113,7 @@ class _HomeState extends State<Home> {
               ),
               onTap: () {
                 setState(() {
-                  // Navigator.pop(context);
+                   Navigator.pushNamed(context, '/perfil');
                 });
               },
             ),

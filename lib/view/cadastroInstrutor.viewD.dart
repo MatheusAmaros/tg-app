@@ -178,7 +178,7 @@ class _CadastroInstrutorState extends State<CadastroInstrutor> {
               ),
               onTap: () {
                 setState(() {
-                  // Navigator.pop(context);
+                   Navigator.pushNamed(context, '/perfil');
                 });
               },
             ),
