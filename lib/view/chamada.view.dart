@@ -56,16 +56,15 @@ class _ChamadaViewState extends State<ChamadaView> {
       });
   }
 
-      void logout() async
-    {
-      FirebaseAuth user = FirebaseAuth.instance;
-      await user.signOut();
+  void logout() async {
+    FirebaseAuth user = FirebaseAuth.instance;
+    await user.signOut();
 
-      setState(() {
-        Navigator.pop(context);
-        
-      });
-    }
+    setState(() {
+      Navigator.pop(context);
+      
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +147,7 @@ class _ChamadaViewState extends State<ChamadaView> {
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (_, index){
                         return CheckboxListTile(
-                          title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(color: Colors.grey.shade900, fontFamily: 'Montserrat-S',)),
+                          title: Text(snapshot.data!.docs[index]['nome'], style: TextStyle(color: Colors.grey.shade900, fontFamily: 'Montserrat-S')),
                           value: snapshot.data!.docs[index]['presenca'],
                           onChanged: (value){
                             setState(() {
