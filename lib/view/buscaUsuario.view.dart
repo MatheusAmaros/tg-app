@@ -65,7 +65,7 @@ class _BuscarUsuarioState extends State<BuscarUsuario> {
                           IconButton(
                             icon: Icon((Icons.perm_identity_sharp)),
                             iconSize: 30,
-                            color: Colors.white,
+                            color: Colors.transparent,
                             onPressed: () {},
                           ),
                         ],

@@ -106,7 +106,7 @@ class _ChamadaViewState extends State<ChamadaView> {
                       IconButton(
                         icon: Icon((Icons.perm_identity_sharp)),
                         iconSize: 30,
-                        color: Colors.white,
+                        color: Colors.transparent,
                         onPressed: () {},
                       ),
                     ],
