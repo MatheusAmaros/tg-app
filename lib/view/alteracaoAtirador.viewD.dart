@@ -4,18 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:tg_app/model/atiradorEdicao.model.dart';
+import 'package:tg_app/view/login.viewD.dart';
 
-class EditarAtirador extends StatefulWidget {
-  final AtiradorModel atirador;
-
-  const EditarAtirador({Key? key, required this.atirador}) : super(key: key);
-
+class AlteraAtirador extends StatefulWidget {
   @override
-  State<EditarAtirador> createState() => _EditarAtiradorState();
+  State<AlteraAtirador> createState() => _AlteraAtiradorState();
 }
 
-class _EditarAtiradorState extends State<EditarAtirador> {
+class _AlteraAtiradorState extends State<AlteraAtirador> {
   var formKey = GlobalKey<FormState>();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -36,10 +32,13 @@ class _EditarAtiradorState extends State<EditarAtirador> {
 
   final pelotaoController = TextEditingController();
 
+  
+
   String nome = '';
   String email = '';
   String userType = '';
-  var userUid = '';
+   var userUid = '';
+   var alteraUid ='';
   bool passwordVisibility = true;
 
   var emailValid = RegExp(
@@ -60,7 +59,7 @@ class _EditarAtiradorState extends State<EditarAtirador> {
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.eager);
 
-  /*List<DropdownMenuItem<String>> get dropdownItems {
+  List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
       DropdownMenuItem(child: Text("Pelotão 1"), value: "pelotao1"),
       DropdownMenuItem(child: Text("Pelotão 2"), value: "pelotao2"),
@@ -77,17 +76,56 @@ class _EditarAtiradorState extends State<EditarAtirador> {
       DropdownMenuItem(child: Text("Sentinela"), value: "sentinela"),
     ];
     return menuItems;
-  }*/
+  }
 
-  _EditarAtiradorState() {
+  Future carregaUsuario() async {
+
+    if(await SessionManager().containsKey('userUid'))
+    {
+       userUid = await SessionManager().get('userUid');
+    }
+    else{
+          FirebaseAuth auth = FirebaseAuth.instance;
+          var user = auth.currentUser!;
+           userUid = user.uid;
+    }
+    //print(userUid);
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+     var usuario = await firestore.collection('atiradores').doc(userUid).get();
+    if (usuario.exists) {
+      userType = 'atirador';
+    } 
+    else {
+       usuario = await firestore.collection('instrutores').doc(userUid).get();
+      if (usuario.exists) {
+        userType = 'instrutor';
+      }
+    }
+
+    nome = usuario['nome'];
+    email = usuario['email'];
+
+    setState(() {});
+
+    return userUid;
+  }
+
+  _AlteraAtiradorState() {
+
+    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
+    final numPelotao = arguments['pelotao'];
     
-   nomeController.text = widget.atirador.nome.toString();
-    /*cpfController.text = widget.atirador.nome!;
-    numeroController.text = widget.atirador.nome!;
-    telefoneController.text = widget.atirador.nome!;
-    emailController.text = widget.atirador.nome!;
-    funcaoController.text = widget.atirador.nome!;
-    pelotaoController.text = widget.atirador.nome!;*/
+    funcaoController.text = 'cabo';
+    pelotaoController.text = 'pelotao4';
+    nomeController.text = '';
+    cpfController.text = '';
+    numeroController.text = '';
+    telefoneController.text = '';
+    emailController.text = '';
+    senhaController.text = '';
+    alteraUid ='';
+
   }
 
   void logout() async {
@@ -109,12 +147,47 @@ class _EditarAtiradorState extends State<EditarAtirador> {
     Navigator.of(context).pop();
   }
 
- 
+  void alterarUsuario(BuildContext context) async {
+    FirebaseFirestore db = FirebaseFirestore.instance;
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    var anoIngresso = DateTime.now().year.toString();
+
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      //await result.user!.updateDisplayName(nome);
+
+      db.collection("atiradores").doc(alteraUid).set({
+        'nome': nomeController.text,
+        'cpf': cpfController.text,
+        'numero': numeroController.text,
+        'telefone': telefoneController.text,
+        'email': emailController.text,
+        'funcao': funcaoController.text,
+        'pelotao': pelotaoController.text,
+        'anoIngresso': anoIngresso,
+        'uid': alteraUid
+      });
+
+      setState(() {
+        Fluttertoast.showToast(
+          msg: "Atirador Alterado com sucesso!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0,
+          webPosition: 'center',
+        );
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key:_scaffoldKey ,
+      key: _scaffoldKey,
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
@@ -128,8 +201,7 @@ class _EditarAtiradorState extends State<EditarAtirador> {
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Color.fromARGB(255, 109, 173, 236),
                 child: Text(
-                  // widget.atirador.nome!,
-                  'A',
+                 nome.length >2 ? nome.substring(0,2): 'A',
                   style: TextStyle(
                       fontSize: 40.0, color: Color.fromARGB(255, 15, 15, 84)),
                 ),
@@ -188,7 +260,7 @@ class _EditarAtiradorState extends State<EditarAtirador> {
           ],
         ),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 0, 34, 2),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -219,7 +291,7 @@ class _EditarAtiradorState extends State<EditarAtirador> {
                         color: Colors.white,
                         onPressed: _openDrawer,
                       ),
-                      Text('',
+                      Text('Cadastrar Atirador',
                           style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,
@@ -228,8 +300,10 @@ class _EditarAtiradorState extends State<EditarAtirador> {
                       IconButton(
                         icon: Icon((Icons.person)),
                         iconSize: 30,
-                        color: Colors.white,
+                        enableFeedback: false,
+                        color: Colors.transparent,
                         onPressed: () {},
+                        
                       ),
                     ],
                   )
@@ -256,16 +330,6 @@ class _EditarAtiradorState extends State<EditarAtirador> {
                         children: [
                           Container(
                             margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                            child: Text(
-                              'Alterar Registro',
-                              style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
                             child: TextFormField(
                               maxLength: 50,
                               //obscureText: passwordVisibility,
@@ -288,7 +352,7 @@ class _EditarAtiradorState extends State<EditarAtirador> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                            margin: EdgeInsets.fromLTRB(15, 12, 15, 0),
                             child: TextFormField(
                               inputFormatters: [cpfMask],
                               controller: cpfController,
@@ -371,12 +435,12 @@ class _EditarAtiradorState extends State<EditarAtirador> {
                               controller: senhaController,
                               style: TextStyle(fontFamily: 'Montserrat-S'),
                               decoration: InputDecoration(
-                                  labelText: 'Senha:',
-                                  hintStyle: TextStyle(
-                                    fontFamily: 'Montserrat-S',
-                                    color: Color.fromARGB(255, 165, 165, 165),
-                                  ),
-                                  suffixIcon: IconButton(
+                                labelText: 'Senha:',
+                                hintStyle: TextStyle(
+                                  fontFamily: 'Montserrat-S',
+                                  color: Color.fromARGB(255, 165, 165, 165),
+                                ),
+                                suffixIcon: IconButton(
                                       icon: Icon(
                                         passwordVisibility
                                             ? Icons.visibility
@@ -387,7 +451,8 @@ class _EditarAtiradorState extends State<EditarAtirador> {
                                           passwordVisibility =
                                               !passwordVisibility;
                                         });
-                                      })),
+                                      })
+                              ),
                               onSaved: (value) => senhaController.text = value!,
                               validator: (value) {
                                 if (value!.isEmpty)
@@ -411,6 +476,7 @@ class _EditarAtiradorState extends State<EditarAtirador> {
                                   fontFamily: 'Montserrat-S',
                                   color: Color.fromARGB(255, 165, 165, 165),
                                 ),
+                                
                               ),
                               onSaved: (value) =>
                                   numeroController.text = value!,
@@ -421,7 +487,7 @@ class _EditarAtiradorState extends State<EditarAtirador> {
                               },
                             ),
                           ),
-                         /* Container(
+                          Container(
                             margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -436,7 +502,7 @@ class _EditarAtiradorState extends State<EditarAtirador> {
                                 DropdownButton(
                                   isExpanded: true,
                                   items: dropdownItems,
-                                  value: 'pelotao2',
+                                  value: pelotaoController.text =='' ? 'pelotao1':pelotaoController.text,
                                   onChanged: (String? value) {
                                     setState(() {
                                       pelotaoController.text = value!;
@@ -461,7 +527,7 @@ class _EditarAtiradorState extends State<EditarAtirador> {
                                 DropdownButton(
                                   isExpanded: true,
                                   items: funcaoItems,
-                                  value: 'sentinela',
+                                  value: funcaoController.text =='' ?'sentinela':funcaoController.text,
                                   onChanged: (String? value) {
                                     setState(() {
                                       funcaoController.text = value!;
@@ -470,12 +536,12 @@ class _EditarAtiradorState extends State<EditarAtirador> {
                                 ),
                               ],
                             ),
-                          ),*/
+                          ),
                           Container(
                             margin: EdgeInsets.fromLTRB(10, 10, 10, 30),
                             child: ElevatedButton(
-                              onPressed: () {},
-                              child: Text("Cadastrar"),
+                              onPressed: () => alterarUsuario(context),
+                              child: Text("Alterar Registro"),
                               style: ElevatedButton.styleFrom(
                                   primary: Color.fromARGB(255, 0, 34, 2),
                                   padding: EdgeInsets.symmetric(
@@ -496,9 +562,13 @@ class _EditarAtiradorState extends State<EditarAtirador> {
     );
   }
 
-@override
-  initState() {
-  super.initState();
- // Add listeners to this class
-}
+  void initState() {
+    super.initState();
+
+    final user = carregaUsuario();
+    //validar se o usuário está logado
+    /* if (user == null) {
+      Navigator.pushNamed(context, '/login');
+    }*/
+  }
 }
