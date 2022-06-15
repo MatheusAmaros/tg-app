@@ -9,9 +9,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
- 
-
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
@@ -134,7 +131,9 @@ class _LoginState extends State<Login> {
                           Container(
                             child: TextFormField(
                               controller: emailController,
-                              style: TextStyle(fontFamily: 'Montserrat', color: Colors.black),
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  color: Colors.black),
                               decoration: InputDecoration(
                                 labelText: 'E-mail',
                                 hintStyle: TextStyle(
@@ -158,7 +157,9 @@ class _LoginState extends State<Login> {
                             child: TextFormField(
                               obscureText: passwordVisibility,
                               controller: passwordController,
-                              style: TextStyle(fontFamily: 'Montserrat', color: Colors.black),
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  color: Colors.black),
                               decoration: InputDecoration(
                                   labelText: 'Senha',
                                   hintStyle: TextStyle(
@@ -189,16 +190,18 @@ class _LoginState extends State<Login> {
                           ),
                           ElevatedButton(
                             onPressed: () => save(context),
-                            child: Text("Entrar", style: TextStyle(fontFamily: 'Montserrat'),),
+                            child: Text(
+                              "Entrar",
+                              style: TextStyle(fontFamily: 'Montserrat'),
+                            ),
                             style: ElevatedButton.styleFrom(
                                 /*shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18.0),
                                 ),*/
                                 primary: Color.fromARGB(255, 0, 34, 2),
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 130, vertical: 20),
-                                textStyle: TextStyle(
-                                    fontSize: 18)),
+                                    horizontal: 120, vertical: 20),
+                                textStyle: TextStyle(fontSize: 18)),
                           ),
                           Text('Todos os direitos reservados'),
                         ]),
@@ -209,7 +212,4 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-
-   
-
 }

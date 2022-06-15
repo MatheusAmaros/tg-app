@@ -5,7 +5,6 @@ import 'package:tg_app/view/cadastroAtirador.viewD.dart';
 import 'package:tg_app/view/cadastroInstrutor.view.dart';
 import 'package:tg_app/view/calendar.view.dart';
 import 'package:tg_app/view/calendarVisualizacao.view.dart';
-import 'package:tg_app/view/calendarioAlteracao.view.dart';
 import 'package:tg_app/view/chamada.view.dart';
 import 'package:tg_app/view/chamadaPelotao.view.dart';
 import 'package:tg_app/view/chamadaVisualizar.view.dart';
@@ -45,7 +44,7 @@ class App extends StatelessWidget {
         '/des': (context) => Design(),
         '/calendario': (context) => CalendarPage(),
         '/calendarioVizu': (context) => CalendarPageView(),
-        '/calendarioAlteracao': (context) => CalendarPageAlteracao(),
+        //'/calendarioAlteracao': (context) => CalendarPageAlteracao(),
         '/vizualizarGuarnicao': (context) => CalendarPage(),
       },
     );

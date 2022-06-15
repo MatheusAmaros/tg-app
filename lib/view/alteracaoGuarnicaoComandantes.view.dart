@@ -41,6 +41,13 @@ class _CadastroGuarnicaoCompletaState
     return menuItems;
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    requisicaoComandantes();
+  }
+
   void guardarSelecionados(BuildContext context) async {
     if (formKey.currentState!.validate()) {
       Selecionados.add(selectedComandante);
@@ -76,17 +83,15 @@ class _CadastroGuarnicaoCompletaState
         });
       });
     });
-
-    setState(() {
-      map = map;
-    });
   }
 
   //Inserir comandante e cabo na data
 
   @override
   Widget build(BuildContext context) {
-    requisicaoComandantes();
+    if (nomeCom == null && nomeCabo == null) {
+      return CircularProgressIndicator();
+    }
     return Scaffold(
         body: Ink(
       color: Color.fromARGB(255, 0, 0, 0),
@@ -293,7 +298,7 @@ class _CadastroGuarnicaoCompletaState
                       StreamBuilder<QuerySnapshot>(
                           stream: firestore
                               .collection("atiradores")
-                              .where("funcao", isEqualTo: "Cabo")
+                              .where("funcao", isEqualTo: "cabo")
                               .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData)
@@ -388,7 +393,7 @@ class _CadastroGuarnicaoCompletaState
                         child: StreamBuilder<QuerySnapshot>(
                             stream: firestore
                                 .collection("atiradores")
-                                .where("funcao", isEqualTo: "Cabo")
+                                .where("funcao", isEqualTo: "cabo")
                                 .orderBy("DtUltimaGuardaPreta",
                                     descending: true)
                                 .snapshots(),
@@ -424,7 +429,7 @@ class _CadastroGuarnicaoCompletaState
                         child: StreamBuilder<QuerySnapshot>(
                             stream: firestore
                                 .collection("atiradores")
-                                .where("funcao", isEqualTo: "Cabo")
+                                .where("funcao", isEqualTo: "cabo")
                                 .orderBy("DtUltimaGuardaVermelha",
                                     descending: true)
                                 .snapshots(),

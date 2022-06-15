@@ -63,6 +63,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       key: _scaffoldKey,
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
@@ -137,214 +138,218 @@ class _HomeState extends State<Home> {
         ),
       ),
       backgroundColor: Color.fromARGB(255, 0, 34, 2),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.25), BlendMode.dstATop),
-            image: Image.asset(
-              'assets/images/camuflagem2.jpg',
-            ).image,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(
-                  top: 10.0, left: 30.0, right: 30.0, bottom: 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.menu),
-                        iconSize: 30,
-                        color: Colors.white,
-                        onPressed: _openDrawer,
-                      ),
-                      Text('Home',
-                          style: TextStyle(
-                            fontSize: 25,
-                            color: Colors.white,
-                            fontFamily: 'Montserrat-S',
-                          )),
-                      IconButton(
-                        icon: Icon((Icons.person)),
-                        iconSize: 30,
-                        color: Colors.white,
-                        onPressed: () {},
-                      ),
-                    ],
-                  )
-                ],
-              ),
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.25), BlendMode.dstATop),
+              image: Image.asset(
+                'assets/images/camuflagem2.jpg',
+              ).image,
             ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50.0),
-                    topRight: Radius.circular(50.0),
-                  ),
-                ),
-                child: ListView(
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(
+                    top: 10.0, left: 30.0, right: 30.0, bottom: 10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    userType == 'instrutor'
-                        ? Container(
-                            margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
-                            child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                Navigator.pushNamed(
-                                                    context, "/chamadaPelotao");
-                                              },
-                                              iconSize: 50,
-                                              icon: Icon(Icons.group)),
-                                          Text('Chamada')
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                Navigator.pushNamed(
-                                                    context, '/calendario');
-                                              },
-                                              iconSize: 50,
-                                              icon: Icon(Icons.table_view)),
-                                          Text('Guarnição')
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ]),
-                          )
-                        : Container(),
-                    userType == 'instrutor'
-                        ? Container(
-                            margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
-                            child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                Navigator.pushNamed(context,
-                                                    '/cadastroAtirador');
-                                              },
-                                              iconSize: 50,
-                                              icon: Icon(Icons.person_add)),
-                                          Text('Cadastrar Atirador')
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                Navigator.pushNamed(context,
-                                                    '/cadastroInstrutor');
-                                              },
-                                              iconSize: 50,
-                                              icon: Icon(
-                                                  Icons.supervisor_account)),
-                                          Text('Cadastrar Instrutor')
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ]),
-                          )
-                        : Container(),
-                    Container(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
-                        child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            Navigator.pushNamed(
-                                                context, "/calendarioVizu");
-                                          },
-                                          iconSize: 50,
-                                          icon: Icon(Icons.group)),
-                                      Text('Ver guarnição')
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      IconButton(
-                                          onPressed: () {
-                                            Navigator.pushNamed(
-                                                context, '/chamadaPelotaoV');
-                                          },
-                                          iconSize: 50,
-                                          icon: Icon(Icons.table_view)),
-                                      Text('Ver chamada')
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ]),
-                      ),
-                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.menu),
+                          iconSize: 30,
+                          color: Colors.white,
+                          onPressed: _openDrawer,
+                        ),
+                        Text('Home',
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.white,
+                              fontFamily: 'Montserrat-S',
+                            )),
+                        IconButton(
+                          icon: Icon((Icons.person)),
+                          iconSize: 30,
+                          color: Colors.white,
+                          onPressed: () {},
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(50.0),
+                      topRight: Radius.circular(50.0),
+                    ),
+                  ),
+                  child: ListView(
+                    children: [
+                      userType == 'instrutor'
+                          ? Container(
+                              margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
+                              child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  Navigator.pushNamed(context,
+                                                      "/chamadaPelotao");
+                                                },
+                                                iconSize: 50,
+                                                icon: Icon(Icons.group)),
+                                            Text('Chamada')
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  Navigator.pushNamed(
+                                                      context, '/calendario');
+                                                },
+                                                iconSize: 50,
+                                                icon: Icon(Icons.table_view)),
+                                            Text('Guarnição')
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ]),
+                            )
+                          : Container(),
+                      userType == 'instrutor'
+                          ? Container(
+                              margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
+                              child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  Navigator.pushNamed(context,
+                                                      '/cadastroAtirador');
+                                                },
+                                                iconSize: 50,
+                                                icon: Icon(Icons.person_add)),
+                                            Text('Cadastrar Atirador')
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  Navigator.pushNamed(context,
+                                                      '/cadastroInstrutor');
+                                                },
+                                                iconSize: 50,
+                                                icon: Icon(
+                                                    Icons.supervisor_account)),
+                                            Text('Cadastrar Instrutor')
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ]),
+                            )
+                          : Container(),
+                      Container(
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
+                          child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.pushNamed(
+                                                  context, "/calendarioVizu");
+                                            },
+                                            iconSize: 50,
+                                            icon: Icon(Icons.group)),
+                                        Text('Ver guarnição')
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.pushNamed(
+                                                  context, '/chamadaPelotaoV');
+                                            },
+                                            iconSize: 50,
+                                            icon: Icon(Icons.table_view)),
+                                        Text('Ver chamada')
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ]),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

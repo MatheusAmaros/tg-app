@@ -30,8 +30,9 @@ class _StartPageState extends State<CalendarPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           icon:
               Icon(Icons.arrow_back, color: Color.fromARGB(255, 255, 255, 255)),
@@ -39,52 +40,78 @@ class _StartPageState extends State<CalendarPageView> {
         ),
         centerTitle: true,
         title: Text('Selecione a Data'),
+        elevation: 0,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: 500,
-            width: 500,
-            child: TableCalendar(
-              firstDay: DateTime.utc(2022, 02, 01),
-              lastDay: DateTime.utc(2023, 12, 31),
-              focusedDay: DateTime.now(),
-              calendarFormat: format,
-              onFormatChanged: (CalendarFormat _format) {
-                setState(() {
-                  format = _format;
-                });
-              },
-              calendarStyle: CalendarStyle(
-                cellMargin: EdgeInsets.all(10),
-                //defaultTextStyle: TextStyle(fontSize: 15),
-                weekendTextStyle: TextStyle(fontSize: 15, color: Colors.red),
-                holidayTextStyle: TextStyle(fontSize: 15, color: Colors.red),
-              ),
-              headerStyle: HeaderStyle(
-                formatButtonTextStyle: const TextStyle(fontSize: 15.0),
-                headerMargin: const EdgeInsets.all(5),
-                titleTextStyle: TextStyle(fontSize: 20.0),
-              ),
-              rowHeight: 60,
-              weekendDays: [
-                DateTime.saturday,
-                DateTime.sunday,
-              ],
-              startingDayOfWeek: StartingDayOfWeek.sunday,
-              daysOfWeekVisible: true,
-              onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                setState(() {
-                  selectedDay = selectDay;
-                  focusedDay = focusDay;
-                  print(focusDay);
-                  requisicao01(focusDay);
-                });
-              },
-            ),
+      backgroundColor: Color.fromARGB(255, 0, 34, 2),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.25), BlendMode.dstATop),
+            image: Image.asset(
+              'assets/images/camuflagem2.jpg',
+            ).image,
           ),
-        ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50.0),
+                    topRight: Radius.circular(50.0),
+                  ),
+                ),
+                height: 500,
+                width: 500,
+                child: TableCalendar(
+                  firstDay: DateTime.utc(2022, 02, 01),
+                  lastDay: DateTime.utc(2023, 12, 31),
+                  focusedDay: DateTime.now(),
+                  calendarFormat: format,
+                  onFormatChanged: (CalendarFormat _format) {
+                    setState(() {
+                      format = _format;
+                    });
+                  },
+                  calendarStyle: CalendarStyle(
+                    cellMargin: EdgeInsets.all(10),
+                    //defaultTextStyle: TextStyle(fontSize: 15),
+                    weekendTextStyle:
+                        TextStyle(fontSize: 15, color: Colors.red),
+                    holidayTextStyle:
+                        TextStyle(fontSize: 15, color: Colors.red),
+                  ),
+                  headerStyle: HeaderStyle(
+                    formatButtonTextStyle: const TextStyle(fontSize: 15.0),
+                    headerMargin: const EdgeInsets.all(5),
+                    titleTextStyle: TextStyle(fontSize: 20.0),
+                  ),
+                  rowHeight: 60,
+                  weekendDays: [
+                    DateTime.saturday,
+                    DateTime.sunday,
+                  ],
+                  startingDayOfWeek: StartingDayOfWeek.sunday,
+                  daysOfWeekVisible: true,
+                  onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                    setState(() {
+                      selectedDay = selectDay;
+                      focusedDay = focusDay;
+                      print(focusDay);
+                      requisicao01(focusDay);
+                    });
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
