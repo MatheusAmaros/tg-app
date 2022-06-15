@@ -97,17 +97,17 @@ class _PerfilState extends State<Perfil> {
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Color.fromARGB(255, 6, 39, 17)),
+              decoration: BoxDecoration(color: Color.fromARGB(255, 0, 34, 2)),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Color.fromARGB(255, 109, 173, 236),
+                backgroundColor: Colors.white,
                 child: Text(
                   nome.length > 2 ? nome.substring(0, 2) : 'A',
                   style: TextStyle(
-                      fontSize: 40.0, color: Color.fromARGB(255, 15, 15, 84)),
+                      fontSize: 40.0, color: Color.fromARGB(255, 0, 34, 2), fontFamily: 'Montserrat-S'),
                 ),
               ),
-              accountName: Text(nome),
-              accountEmail: Text(email),
+              accountName: Text(nome, style: TextStyle(fontFamily: 'Montserrat-S')),
+              accountEmail: Text(email, style: TextStyle(fontFamily: 'Montserrat-S')),
             ),
             ListTile(
               leading: Icon(
@@ -117,7 +117,7 @@ class _PerfilState extends State<Perfil> {
               ),
               title: Text(
                 "Perfil",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {
@@ -133,7 +133,7 @@ class _PerfilState extends State<Perfil> {
               ),
               title: Text(
                 "Home",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {
@@ -149,7 +149,7 @@ class _PerfilState extends State<Perfil> {
               ),
               title: Text(
                 "Logout",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {
@@ -218,25 +218,10 @@ class _PerfilState extends State<Perfil> {
                   ),
                 ),
                 child: ListView(
+                  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                   children: [
                     Column(
                       children: [
-                        Center(
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            child: CircleAvatar(
-                              maxRadius: 40,
-                              backgroundColor:
-                                  Color.fromARGB(255, 109, 173, 236),
-                              child: Text(
-                                nome.length > 2 ? nome.substring(0, 2) : 'A',
-                                style: TextStyle(
-                                    fontSize: 40.0,
-                                    color: Color.fromARGB(255, 15, 15, 84)),
-                              ),
-                            ),
-                          ),
-                        ),
                         Container(
                           margin: EdgeInsets.fromLTRB(0, 10, 10, 5),
                           child: Column(
@@ -249,13 +234,6 @@ class _PerfilState extends State<Perfil> {
                                       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                                       padding:
                                           EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -282,13 +260,6 @@ class _PerfilState extends State<Perfil> {
                                       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                                       padding:
                                           EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -315,13 +286,6 @@ class _PerfilState extends State<Perfil> {
                                       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                                       padding:
                                           EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -348,13 +312,6 @@ class _PerfilState extends State<Perfil> {
                                       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                                       padding:
                                           EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -382,13 +339,6 @@ class _PerfilState extends State<Perfil> {
                                       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                                       padding:
                                           EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -415,13 +365,6 @@ class _PerfilState extends State<Perfil> {
                                       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                                       padding:
                                           EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -448,13 +391,6 @@ class _PerfilState extends State<Perfil> {
                                       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                                       padding:
                                           EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -481,13 +417,6 @@ class _PerfilState extends State<Perfil> {
                                       margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                                       padding:
                                           EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -506,7 +435,6 @@ class _PerfilState extends State<Perfil> {
                                   ),
                                 ],
                               ):Container(),
-                              
                             ],
                           ),
                         ),

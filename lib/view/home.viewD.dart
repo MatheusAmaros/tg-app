@@ -89,17 +89,17 @@ class _HomeState extends State<Home> {
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Color.fromARGB(255, 6, 39, 17)),
+              decoration: BoxDecoration(color: Color.fromARGB(255, 0, 34, 2)),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Color.fromARGB(255, 109, 173, 236),
+                backgroundColor: Colors.white,
                 child: Text(
-                nome.length >2 ? nome.substring(0,2): 'A',
+                  nome.length > 2 ? nome.substring(0, 2) : 'A',
                   style: TextStyle(
-                      fontSize: 40.0, color: Color.fromARGB(255, 15, 15, 84)),
+                      fontSize: 40.0, color: Color.fromARGB(255, 0, 34, 2), fontFamily: 'Montserrat-S'),
                 ),
               ),
-              accountName: Text(nome),
-              accountEmail: Text(email),
+              accountName: Text(nome, style: TextStyle(fontFamily: 'Montserrat-S')),
+              accountEmail: Text(email, style: TextStyle(fontFamily: 'Montserrat-S')),
             ),
             ListTile(
               leading: Icon(
@@ -109,11 +109,11 @@ class _HomeState extends State<Home> {
               ),
               title: Text(
                 "Perfil",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {
-                   Navigator.pushNamed(context, '/perfil');
+                  // Navigator.pop(context);
                 });
               },
             ),
@@ -125,11 +125,11 @@ class _HomeState extends State<Home> {
               ),
               title: Text(
                 "Home",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {
-                  _closeDrawer(context);
+                  Navigator.popAndPushNamed(context, '/home');
                 });
               },
             ),
@@ -141,7 +141,7 @@ class _HomeState extends State<Home> {
               ),
               title: Text(
                 "Logout",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {
@@ -310,7 +310,7 @@ class _HomeState extends State<Home> {
                                 ]),
                           )
                         : Container(),
-                    Container(
+                      Container(
                       child: Container(
                         margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
                         child: Row(
@@ -341,6 +341,38 @@ class _HomeState extends State<Home> {
                             ]),
                       ),
                     ),
+                    userType == 'instrutor' ?
+                    Container(
+                      child: Container(
+                        margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
+                        child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                                context, "/buscarUsuario");
+                                          },
+                                          iconSize: 50,
+                                          icon: Icon(Icons.manage_accounts)),
+                                      Text('Editar Usuário')
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [Container(margin: EdgeInsets.fromLTRB(0, 0, 95, 0),)], //layout da tela
+                              ),
+                            ]),
+                      ),
+                    ) : Container()
                   ],
                 ),
               ),
