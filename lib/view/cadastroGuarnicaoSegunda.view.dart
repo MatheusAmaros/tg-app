@@ -435,20 +435,25 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
                   children: [
                     InkWell(
                         child: Icon(
-                          Icons.arrow_back,
+                          Icons.arrow_back_ios_rounded,
+                          size: 30,
                           color: Colors.white,
                         ),
                         onTap: () {
                           Navigator.of(context).pop();
                         }),
                     Text(
-                      "Guarnição: " + date.toString(),
+                      date.toString(),
                       style: TextStyle(
+                        fontSize: 25,
                         color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat-S',
                       ),
-                    )
+                    ),
+                    Icon(
+                      (Icons.perm_identity_sharp),
+                      color: Colors.transparent,
+                    ),
                   ],
                 ),
               ),
@@ -630,6 +635,10 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
                                                 value == selected4 ||
                                                 value == selected6) {
                                               return "Não é possível repetir o mesmo atirador";
+                                            } else if (widget.Selecionados!.any(
+                                                (element) =>
+                                                    element == value)) {
+                                              return "atirador selecionado na tela anterior";
                                             }
 
                                             return null;
@@ -721,6 +730,10 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
                                                 value == selected4 ||
                                                 value == selected5) {
                                               return "Não é possível repetir o mesmo atirador";
+                                            } else if (widget.Selecionados!.any(
+                                                (element) =>
+                                                    element == value)) {
+                                              return "atirador selecionado na tela anterior";
                                             }
 
                                             return null;

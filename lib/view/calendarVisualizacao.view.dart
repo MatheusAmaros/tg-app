@@ -21,10 +21,16 @@ class _StartPageState extends State<CalendarPageView> {
   String nomeCabo = "";
   String nomeCom = "";
   requisicao01(focusDay) async {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => VisualizacaoGuarnicao(
-              data: focusDay,
-            )));
+    var a = await firestore
+        .collection('guardas')
+        .doc(DateFormat('yyyy-MM-dd').format(focusDay).toString())
+        .get();
+    if (a.exists) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => VisualizacaoGuarnicao(
+                data: focusDay,
+              )));
+    }
   }
 
   @override
@@ -35,11 +41,18 @@ class _StartPageState extends State<CalendarPageView> {
         backgroundColor: Colors.transparent,
         leading: IconButton(
           icon:
-              Icon(Icons.arrow_back, color: Color.fromARGB(255, 255, 255, 255)),
+              Icon(Icons.arrow_back_ios_rounded, size:30,color: Color.fromARGB(255, 255, 255, 255)),
           onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: true,
-        title: Text('Selecione a Data'),
+        title: Text(
+          'Selecione a Data',
+          style: TextStyle(
+            fontSize: 25,
+            color: Colors.white,
+            fontFamily: 'Montserrat-S',
+          ),
+        ),
         elevation: 0,
       ),
       backgroundColor: Color.fromARGB(255, 0, 34, 2),
@@ -104,6 +117,7 @@ class _StartPageState extends State<CalendarPageView> {
                       selectedDay = selectDay;
                       focusedDay = focusDay;
                       print(focusDay);
+
                       requisicao01(focusDay);
                     });
                   },

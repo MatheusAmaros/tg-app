@@ -77,20 +77,25 @@ class _CadastroGuarnicaoCompletaState
                   children: [
                     InkWell(
                         child: Icon(
-                          Icons.arrow_back,
+                          Icons.arrow_back_ios_rounded,
+                          size: 30,
                           color: Colors.white,
                         ),
                         onTap: () {
                           Navigator.of(context).pop();
                         }),
                     Text(
-                      "Guarnição: " + date.toString(),
+                      date.toString(),
                       style: TextStyle(
+                        fontSize: 25,
                         color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat-S',
                       ),
-                    )
+                    ),
+                    Icon(
+                      (Icons.perm_identity_sharp),
+                      color: Colors.transparent,
+                    ),
                   ],
                 ),
               ),
@@ -339,8 +344,8 @@ class _CadastroGuarnicaoCompletaState
                                                 color: Color.fromARGB(
                                                     255, 241, 240, 240)),
                                             hintText: "Name",
-                                            fillColor: Color.fromARGB(
-                                                255, 190, 190, 190),
+                                            fillColor:
+                                                Color.fromARGB(90, 27, 134, 0),
                                           ),
                                           validator: (value) {
                                             if (value == null)

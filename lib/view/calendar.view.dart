@@ -46,12 +46,19 @@ class _StartPageState extends State<CalendarPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon:
-              Icon(Icons.arrow_back, color: Color.fromARGB(255, 255, 255, 255)),
+          icon: Icon(Icons.arrow_back_ios_rounded,
+              size: 30, color: Color.fromARGB(255, 255, 255, 255)),
           onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: true,
-        title: Text('Selecione a Data'),
+        title: Text(
+          'Selecione a Data',
+          style: TextStyle(
+            fontSize: 25,
+            color: Colors.white,
+            fontFamily: 'Montserrat-S',
+          ),
+        ),
         elevation: 0,
       ),
       backgroundColor: Color.fromARGB(255, 0, 34, 2),

@@ -1,6 +1,3 @@
-import 'dart:html';
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -373,140 +370,159 @@ class _PerfilState extends State<Perfil> {
                                   ),
                                 ],
                               ),
-                              userType == 'atirador' ?
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Número: ' + numero,
-                                            style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              color: Colors.black,
-                                              fontSize: 16,
+                              userType == 'atirador'
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                0, 10, 0, 10),
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 10, 100, 10),
+                                            decoration: BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  255, 239, 238, 238),
+                                              border: Border.all(
+                                                  color: Colors.transparent),
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ) : Container(),
-                              userType =='atirador' ? Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Ano Ingresso: ' + anoIngresso,
-                                            style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              color: Colors.black,
-                                              fontSize: 16,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Número: ' + numero,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ): Container(),
-                              userType =='atirador' ? Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Função: ' + funcao,
-                                            style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              color: Colors.black,
-                                              fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
+                              userType == 'atirador'
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                0, 10, 0, 10),
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 10, 100, 10),
+                                            decoration: BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  255, 239, 238, 238),
+                                              border: Border.all(
+                                                  color: Colors.transparent),
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ) : Container(),
-                                userType == 'atirador' ? Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 239, 238, 238),
-                                        border: Border.all(
-                                            color: Colors.transparent),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Pelotão: ' + pelotao,
-                                            style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              color: Colors.black,
-                                              fontSize: 16,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Ano Ingresso: ' +
+                                                      anoIngresso,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ):Container(),
-                              
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
+                              userType == 'atirador'
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                0, 10, 0, 10),
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 10, 100, 10),
+                                            decoration: BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  255, 239, 238, 238),
+                                              border: Border.all(
+                                                  color: Colors.transparent),
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Função: ' + funcao,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
+                              userType == 'atirador'
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                0, 10, 0, 10),
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 10, 100, 10),
+                                            decoration: BoxDecoration(
+                                              color: Color.fromARGB(
+                                                  255, 239, 238, 238),
+                                              border: Border.all(
+                                                  color: Colors.transparent),
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Pelotão: ' + pelotao,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
                             ],
                           ),
                         ),

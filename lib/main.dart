@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
+      /*
     options: FirebaseOptions(
       apiKey: "AIzaSyAqKIVrPhRUWTHN-kJciPl-OM3tjMZi9XI",
       appId: "1:51092244440:web:a5cf296b43dedde4ad54ad",
@@ -14,7 +15,8 @@ void main() async {
       projectId: "sistg-89390",
     ),
     //ignore: prefer_const_constructors
-  );
+    */
+      );
 
   runApp(App());
 }

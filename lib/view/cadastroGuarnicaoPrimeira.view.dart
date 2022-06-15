@@ -104,20 +104,25 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoCompleta> {
                   children: [
                     InkWell(
                         child: Icon(
-                          Icons.arrow_back,
+                          Icons.arrow_back_ios_rounded,
+                          size: 30,
                           color: Colors.white,
                         ),
                         onTap: () {
                           Navigator.of(context).pop();
                         }),
                     Text(
-                      "Guarnição: " + date.toString(),
+                      date.toString(),
                       style: TextStyle(
+                        fontSize: 25,
                         color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat-S',
                       ),
-                    )
+                    ),
+                    Icon(
+                      (Icons.perm_identity_sharp),
+                      color: Colors.transparent,
+                    ),
                   ],
                 ),
               ),
