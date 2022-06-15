@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tg_app/view/alteracaoAtirador.viewD.dart';
+import 'package:tg_app/view/alteracaoInstrutor.view.dart';
 import 'package:tg_app/view/buscaUsuario.view.dart';
 import 'package:tg_app/view/cadastroAtirador.viewD.dart';
 //import 'package:tg_app/view/cadastroGuarnicaoCompleta.view.dart';
@@ -52,8 +53,7 @@ class App extends StatelessWidget {
         '/busca': (context) => BuscarUsuario(),
         '/perfil': (context) => Perfil(),
         '/alterarAtirador': (context) => AlteraAtirador(),
-        
-        
+        '/alterarInstrutor': (context) => AlteraInstrutor(),
       },
     );
   }

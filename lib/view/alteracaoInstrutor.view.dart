@@ -6,20 +6,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:tg_app/view/login.viewD.dart';
 
-class AlteraAtirador extends StatefulWidget {
+class AlteraInstrutor extends StatefulWidget {
   @override
-  State<AlteraAtirador> createState() => _AlteraAtiradorState();
+  State<AlteraInstrutor> createState() => _AlteraInstrutorState();
 }
 
-class _AlteraAtiradorState extends State<AlteraAtirador> {
+class _AlteraInstrutorState extends State<AlteraInstrutor> {
 
-  _AlteraAtiradorState()
+  _AlteraInstrutorState()
   {
-      funcaoController.text = 'cabo';
-    pelotaoController.text = 'pelotao4';
+     
     nomeController.text = '';
     cpfController.text = '';
-    numeroController.text = '';
     telefoneController.text = '';
     emailController.text = '';
     senhaController.text = '';
@@ -33,17 +31,11 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
 
   final cpfController = TextEditingController();
 
-  final numeroController = TextEditingController();
-
   final telefoneController = TextEditingController();
 
   final emailController = TextEditingController();
 
   final senhaController = TextEditingController();
-
-  final funcaoController = TextEditingController();
-
-  final pelotaoController = TextEditingController();
 
   
 
@@ -72,38 +64,16 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.eager);
 
-  List<DropdownMenuItem<String>> get dropdownItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Pelotão 1"), value: "pelotao1"),
-      DropdownMenuItem(child: Text("Pelotão 2"), value: "pelotao2"),
-      DropdownMenuItem(child: Text("Pelotão 3"), value: "pelotao3"),
-      DropdownMenuItem(child: Text("Pelotão 4"), value: "pelotao4"),
-    ];
-    return menuItems;
-  }
+ 
 
-  List<DropdownMenuItem<String>> get funcaoItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Comandante"), value: "comandante"),
-      DropdownMenuItem(child: Text("Cabo"), value: "cabo"),
-      DropdownMenuItem(child: Text("Sentinela"), value: "sentinela"),
-    ];
-    return menuItems;
-  }
 
   Future getUsuario() async{
       FirebaseFirestore firestore = FirebaseFirestore.instance;
-      var usuario = await firestore.collection('atiradores').doc(uid).get();
+      var usuario = await firestore.collection('instrutores').doc(uid).get();
       nomeController.text = usuario['nome'];
       cpfController.text = usuario['cpf'];
-      numeroController.text = usuario['numero'];
       telefoneController.text = usuario['telefone'];
       emailController.text =  usuario['email'];
-      funcaoController.text = usuario['funcao'];
-      pelotaoController.text = usuario['pelotao'];
-
-      print(usuario['funcao']);
-      print(usuario['pelotao']);
 
  
       /*
@@ -186,22 +156,19 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
       //await result.user!.updateDisplayName(nome);
 
       print(uid);
-
-      db.collection("atiradores").doc(uid).set({
+      
+      db.collection("instrutores").doc(uid).set({
         'nome': nomeController.text,
         'cpf': cpfController.text,
-        'numero': numeroController.text,
         'telefone': telefoneController.text,
         'email': emailController.text,
-        'funcao': funcaoController.text,
-        'pelotao': pelotaoController.text,
         'anoIngresso': anoIngresso,
         'uid': uid
       });
 
       setState(() {
         Fluttertoast.showToast(
-          msg: "Atirador Alterado com sucesso!",
+          msg: "Instrutor Alterado com sucesso!",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 3,
@@ -331,7 +298,7 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
                         color: Colors.white,
                         onPressed: _openDrawer,
                       ),
-                      Text('Alterar Atirador',
+                      Text('Alterar Instrutor',
                           style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,
@@ -444,79 +411,7 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
                             ),
                           ),
                          
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
-                            child: TextFormField(
-                              inputFormatters: [numberMask],
-                              controller: numeroController,
-                              style: TextStyle(fontFamily: 'Montserrat-S'),
-                              decoration: InputDecoration(
-                                labelText: 'Número do atirador:',
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Montserrat-S',
-                                  color: Color.fromARGB(255, 165, 165, 165),
-                                ),
-                                
-                              ),
-                              onSaved: (value) =>
-                                  numeroController.text = value!,
-                              validator: (value) {
-                                if (value!.isEmpty)
-                                  return "Campo Numero obrigatório";
-                                return null;
-                              },
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Pelotão:',
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat-S',
-                                    color: Color.fromARGB(255, 165, 165, 165),
-                                  ),
-                                ),
-                                DropdownButton(
-                                  isExpanded: true,
-                                  items: dropdownItems,
-                                  value: pelotaoController.text, //=='' ? 'pelotao1':pelotaoController.text,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      pelotaoController.text = value!;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 30, 15, 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Função:',
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat-S',
-                                    color: Color.fromARGB(255, 165, 165, 165),
-                                  ),
-                                ),
-                                DropdownButton(
-                                  isExpanded: true,
-                                  items: funcaoItems,
-                                  value: funcaoController.text, //=='' ?'sentinela':funcaoController.text,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      funcaoController.text = value!;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
+                        
                           Container(
                             margin: EdgeInsets.fromLTRB(10, 10, 10, 30),
                             child: ElevatedButton(
