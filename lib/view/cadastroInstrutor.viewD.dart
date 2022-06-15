@@ -150,21 +150,25 @@ class _CadastroInstrutorState extends State<CadastroInstrutor> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
         child: ListView(
+          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Color.fromARGB(255, 6, 39, 17)),
+              decoration: BoxDecoration(color: Color.fromARGB(255, 0, 34, 2)),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Color.fromARGB(255, 109, 173, 236),
+                backgroundColor: Colors.white,
                 child: Text(
-                 nome.length >2 ? nome.substring(0,2): 'A',
+                  nome.length > 2 ? nome.substring(0, 2) : 'A',
                   style: TextStyle(
-                      fontSize: 40.0, color: Color.fromARGB(255, 15, 15, 84)),
+                      fontSize: 40.0, color: Color.fromARGB(255, 0, 34, 2), fontFamily: 'Montserrat-S'),
                 ),
               ),
-              accountName: Text(nome),
-              accountEmail: Text(email),
+              accountName: Text(nome, style: TextStyle(fontFamily: 'Montserrat-S')),
+              accountEmail: Text(email, style: TextStyle(fontFamily: 'Montserrat-S')),
             ),
             ListTile(
               leading: Icon(
@@ -174,11 +178,11 @@ class _CadastroInstrutorState extends State<CadastroInstrutor> {
               ),
               title: Text(
                 "Perfil",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {
-                   Navigator.pushNamed(context, '/perfil');
+                  Navigator.pushNamed(context, '/perfil');
                 });
               },
             ),
@@ -190,7 +194,7 @@ class _CadastroInstrutorState extends State<CadastroInstrutor> {
               ),
               title: Text(
                 "Home",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {
@@ -206,7 +210,7 @@ class _CadastroInstrutorState extends State<CadastroInstrutor> {
               ),
               title: Text(
                 "Logout",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {

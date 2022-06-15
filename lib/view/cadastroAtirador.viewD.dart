@@ -191,17 +191,17 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Color.fromARGB(255, 6, 39, 17)),
+              decoration: BoxDecoration(color: Color.fromARGB(255, 0, 34, 2)),
               currentAccountPicture: CircleAvatar(
-                backgroundColor: Color.fromARGB(255, 109, 173, 236),
+                backgroundColor: Colors.white,
                 child: Text(
                   nome.length > 2 ? nome.substring(0, 2) : 'A',
                   style: TextStyle(
-                      fontSize: 40.0, color: Color.fromARGB(255, 15, 15, 84)),
+                      fontSize: 40.0, color: Color.fromARGB(255, 0, 34, 2), fontFamily: 'Montserrat-S'),
                 ),
               ),
-              accountName: Text(nome),
-              accountEmail: Text(email),
+              accountName: Text(nome, style: TextStyle(fontFamily: 'Montserrat-S')),
+              accountEmail: Text(email, style: TextStyle(fontFamily: 'Montserrat-S')),
             ),
             ListTile(
               leading: Icon(
@@ -211,7 +211,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
               ),
               title: Text(
                 "Perfil",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {
@@ -227,7 +227,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
               ),
               title: Text(
                 "Home",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {
@@ -243,7 +243,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
               ),
               title: Text(
                 "Logout",
-                style: TextStyle(fontFamily: 'Times New Roman', fontSize: 16),
+                style: TextStyle(fontFamily: 'Montserrat', fontSize: 16),
               ),
               onTap: () {
                 setState(() {

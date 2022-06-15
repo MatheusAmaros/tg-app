@@ -109,7 +109,7 @@ class _BuscarUsuarioState extends State<BuscarUsuario> {
                                 },
                               ),
                               StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                                stream: firestore.collection('instrutores').orderBy('nome'.toLowerCase()).startAt([filtroInstrutorCtrl.text.toLowerCase()]).snapshots(),
+                                stream: firestore.collection('instrutores').orderBy('nome').startAt([filtroInstrutorCtrl.text]).snapshots(),
                                 builder: (_, snapshot){
                                   if (!snapshot.hasData) {
                                     return Center(child: CircularProgressIndicator());
@@ -154,7 +154,7 @@ class _BuscarUsuarioState extends State<BuscarUsuario> {
                                 },
                               ),
                               StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                                stream: firestore.collection('atiradores').orderBy('nome'.toLowerCase()).startAt([filtroAtiradorCtrl.text.toLowerCase()]).snapshots(),
+                                stream: firestore.collection('atiradores').orderBy('nome').startAt([filtroAtiradorCtrl.text]).snapshots(),
                                 builder: (_, snapshot){
                                   if (!snapshot.hasData) {
                                     return Center(child: CircularProgressIndicator());
