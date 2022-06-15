@@ -228,7 +228,7 @@ class _HomeState extends State<Home> {
                                             IconButton(
                                                 onPressed: () {
                                                   Navigator.pushNamed(context,
-                                                      "/chamadaPelotao");
+                                                      "/chamadaPelotaoV");
                                                 },
                                                 iconSize: 50,
                                                 icon: Icon(Icons.group)),
@@ -337,26 +337,55 @@ class _HomeState extends State<Home> {
                                 ),
                                 Column(
                                   children: [
-                                    Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              Navigator.pushNamed(
-                                                  context, '/chamadaPelotaoV');
-                                            },
-                                            iconSize: 50,
-                                            icon: Icon(Icons.table_view)),
-                                        Text('Ver chamada')
-                                      ],
-                                    ),
-                                  ],
+                                    Container(
+                                      margin: EdgeInsets.fromLTRB(0, 0, 95, 0),
+                                    )
+                                  ], //layout da tela
                                 ),
                               ]),
                         ),
                       ),
+                      userType == 'instrutor'
+                          ? Container(
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(10, 25, 10, 10),
+                                child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              IconButton(
+                                                  onPressed: () {
+                                                    Navigator.pushNamed(
+                                                        context, "/busca");
+                                                  },
+                                                  iconSize: 50,
+                                                  icon: Icon(
+                                                      Icons.manage_accounts)),
+                                              Text('Editar Usuário')
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                0, 0, 95, 0),
+                                          )
+                                        ], //layout da tela
+                                      ),
+                                    ]),
+                              ),
+                            )
+                          : Container()
                     ],
                   ),
                 ),
