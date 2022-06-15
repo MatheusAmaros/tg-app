@@ -6,12 +6,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:tg_app/view/login.viewD.dart';
 
-class CadastroAtirador extends StatefulWidget {
+class CadastroInstrutor extends StatefulWidget {
   @override
-  State<CadastroAtirador> createState() => _CadastroAtiradorState();
+  State<CadastroInstrutor> createState() => _CadastroInstrutorState();
 }
 
-class _CadastroAtiradorState extends State<CadastroAtirador> {
+class _CadastroInstrutorState extends State<CadastroInstrutor> {
   var formKey = GlobalKey<FormState>();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -20,22 +20,18 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
 
   final cpfController = TextEditingController();
 
-  final numeroController = TextEditingController();
-
   final telefoneController = TextEditingController();
 
   final emailController = TextEditingController();
 
   final senhaController = TextEditingController();
 
-  final funcaoController = TextEditingController();
-
-  final pelotaoController = TextEditingController();
-
   String nome = '';
   String email = '';
   String userType = '';
   var userUid = '';
+
+   
   bool passwordVisibility = true;
 
   var emailValid = RegExp(
@@ -51,46 +47,27 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.eager);
 
-  var numberMask = new MaskTextInputFormatter(
-      mask: '###',
-      filter: {"#": RegExp(r'[0-9]')},
-      type: MaskAutoCompletionType.eager);
-
-  List<DropdownMenuItem<String>> get dropdownItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Pelotão 1"), value: "pelotao1"),
-      DropdownMenuItem(child: Text("Pelotão 2"), value: "pelotao2"),
-      DropdownMenuItem(child: Text("Pelotão 3"), value: "pelotao3"),
-      DropdownMenuItem(child: Text("Pelotão 4"), value: "pelotao4"),
-    ];
-    return menuItems;
-  }
-
-  List<DropdownMenuItem<String>> get funcaoItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Comandante"), value: "comandante"),
-      DropdownMenuItem(child: Text("Cabo"), value: "cabo"),
-      DropdownMenuItem(child: Text("Sentinela"), value: "sentinela"),
-    ];
-    return menuItems;
-  }
 
   Future carregaUsuario() async {
-    if (await SessionManager().containsKey('userUid')) {
-      userUid = await SessionManager().get('userUid');
-    } else {
-      FirebaseAuth auth = FirebaseAuth.instance;
-      var user = auth.currentUser!;
-      userUid = user.uid;
+
+    if(await SessionManager().containsKey('userUid'))
+    {
+       userUid = await SessionManager().get('userUid');
     }
-    //print(userUid);
+    else{
+          FirebaseAuth auth = FirebaseAuth.instance;
+          var user = auth.currentUser!;
+           userUid = user.uid;
+    }
+
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    var usuario = await firestore.collection('atiradores').doc(userUid).get();
+     var usuario = await firestore.collection('atiradores').doc(userUid).get();
     if (usuario.exists) {
       userType = 'atirador';
-    } else {
-      usuario = await firestore.collection('instrutores').doc(userUid).get();
+    } 
+    else {
+       usuario = await firestore.collection('instrutores').doc(userUid).get();
       if (usuario.exists) {
         userType = 'instrutor';
       }
@@ -102,11 +79,6 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
     setState(() {});
 
     return userUid;
-  }
-
-  _CadastroAtiradorState() {
-    funcaoController.text = 'Sentinela';
-    pelotaoController.text = 'pelotao1';
   }
 
   void logout() async {
@@ -130,42 +102,37 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
 
   void cadastrarUsuario(BuildContext context) async {
     FirebaseFirestore db = FirebaseFirestore.instance;
-    FirebaseAuth cadastro = FirebaseAuth.instance;
+    FirebaseAuth auth = FirebaseAuth.instance;
 
     var anoIngresso = DateTime.now().year.toString();
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
-      var result = await cadastro.createUserWithEmailAndPassword(
+      var result = await auth.createUserWithEmailAndPassword(
           email: emailController.text, password: senhaController.text);
 
       //await result.user!.updateDisplayName(nome);
 
-      db.collection("atiradores").doc(result.user!.uid).set({
+      db.collection("instrutores")
+          .doc(result.user!.uid)
+          .set({
         'nome': nomeController.text,
         'cpf': cpfController.text,
-        'numero': numeroController.text,
         'telefone': telefoneController.text,
         'email': emailController.text,
-        'funcao': funcaoController.text,
-        'pelotao': pelotaoController.text,
-        'anoIngresso': anoIngresso,
-        'uid': result.user!.uid
+        'uid':result.user!.uid
       });
 
       nomeController.clear();
       cpfController.clear();
-      numeroController.clear();
       telefoneController.clear();
       emailController.clear();
       senhaController.clear();
-      funcaoController.text = 'Sentinela';
-      pelotaoController.text = 'pelotao1';
 
       setState(() {
         Fluttertoast.showToast(
-          msg: "Atirador cadastrado com sucesso!",
+          msg: "Instrutor cadastrado com sucesso!",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 3,
@@ -183,11 +150,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
@@ -195,7 +158,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Color.fromARGB(255, 109, 173, 236),
                 child: Text(
-                  nome.length > 2 ? nome.substring(0, 2) : 'A',
+                 nome.length >2 ? nome.substring(0,2): 'A',
                   style: TextStyle(
                       fontSize: 40.0, color: Color.fromARGB(255, 15, 15, 84)),
                 ),
@@ -215,7 +178,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
               ),
               onTap: () {
                 setState(() {
-                  Navigator.pushNamed(context, '/perfil');
+                   Navigator.pushNamed(context, '/perfil');
                 });
               },
             ),
@@ -254,7 +217,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
           ],
         ),
       ),
-      backgroundColor: Color.fromARGB(255, 0, 34, 2),
+     backgroundColor: Color.fromARGB(255, 0, 34, 2),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -285,7 +248,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                         color: Colors.white,
                         onPressed: _openDrawer,
                       ),
-                      Text('Cadastrar Atirador',
+                      Text('Cadastrar Instrutor',
                           style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,
@@ -345,7 +308,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.fromLTRB(15, 12, 15, 0),
+                            margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
                             child: TextFormField(
                               inputFormatters: [cpfMask],
                               controller: cpfController,
@@ -428,12 +391,12 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                               controller: senhaController,
                               style: TextStyle(fontFamily: 'Montserrat-S'),
                               decoration: InputDecoration(
-                                  labelText: 'Senha:',
-                                  hintStyle: TextStyle(
-                                    fontFamily: 'Montserrat-S',
-                                    color: Color.fromARGB(255, 165, 165, 165),
-                                  ),
-                                  suffixIcon: IconButton(
+                                labelText: 'Senha:',
+                                hintStyle: TextStyle(
+                                  fontFamily: 'Montserrat-S',
+                                  color: Color.fromARGB(255, 165, 165, 165),
+                                ),
+                                 suffixIcon: IconButton(
                                       icon: Icon(
                                         passwordVisibility
                                             ? Icons.visibility
@@ -456,78 +419,8 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                               },
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
-                            child: TextFormField(
-                              inputFormatters: [numberMask],
-                              controller: numeroController,
-                              style: TextStyle(fontFamily: 'Montserrat-S'),
-                              decoration: InputDecoration(
-                                labelText: 'Número do atirador:',
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Montserrat-S',
-                                  color: Color.fromARGB(255, 165, 165, 165),
-                                ),
-                              ),
-                              onSaved: (value) =>
-                                  numeroController.text = value!,
-                              validator: (value) {
-                                if (value!.isEmpty)
-                                  return "Campo Numero obrigatório";
-                                return null;
-                              },
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Pelotão:',
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat-S',
-                                    color: Color.fromARGB(255, 165, 165, 165),
-                                  ),
-                                ),
-                                DropdownButton(
-                                  isExpanded: true,
-                                  items: dropdownItems,
-                                  value: pelotaoController.text,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      pelotaoController.text = value!;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 30, 15, 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Função:',
-                                  style: TextStyle(
-                                    fontFamily: 'Montserrat-S',
-                                    color: Color.fromARGB(255, 165, 165, 165),
-                                  ),
-                                ),
-                                DropdownButton(
-                                  isExpanded: true,
-                                  items: funcaoItems,
-                                  value: funcaoController.text,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      funcaoController.text = value!;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
+                   
+                   
                           Container(
                             margin: EdgeInsets.fromLTRB(10, 10, 10, 30),
                             child: ElevatedButton(
@@ -557,9 +450,5 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
     super.initState();
 
     final user = carregaUsuario();
-    //validar se o usuário está logado
-    /* if (user == null) {
-      Navigator.pushNamed(context, '/login');
-    }*/
   }
 }

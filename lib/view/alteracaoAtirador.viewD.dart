@@ -6,12 +6,25 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:tg_app/view/login.viewD.dart';
 
-class CadastroAtirador extends StatefulWidget {
+class AlteraAtirador extends StatefulWidget {
   @override
-  State<CadastroAtirador> createState() => _CadastroAtiradorState();
+  State<AlteraAtirador> createState() => _AlteraAtiradorState();
 }
 
-class _CadastroAtiradorState extends State<CadastroAtirador> {
+class _AlteraAtiradorState extends State<AlteraAtirador> {
+
+  _AlteraAtiradorState()
+  {
+      funcaoController.text = 'cabo';
+    pelotaoController.text = 'pelotao4';
+    nomeController.text = '';
+    cpfController.text = '';
+    numeroController.text = '';
+    telefoneController.text = '';
+    emailController.text = '';
+    senhaController.text = '';
+    uid ='';
+  }
   var formKey = GlobalKey<FormState>();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -32,10 +45,13 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
 
   final pelotaoController = TextEditingController();
 
+  
+
   String nome = '';
   String email = '';
   String userType = '';
-  var userUid = '';
+   var userUid = '';
+   var uid ='';
   bool passwordVisibility = true;
 
   var emailValid = RegExp(
@@ -75,22 +91,45 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
     return menuItems;
   }
 
+  Future getUsuario() async{
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      var usuario = await firestore.collection('atiradores').doc(uid).get();
+
+ 
+      /*
+    if (usuario.exists) {
+        nomeController.text =usuario['nome'];
+        cpfController.text =usuario['cpf'];
+        numeroController.text =usuario['numero'];
+        telefoneController.text =usuario['telefone'];
+        emailController.text =usuario['email'];
+        //senhaController.text =usuario['nome'];
+        funcaoController.text =usuario['funcao'];
+        pelotaoController.text =usuario['pelotao'];
+    }
+     */
+  }
+
   Future carregaUsuario() async {
-    if (await SessionManager().containsKey('userUid')) {
-      userUid = await SessionManager().get('userUid');
-    } else {
-      FirebaseAuth auth = FirebaseAuth.instance;
-      var user = auth.currentUser!;
-      userUid = user.uid;
+
+    if(await SessionManager().containsKey('userUid'))
+    {
+       userUid = await SessionManager().get('userUid');
+    }
+    else{
+          FirebaseAuth auth = FirebaseAuth.instance;
+          var user = auth.currentUser!;
+           userUid = user.uid;
     }
     //print(userUid);
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    var usuario = await firestore.collection('atiradores').doc(userUid).get();
+     var usuario = await firestore.collection('atiradores').doc(userUid).get();
     if (usuario.exists) {
       userType = 'atirador';
-    } else {
-      usuario = await firestore.collection('instrutores').doc(userUid).get();
+    } 
+    else {
+       usuario = await firestore.collection('instrutores').doc(userUid).get();
       if (usuario.exists) {
         userType = 'instrutor';
       }
@@ -104,10 +143,6 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
     return userUid;
   }
 
-  _CadastroAtiradorState() {
-    funcaoController.text = 'Sentinela';
-    pelotaoController.text = 'pelotao1';
-  }
 
   void logout() async {
     FirebaseAuth user = FirebaseAuth.instance;
@@ -128,21 +163,17 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
     Navigator.of(context).pop();
   }
 
-  void cadastrarUsuario(BuildContext context) async {
+  void alterarUsuario(BuildContext context) async {
     FirebaseFirestore db = FirebaseFirestore.instance;
-    FirebaseAuth cadastro = FirebaseAuth.instance;
+    FirebaseAuth auth = FirebaseAuth.instance;
 
     var anoIngresso = DateTime.now().year.toString();
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-
-      var result = await cadastro.createUserWithEmailAndPassword(
-          email: emailController.text, password: senhaController.text);
-
       //await result.user!.updateDisplayName(nome);
 
-      db.collection("atiradores").doc(result.user!.uid).set({
+      db.collection("atiradores").doc(uid).set({
         'nome': nomeController.text,
         'cpf': cpfController.text,
         'numero': numeroController.text,
@@ -151,21 +182,12 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
         'funcao': funcaoController.text,
         'pelotao': pelotaoController.text,
         'anoIngresso': anoIngresso,
-        'uid': result.user!.uid
+        'uid': uid
       });
-
-      nomeController.clear();
-      cpfController.clear();
-      numeroController.clear();
-      telefoneController.clear();
-      emailController.clear();
-      senhaController.clear();
-      funcaoController.text = 'Sentinela';
-      pelotaoController.text = 'pelotao1';
 
       setState(() {
         Fluttertoast.showToast(
-          msg: "Atirador cadastrado com sucesso!",
+          msg: "Atirador Alterado com sucesso!",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 3,
@@ -180,6 +202,16 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
 
   @override
   Widget build(BuildContext context) {
+
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
+     uid = arguments['uid'];
+
+    print(uid);
+    
+
+  
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: Drawer(
@@ -195,7 +227,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Color.fromARGB(255, 109, 173, 236),
                 child: Text(
-                  nome.length > 2 ? nome.substring(0, 2) : 'A',
+                 nome.length >2 ? nome.substring(0,2): 'A',
                   style: TextStyle(
                       fontSize: 40.0, color: Color.fromARGB(255, 15, 15, 84)),
                 ),
@@ -215,7 +247,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
               ),
               onTap: () {
                 setState(() {
-                  Navigator.pushNamed(context, '/perfil');
+                   Navigator.pushNamed(context, '/perfil');
                 });
               },
             ),
@@ -297,6 +329,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                         enableFeedback: false,
                         color: Colors.transparent,
                         onPressed: () {},
+                        
                       ),
                     ],
                   )
@@ -369,31 +402,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                               },
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                            child: TextFormField(
-                              maxLength: 80,
-                              controller: emailController,
-                              style: TextStyle(fontFamily: 'Montserrat-S'),
-                              decoration: InputDecoration(
-                                labelText: 'E-mail:',
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Montserrat-S',
-                                  color: Color.fromARGB(255, 165, 165, 165),
-                                ),
-                              ),
-                              onSaved: (value) => emailController.text = value!,
-                              validator: (value) {
-                                if (value!.isEmpty)
-                                  return "Campo E-mail obrigatório";
-
-                                if (!emailValid.hasMatch(value))
-                                  return "Formato de email inserido está incorreto";
-
-                                return null;
-                              },
-                            ),
-                          ),
+                          
                           Container(
                             margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
                             child: TextFormField(
@@ -420,42 +429,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                               },
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(15, 30, 15, 0),
-                            child: TextFormField(
-                              maxLength: 30,
-                              obscureText: passwordVisibility,
-                              controller: senhaController,
-                              style: TextStyle(fontFamily: 'Montserrat-S'),
-                              decoration: InputDecoration(
-                                  labelText: 'Senha:',
-                                  hintStyle: TextStyle(
-                                    fontFamily: 'Montserrat-S',
-                                    color: Color.fromARGB(255, 165, 165, 165),
-                                  ),
-                                  suffixIcon: IconButton(
-                                      icon: Icon(
-                                        passwordVisibility
-                                            ? Icons.visibility
-                                            : Icons.visibility_off,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          passwordVisibility =
-                                              !passwordVisibility;
-                                        });
-                                      })),
-                              onSaved: (value) => senhaController.text = value!,
-                              validator: (value) {
-                                if (value!.isEmpty)
-                                  return "Campo Senha obrigatório";
-
-                                if (value.length < 6)
-                                  return "Sua senha deve ter no mínimo 6 caracteres";
-                                return null;
-                              },
-                            ),
-                          ),
+                         
                           Container(
                             margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
                             child: TextFormField(
@@ -468,6 +442,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                                   fontFamily: 'Montserrat-S',
                                   color: Color.fromARGB(255, 165, 165, 165),
                                 ),
+                                
                               ),
                               onSaved: (value) =>
                                   numeroController.text = value!,
@@ -493,7 +468,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                                 DropdownButton(
                                   isExpanded: true,
                                   items: dropdownItems,
-                                  value: pelotaoController.text,
+                                  value: pelotaoController.text =='' ? 'pelotao1':pelotaoController.text,
                                   onChanged: (String? value) {
                                     setState(() {
                                       pelotaoController.text = value!;
@@ -518,7 +493,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                                 DropdownButton(
                                   isExpanded: true,
                                   items: funcaoItems,
-                                  value: funcaoController.text,
+                                  value: funcaoController.text =='' ?'sentinela':funcaoController.text,
                                   onChanged: (String? value) {
                                     setState(() {
                                       funcaoController.text = value!;
@@ -531,8 +506,8 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
                           Container(
                             margin: EdgeInsets.fromLTRB(10, 10, 10, 30),
                             child: ElevatedButton(
-                              onPressed: () => cadastrarUsuario(context),
-                              child: Text("Cadastrar"),
+                              onPressed: () => alterarUsuario(context),
+                              child: Text("Alterar Registro"),
                               style: ElevatedButton.styleFrom(
                                   primary: Color.fromARGB(255, 0, 34, 2),
                                   padding: EdgeInsets.symmetric(
@@ -555,11 +530,9 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
 
   void initState() {
     super.initState();
-
     final user = carregaUsuario();
-    //validar se o usuário está logado
-    /* if (user == null) {
-      Navigator.pushNamed(context, '/login');
-    }*/
+
+    //codigo
+
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tg_app/view/alteracaoAtirador.viewD.dart';
+import 'package:tg_app/view/buscaUsuario.view.dart';
 import 'package:tg_app/view/cadastroAtirador.viewD.dart';
 //import 'package:tg_app/view/cadastroGuarnicaoCompleta.view.dart';
-import 'package:tg_app/view/cadastroInstrutor.view.dart';
+import 'package:tg_app/view/cadastroInstrutor.viewD.dart';
 import 'package:tg_app/view/calendar.view.dart';
 import 'package:tg_app/view/calendarVisualizacao.view.dart';
 import 'package:tg_app/view/chamada.view.dart';
@@ -13,6 +15,7 @@ import 'package:tg_app/view/design.view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tg_app/view/home.viewD.dart';
 import 'package:tg_app/view/login.viewD.dart';
+import 'package:tg_app/view/perfil.view.dart';
 
 import 'chamadaPelotaoVisualizar.view.dart';
 
@@ -46,6 +49,11 @@ class App extends StatelessWidget {
         '/calendarioVizu': (context) => CalendarPageView(),
         //'/calendarioAlteracao': (context) => CalendarPageAlteracao(),
         '/vizualizarGuarnicao': (context) => CalendarPage(),
+        '/busca': (context) => BuscarUsuario(),
+        '/perfil': (context) => Perfil(),
+        '/alterarAtirador': (context) => AlteraAtirador(),
+        
+        
       },
     );
   }

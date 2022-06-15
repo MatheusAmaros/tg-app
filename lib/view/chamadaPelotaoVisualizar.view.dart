@@ -56,7 +56,7 @@ class _chamadaPelotaoVisualizarViewState extends State<ChamadaPelotaoVisualizarV
                       IconButton(
                         icon: Icon((Icons.perm_identity_sharp)),
                         iconSize: 30,
-                        color: Colors.white,
+                        color: Colors.transparent,
                         onPressed: () {},
                       ),
                     ],
@@ -144,18 +144,33 @@ class _chamadaPelotaoVisualizarViewState extends State<ChamadaPelotaoVisualizarV
                       ),
                     ),
                     Container(
-                      width:double.infinity ,
+                      width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.all(20),
                       alignment: Alignment.topCenter,
-                      child:ElevatedButton(
-                        child: Text("Visualizar", style: TextStyle(fontSize: 15, color: Colors.white, fontFamily: 'Montserrat',)),
-                        style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 0, 34, 2),
-                          padding: EdgeInsets.symmetric(horizontal: 130, vertical: 20),
-                        ),
-                        onPressed:() {
-                          Navigator.of(context).pushNamed('/chamadaV', arguments: {'pelotao': pelotao, 'dataText': dataText, 'dataInv': dataInicial});
-                        },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                        children: [ 
+                          ElevatedButton(
+                            child: Text("Visualizar", style: TextStyle(fontSize: 15, color: Colors.white, fontFamily: 'Montserrat',)),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color.fromARGB(255, 0, 34, 2),
+                              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                            ),
+                            onPressed:() {
+                              Navigator.of(context).pushNamed('/chamadaV', arguments: {'pelotao': pelotao, 'dataText': dataText, 'dataInv': dataInicial});
+                            },
+                          ),
+                          ElevatedButton(
+                            child: Text("Cadastrar", style: TextStyle(fontSize: 15, color: Colors.white, fontFamily: 'Montserrat',)),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color.fromARGB(255, 0, 34, 2),
+                              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                            ),
+                            onPressed:() {
+                              Navigator.of(context).pushNamed('/chamadaPelotao');
+                            },
+                          )
+                        ]
                       )
                     ),
                   ]
