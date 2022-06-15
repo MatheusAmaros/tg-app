@@ -35,8 +35,7 @@ class App extends StatelessWidget {
       supportedLocales: [
         const Locale('pt', 'BR'),
       ],
-
-      initialRoute: auth.currentUser == null ? '/login':'/home',
+      initialRoute: auth.currentUser == null ? '/login' : '/home',
       routes: {
         '/login': (context) => Login(),
         '/chamadaPelotao': (context) => ChamadaPelotaoView(),
@@ -49,6 +48,7 @@ class App extends StatelessWidget {
         '/des': (context) => Design(),
         '/calendario': (context) => CalendarPage(),
         '/calendarioVizu': (context) => CalendarPageView(),
+        //'/calendarioAlteracao': (context) => CalendarPageAlteracao(),
         '/vizualizarGuarnicao': (context) => CalendarPage(),
         '/busca': (context) => BuscarUsuario(),
         '/perfil': (context) => Perfil(),

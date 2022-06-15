@@ -1,6 +1,3 @@
-import 'dart:html';
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -103,11 +100,15 @@ class _PerfilState extends State<Perfil> {
                 child: Text(
                   nome.length > 2 ? nome.substring(0, 2) : 'A',
                   style: TextStyle(
-                      fontSize: 40.0, color: Color.fromARGB(255, 0, 34, 2), fontFamily: 'Montserrat-S'),
+                      fontSize: 40.0,
+                      color: Color.fromARGB(255, 0, 34, 2),
+                      fontFamily: 'Montserrat-S'),
                 ),
               ),
-              accountName: Text(nome, style: TextStyle(fontFamily: 'Montserrat-S')),
-              accountEmail: Text(email, style: TextStyle(fontFamily: 'Montserrat-S')),
+              accountName:
+                  Text(nome, style: TextStyle(fontFamily: 'Montserrat-S')),
+              accountEmail:
+                  Text(email, style: TextStyle(fontFamily: 'Montserrat-S')),
             ),
             ListTile(
               leading: Icon(
@@ -330,111 +331,127 @@ class _PerfilState extends State<Perfil> {
                                   ),
                                 ],
                               ),
-                              userType == 'atirador' ?
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Número: ' + numero,
-                                            style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              color: Colors.black,
-                                              fontSize: 16,
+                              userType == 'atirador'
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                0, 10, 0, 10),
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 10, 100, 10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Número: ' + numero,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ) : Container(),
-                              userType =='atirador' ? Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Ano Ingresso: ' + anoIngresso,
-                                            style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              color: Colors.black,
-                                              fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
+                              userType == 'atirador'
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                0, 10, 0, 10),
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 10, 100, 10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Ano Ingresso: ' +
+                                                      anoIngresso,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ): Container(),
-                              userType =='atirador' ? Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Função: ' + funcao,
-                                            style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              color: Colors.black,
-                                              fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
+                              userType == 'atirador'
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                0, 10, 0, 10),
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 10, 100, 10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Função: ' + funcao,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ) : Container(),
-                                userType == 'atirador' ? Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 100, 10),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Pelotão: ' + pelotao,
-                                            style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              color: Colors.black,
-                                              fontSize: 16,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
+                              userType == 'atirador'
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            margin: EdgeInsets.fromLTRB(
+                                                0, 10, 0, 10),
+                                            padding: EdgeInsets.fromLTRB(
+                                                10, 10, 100, 10),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Pelotão: ' + pelotao,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    color: Colors.black,
+                                                    fontSize: 16,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ):Container(),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
                             ],
                           ),
                         ),

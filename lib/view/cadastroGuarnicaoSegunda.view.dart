@@ -41,6 +41,9 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
     return menuItems;
   }
 
+  late Timestamp dataFormat =
+      Timestamp.fromDate(widget.data.add(Duration(hours: 3)));
+
   void saveGuarnicaoPreta(BuildContext context) async {
     if (formKey.currentState!.validate()) {
       var a = await firestore
@@ -55,18 +58,19 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
           'uidComandante': widget.Selecionados![0],
           'uidCabo': widget.Selecionados![1],
         });
-        firestore
-            .collection('atiradores')
-            .doc(widget.Selecionados![0])
-            .update({'DtUltimaGuardaPreta': widget.data});
+        print(dataFormat);
+        firestore.collection('atiradores').doc(widget.Selecionados![0]).update({
+          'DtUltimaGuardaPreta':
+              Timestamp.fromDate(widget.data.add(Duration(hours: 3)))
+        });
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![1])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![2])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -76,7 +80,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![3])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -86,7 +90,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![4])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -96,7 +100,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected4)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -106,7 +110,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected5)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -116,7 +120,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected6)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -134,15 +138,15 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![0])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![1])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![2])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -152,7 +156,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![3])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -162,7 +166,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![4])
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -172,7 +176,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected4)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -182,7 +186,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected5)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -192,7 +196,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected6)
-            .update({'DtUltimaGuardaPreta': widget.data});
+            .update({'DtUltimaGuardaPreta': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -220,19 +224,18 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
           'uidComandante': widget.Selecionados![0],
           'uidCabo': widget.Selecionados![1],
         });
-        firestore
-            .collection('atiradores')
-            .doc(widget.Selecionados![0])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+        firestore.collection('atiradores').doc(widget.Selecionados![0]).update({
+          'DtUltimaGuardaVermelha': Timestamp.fromDate(widget.data.toUtc())
+        });
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![1])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
 
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![2])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -243,7 +246,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![3])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -254,7 +257,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![4])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -265,7 +268,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected4)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -276,7 +279,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected5)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -287,7 +290,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected6)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -302,19 +305,18 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
           'uidComandante': widget.Selecionados![0],
           'uidCabo': widget.Selecionados![1],
         });
-        firestore
-            .collection('atiradores')
-            .doc(widget.Selecionados![0])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+        firestore.collection('atiradores').doc(widget.Selecionados![0]).update({
+          'DtUltimaGuardaVermelha': Timestamp.fromDate(widget.data.toUtc())
+        });
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![1])
-            .set({'DtUltimaGuardaVermelha': widget.data});
+            .set({'DtUltimaGuardaVermelha': dataFormat});
 
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![2])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -325,7 +327,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![3])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -336,7 +338,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(widget.Selecionados![4])
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -347,7 +349,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected4)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -358,7 +360,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected5)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -369,7 +371,7 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
         firestore
             .collection('atiradores')
             .doc(selected6)
-            .update({'DtUltimaGuardaVermelha': widget.data});
+            .update({'DtUltimaGuardaVermelha': dataFormat});
         firestore
             .collection('guardas')
             .doc(DateFormat('yyyy-MM-dd').format(widget.data).toString())
@@ -411,447 +413,483 @@ class _CadastroGuarnicaoCompletaState extends State<CadastroGuarnicaoSegunda> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color.fromARGB(255, 0, 34, 2),
         body: Container(
-      color: Colors.black,
-      child: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    }),
-                Text(
-                  "Guarnição: " + date.toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ],
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.25), BlendMode.dstATop),
+              image: Image.asset(
+                'assets/images/camuflagem2.jpg',
+              ).image,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Expanded(
-              child: Container(
-                padding: EdgeInsets.fromLTRB(30, 10, 30, 5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(40)),
-                  color: Color.fromARGB(255, 255, 255, 255),
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                        child: Icon(
+                          Icons.arrow_back_ios_rounded,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        }),
+                    Text(
+                      date.toString(),
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                        fontFamily: 'Montserrat-S',
+                      ),
+                    ),
+                    Icon(
+                      (Icons.perm_identity_sharp),
+                      color: Colors.transparent,
+                    ),
+                  ],
                 ),
-                child: Form(
-                  key: formKey,
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                child: Expanded(
                   child: Container(
-                    color: Colors.white,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        StreamBuilder<QuerySnapshot>(
-                            stream: firestore
-                                .collection("atiradores")
-                                .where("funcao", isEqualTo: "Sentinela")
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData)
-                                const Text("Loading.....");
-                              else {
-                                List<DropdownMenuItem> currencyItems = [];
-                                for (int i = 0;
-                                    i < snapshot.data!.docs.length;
-                                    i++) {
-                                  DocumentSnapshot snap =
-                                      snapshot.data!.docs[i];
-                                  currencyItems.add(
-                                    DropdownMenuItem(
-                                      child: Text(
-                                        snapshot.data!.docs[i]['nome'],
-                                        style: TextStyle(
-                                            color:
-                                                Color.fromARGB(255, 0, 0, 0)),
-                                      ),
-                                      value: "${snapshot.data!.docs[i].id}",
-                                    ),
-                                  );
-                                }
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      "4º Sentinela:",
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Arial',
-                                      ),
-                                    ),
-                                    SizedBox(width: 5),
-                                    DropdownButtonFormField<dynamic>(
-                                      items: currencyItems,
-                                      value: selected4,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius: const BorderRadius.all(
-                                            const Radius.circular(10),
+                    padding: EdgeInsets.fromLTRB(30, 10, 30, 5),
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.only(topLeft: Radius.circular(40)),
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    child: Form(
+                      key: formKey,
+                      child: Container(
+                        color: Colors.white,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            StreamBuilder<QuerySnapshot>(
+                                stream: firestore
+                                    .collection("atiradores")
+                                    .where("funcao", isEqualTo: "sentinela")
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData)
+                                    const Text("Loading.....");
+                                  else {
+                                    List<DropdownMenuItem> currencyItems = [];
+                                    for (int i = 0;
+                                        i < snapshot.data!.docs.length;
+                                        i++) {
+                                      DocumentSnapshot snap =
+                                          snapshot.data!.docs[i];
+                                      currencyItems.add(
+                                        DropdownMenuItem(
+                                          child: Text(
+                                            snapshot.data!.docs[i]['nome'],
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                          value: "${snapshot.data!.docs[i].id}",
+                                        ),
+                                      );
+                                    }
+                                    return Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "4º sentinela:",
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Arial',
                                           ),
                                         ),
-                                        filled: true,
-                                        hintStyle: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 241, 240, 240)),
-                                        hintText: "Name",
-                                        fillColor:
-                                            Color.fromARGB(90, 27, 134, 0),
-                                      ),
-                                      validator: (value) {
-                                        if (value == null) {
-                                          return "selecione o sentinela";
-                                        } else if (value == selected5 ||
-                                            value == selected6) {
-                                          return "Não é possível repetir o mesmo atirador";
-                                        } else if (widget.Selecionados!.any(
-                                            (element) => element == value)) {
-                                          return "atirador selecionado na tela anterior";
-                                        }
+                                        SizedBox(width: 5),
+                                        DropdownButtonFormField<dynamic>(
+                                          items: currencyItems,
+                                          value: selected4,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                const Radius.circular(10),
+                                              ),
+                                            ),
+                                            filled: true,
+                                            hintStyle: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 241, 240, 240)),
+                                            hintText: "Name",
+                                            fillColor:
+                                                Color.fromARGB(90, 27, 134, 0),
+                                          ),
+                                          validator: (value) {
+                                            if (value == null) {
+                                              return "selecione o sentinela";
+                                            } else if (value == selected5 ||
+                                                value == selected6) {
+                                              return "Não é possível repetir o mesmo atirador";
+                                            } else if (widget.Selecionados!.any(
+                                                (element) =>
+                                                    element == value)) {
+                                              return "atirador selecionado na tela anterior";
+                                            }
 
-                                        return null;
-                                      },
-                                      onChanged: (currencyValue) {
-                                        setState(() {
-                                          selected4 = currencyValue;
-                                          print(selected4);
-                                        });
-                                      },
-                                      isExpanded: false,
-                                      hint: new Text(
-                                        "Selecione o Sentinela",
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255)),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }
-                              return Container();
-                            }),
-                        StreamBuilder<QuerySnapshot>(
-                            stream: firestore
-                                .collection("atiradores")
-                                .where("funcao", isEqualTo: "Sentinela")
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData)
-                                const Text("Loading.....");
-                              else {
-                                List<DropdownMenuItem> currencyItems = [];
-                                for (int i = 0;
-                                    i < snapshot.data!.docs.length;
-                                    i++) {
-                                  DocumentSnapshot snap =
-                                      snapshot.data!.docs[i];
-                                  currencyItems.add(
-                                    DropdownMenuItem(
-                                      child: Text(
-                                        snapshot.data!.docs[i]['nome'],
-                                        style: TextStyle(
-                                            color:
-                                                Color.fromARGB(255, 0, 0, 0)),
-                                      ),
-                                      value: "${snapshot.data!.docs[i].id}",
-                                    ),
-                                  );
-                                }
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      "5º Sentinela:",
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Arial',
-                                      ),
-                                    ),
-                                    SizedBox(width: 5),
-                                    DropdownButtonFormField<dynamic>(
-                                      items: currencyItems,
-                                      value: selected5,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius: const BorderRadius.all(
-                                            const Radius.circular(10),
+                                            return null;
+                                          },
+                                          onChanged: (currencyValue) {
+                                            setState(() {
+                                              selected4 = currencyValue;
+                                              print(selected4);
+                                            });
+                                          },
+                                          isExpanded: false,
+                                          hint: new Text(
+                                            "Selecione o sentinela",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255)),
                                           ),
                                         ),
-                                        filled: true,
-                                        hintStyle: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 241, 240, 240)),
-                                        hintText: "Name",
-                                        fillColor:
-                                            Color.fromARGB(90, 27, 134, 0),
-                                      ),
-                                      validator: (value) {
-                                        if (value == null) {
-                                          return "selecione o sentinela";
-                                        } else if (value == selected1 ||
-                                            value == selected2 ||
-                                            value == selected3 ||
-                                            value == selected4 ||
-                                            value == selected6) {
-                                          return "Não é possível repetir o mesmo atirador";
-                                        }
-
-                                        return null;
-                                      },
-                                      onChanged: (currencyValue) {
-                                        setState(() {
-                                          selected5 = currencyValue;
-                                          print(selected5);
-                                        });
-                                      },
-                                      isExpanded: false,
-                                      hint: new Text(
-                                        "Selecione o Sentinela",
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255)),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }
-                              return Container();
-                            }),
-                        StreamBuilder<QuerySnapshot>(
-                            stream: firestore
-                                .collection("atiradores")
-                                .where("funcao", isEqualTo: "Sentinela")
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData)
-                                const Text("Loading.....");
-                              else {
-                                List<DropdownMenuItem> currencyItems = [];
-                                for (int i = 0;
-                                    i < snapshot.data!.docs.length;
-                                    i++) {
-                                  DocumentSnapshot snap =
-                                      snapshot.data!.docs[i];
-                                  currencyItems.add(
-                                    DropdownMenuItem(
-                                      child: Text(
-                                        snapshot.data!.docs[i]['nome'],
-                                        style: TextStyle(
-                                            color:
-                                                Color.fromARGB(255, 0, 0, 0)),
-                                      ),
-                                      value: "${snapshot.data!.docs[i].id}",
-                                    ),
-                                  );
-                                }
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Text(
-                                      "6º Sentinela:",
-                                      style: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Arial',
-                                      ),
-                                    ),
-                                    SizedBox(width: 5),
-                                    DropdownButtonFormField<dynamic>(
-                                      items: currencyItems,
-                                      value: selected6,
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius: const BorderRadius.all(
-                                            const Radius.circular(10),
+                                      ],
+                                    );
+                                  }
+                                  return Container();
+                                }),
+                            StreamBuilder<QuerySnapshot>(
+                                stream: firestore
+                                    .collection("atiradores")
+                                    .where("funcao", isEqualTo: "sentinela")
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData)
+                                    const Text("Loading.....");
+                                  else {
+                                    List<DropdownMenuItem> currencyItems = [];
+                                    for (int i = 0;
+                                        i < snapshot.data!.docs.length;
+                                        i++) {
+                                      DocumentSnapshot snap =
+                                          snapshot.data!.docs[i];
+                                      currencyItems.add(
+                                        DropdownMenuItem(
+                                          child: Text(
+                                            snapshot.data!.docs[i]['nome'],
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                          value: "${snapshot.data!.docs[i].id}",
+                                        ),
+                                      );
+                                    }
+                                    return Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "5º sentinela:",
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Arial',
                                           ),
                                         ),
-                                        filled: true,
-                                        hintStyle: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 241, 240, 240)),
-                                        hintText: "Name",
-                                        fillColor:
-                                            Color.fromARGB(90, 27, 134, 0),
-                                      ),
-                                      validator: (value) {
-                                        if (value == null) {
-                                          return "selecione o Sentinela";
-                                        } else if (value == selected1 ||
-                                            value == selected2 ||
-                                            value == selected3 ||
-                                            value == selected4 ||
-                                            value == selected5) {
-                                          return "Não é possível repetir o mesmo atirador";
-                                        }
+                                        SizedBox(width: 5),
+                                        DropdownButtonFormField<dynamic>(
+                                          items: currencyItems,
+                                          value: selected5,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                const Radius.circular(10),
+                                              ),
+                                            ),
+                                            filled: true,
+                                            hintStyle: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 241, 240, 240)),
+                                            hintText: "Name",
+                                            fillColor:
+                                                Color.fromARGB(90, 27, 134, 0),
+                                          ),
+                                          validator: (value) {
+                                            if (value == null) {
+                                              return "selecione o sentinela";
+                                            } else if (value == selected1 ||
+                                                value == selected2 ||
+                                                value == selected3 ||
+                                                value == selected4 ||
+                                                value == selected6) {
+                                              return "Não é possível repetir o mesmo atirador";
+                                            } else if (widget.Selecionados!.any(
+                                                (element) =>
+                                                    element == value)) {
+                                              return "atirador selecionado na tela anterior";
+                                            }
 
-                                        return null;
-                                      },
-                                      onChanged: (currencyValue) {
-                                        setState(() {
-                                          selected6 = currencyValue;
-                                          print(selected6);
-                                        });
-                                      },
-                                      isExpanded: false,
-                                      hint: new Text(
-                                        "Selecione o Sentinela",
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255)),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }
-                              return Container();
-                            }),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          width: 370,
-                          height: 150,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom:
-                                  BorderSide(width: 1.0, color: Colors.black),
-                              top: BorderSide(width: 1.0, color: Colors.black),
-                              left: BorderSide(width: 1.0, color: Colors.black),
-                              right:
-                                  BorderSide(width: 1.0, color: Colors.black),
+                                            return null;
+                                          },
+                                          onChanged: (currencyValue) {
+                                            setState(() {
+                                              selected5 = currencyValue;
+                                              print(selected5);
+                                            });
+                                          },
+                                          isExpanded: false,
+                                          hint: new Text(
+                                            "Selecione o sentinela",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255)),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                  return Container();
+                                }),
+                            StreamBuilder<QuerySnapshot>(
+                                stream: firestore
+                                    .collection("atiradores")
+                                    .where("funcao", isEqualTo: "sentinela")
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData)
+                                    const Text("Loading.....");
+                                  else {
+                                    List<DropdownMenuItem> currencyItems = [];
+                                    for (int i = 0;
+                                        i < snapshot.data!.docs.length;
+                                        i++) {
+                                      DocumentSnapshot snap =
+                                          snapshot.data!.docs[i];
+                                      currencyItems.add(
+                                        DropdownMenuItem(
+                                          child: Text(
+                                            snapshot.data!.docs[i]['nome'],
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                          value: "${snapshot.data!.docs[i].id}",
+                                        ),
+                                      );
+                                    }
+                                    return Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "6º sentinela:",
+                                          style: TextStyle(
+                                            fontStyle: FontStyle.normal,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Arial',
+                                          ),
+                                        ),
+                                        SizedBox(width: 5),
+                                        DropdownButtonFormField<dynamic>(
+                                          items: currencyItems,
+                                          value: selected6,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                const Radius.circular(10),
+                                              ),
+                                            ),
+                                            filled: true,
+                                            hintStyle: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 241, 240, 240)),
+                                            hintText: "Name",
+                                            fillColor:
+                                                Color.fromARGB(90, 27, 134, 0),
+                                          ),
+                                          validator: (value) {
+                                            if (value == null) {
+                                              return "selecione o sentinela";
+                                            } else if (value == selected1 ||
+                                                value == selected2 ||
+                                                value == selected3 ||
+                                                value == selected4 ||
+                                                value == selected5) {
+                                              return "Não é possível repetir o mesmo atirador";
+                                            } else if (widget.Selecionados!.any(
+                                                (element) =>
+                                                    element == value)) {
+                                              return "atirador selecionado na tela anterior";
+                                            }
+
+                                            return null;
+                                          },
+                                          onChanged: (currencyValue) {
+                                            setState(() {
+                                              selected6 = currencyValue;
+                                              print(selected6);
+                                            });
+                                          },
+                                          isExpanded: false,
+                                          hint: new Text(
+                                            "Selecione o sentinela",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 255, 255, 255)),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                  return Container();
+                                }),
+                            SizedBox(
+                              height: 20,
                             ),
-                          ),
-                          child: StreamBuilder<QuerySnapshot>(
-                              stream: firestore
-                                  .collection("atiradores")
-                                  .where("funcao", isEqualTo: "Sentinela")
-                                  .orderBy("DtUltimaGuardaPreta",
-                                      descending: true)
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasData)
-                                  return const Text("Loading.....");
-                                else {
-                                  return ListView.builder(
-                                    reverse: true,
-                                    itemCount: snapshot.data!.docs.length,
-                                    itemBuilder: (_, index) {
-                                      var date = DateFormat("dd/MM/yyyy")
-                                          .format(snapshot
-                                              .data!
-                                              .docs[index]
-                                                  ['DtUltimaGuardaPreta']
-                                              .toDate())
-                                          .toString();
+                            Container(
+                              width: 370,
+                              height: 150,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                  top: BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                  left: BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                  right: BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                ),
+                              ),
+                              child: StreamBuilder<QuerySnapshot>(
+                                  stream: firestore
+                                      .collection("atiradores")
+                                      .where("funcao", isEqualTo: "sentinela")
+                                      .orderBy("DtUltimaGuardaPreta",
+                                          descending: true)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData)
+                                      return const Text("Loading.....");
+                                    else {
+                                      return ListView.builder(
+                                        reverse: true,
+                                        itemCount: snapshot.data!.docs.length,
+                                        itemBuilder: (_, index) {
+                                          var date = DateFormat("dd/MM/yyyy")
+                                              .format(snapshot
+                                                  .data!
+                                                  .docs[index]
+                                                      ['DtUltimaGuardaPreta']
+                                                  .toDate())
+                                              .toString();
 
-                                      return LineUltimaGuarda(
-                                          snapshot, index, date);
-                                    },
-                                  );
+                                          return LineUltimaGuarda(
+                                              snapshot, index, date);
+                                        },
+                                      );
+                                    }
+                                  }),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              width: 370,
+                              height: 150,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                  top: BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                  left: BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                  right: BorderSide(
+                                      width: 1.0, color: Colors.black),
+                                ),
+                              ),
+                              child: StreamBuilder<QuerySnapshot>(
+                                  stream: firestore
+                                      .collection("atiradores")
+                                      .where("funcao", isEqualTo: "sentinela")
+                                      .orderBy("DtUltimaGuardaVermelha",
+                                          descending: true)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData)
+                                      return const Text("Loading.....");
+                                    else {
+                                      return ListView.builder(
+                                        reverse: true,
+                                        itemCount: snapshot.data!.docs.length,
+                                        itemBuilder: (_, index) {
+                                          var date = DateFormat("dd/MM/yyyy")
+                                              .format(snapshot
+                                                  .data!
+                                                  .docs[index]
+                                                      ['DtUltimaGuardaVermelha']
+                                                  .toDate())
+                                              .toString();
+
+                                          return LineUltimaGuardaVermelha(
+                                              snapshot, index, date);
+                                        },
+                                      );
+                                    }
+                                  }),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                var diaUtil = !ehSabadoOuDomingo(widget.data) &&
+                                    !ehFeriado(widget.data);
+                                if (diaUtil) {
+                                  saveGuarnicaoPreta(context);
+                                } else {
+                                  saveGuarnicaoVermelha(context);
                                 }
-                              }),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          width: 370,
-                          height: 150,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom:
-                                  BorderSide(width: 1.0, color: Colors.black),
-                              top: BorderSide(width: 1.0, color: Colors.black),
-                              left: BorderSide(width: 1.0, color: Colors.black),
-                              right:
-                                  BorderSide(width: 1.0, color: Colors.black),
+                              },
+                              child: Text("Cadastrar guarnição"),
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                primary: Color.fromARGB(255, 59, 80, 57),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 20),
+                                elevation: 15,
+                                textStyle: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                                minimumSize: Size(400, 40),
+                              ),
                             ),
-                          ),
-                          child: StreamBuilder<QuerySnapshot>(
-                              stream: firestore
-                                  .collection("atiradores")
-                                  .where("funcao", isEqualTo: "Sentinela")
-                                  .orderBy("DtUltimaGuardaVermelha",
-                                      descending: true)
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasData)
-                                  return const Text("Loading.....");
-                                else {
-                                  return ListView.builder(
-                                    reverse: true,
-                                    itemCount: snapshot.data!.docs.length,
-                                    itemBuilder: (_, index) {
-                                      var date = DateFormat("dd/MM/yyyy")
-                                          .format(snapshot
-                                              .data!
-                                              .docs[index]
-                                                  ['DtUltimaGuardaVermelha']
-                                              .toDate())
-                                          .toString();
-
-                                      return LineUltimaGuardaVermelha(
-                                          snapshot, index, date);
-                                    },
-                                  );
-                                }
-                              }),
+                          ],
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            var diaUtil = !ehSabadoOuDomingo(widget.data) &&
-                                !ehFeriado(widget.data);
-                            if (diaUtil) {
-                              saveGuarnicaoPreta(context);
-                            } else {
-                              saveGuarnicaoVermelha(context);
-                            }
-                          },
-                          child: Text("Cadastrar guarnição"),
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            primary: Color.fromARGB(255, 59, 80, 57),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 50, vertical: 20),
-                            elevation: 15,
-                            textStyle: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                            minimumSize: Size(400, 40),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 }
 

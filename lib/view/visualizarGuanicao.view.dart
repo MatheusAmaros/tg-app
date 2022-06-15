@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
+import 'package:tg_app/view/alteracaoGuarnicaoComandantes.view.dart';
 /*
 class VisualizacaoGuarnicao extends StatefulWidget {
   const VisualizacaoGuarnicao({Key? key}) : super(key: key);
@@ -112,6 +113,12 @@ class _VisualizacaoGuarnicaoState extends State<VisualizacaoGuarnicao> {
   //     map = map;
   //   });
   // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    requisicao01();
+  }
 
   requisicao01() async {
     await firestore
@@ -121,20 +128,20 @@ class _VisualizacaoGuarnicaoState extends State<VisualizacaoGuarnicao> {
         .then((value) async {
       await firestore
           .collection("atiradores")
-          .doc(value['uidCabo'])
-          .get()
-          .then((cabo) {
-        setState(() {
-          nomeCabo = cabo["nome"];
-        });
-      });
-      await firestore
-          .collection("atiradores")
           .doc(value['uidComandante'])
           .get()
           .then((com) {
         setState(() {
           nomeCom = com["nome"];
+        });
+      });
+      await firestore
+          .collection("atiradores")
+          .doc(value["uidCabo"])
+          .get()
+          .then((cabo) {
+        setState(() {
+          nomeCabo = cabo["nome"];
         });
       });
     });
@@ -162,119 +169,163 @@ class _VisualizacaoGuarnicaoState extends State<VisualizacaoGuarnicao> {
     });
   }
 
-  TextStyle stylo = TextStyle(
-    color: Colors.black,
+  TextStyle estilo = const TextStyle(
+    color: Color.fromARGB(255, 0, 0, 0),
     fontSize: 15,
     fontWeight: FontWeight.bold,
-    decoration: TextDecoration.underline,
+  );
+  TextStyle estiloTitulo = const TextStyle(
+    color: Color.fromARGB(255, 0, 0, 0),
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
   );
   @override
   Widget build(BuildContext context) {
-    requisicao01();
     while (map == null) {
-      return CircularProgressIndicator();
+      return const Center(child: CircularProgressIndicator());
     }
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Container(
-          margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-          child: Column(
-            children: [
-              Container(
-                width: 500,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.black)),
-                child: Column(
-                  children: [
-                    Container(
-                      child: Text(
-                        "Comandante",
-                        style: stylo,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      child: Text(
-                        nomeCom.toString(),
-                        style: stylo,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: 500,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.black)),
-                child: Column(
-                  children: [
-                    Container(
-                      child: Text(
-                        "Cabo da Guarda",
-                        style: stylo,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Container(
-                      child: Text(
-                        nomeCabo.toString(),
-                        style: stylo,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: map.length,
-                      itemBuilder: (_, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black)),
-                            child: Column(
-                              children: [
-                                Container(
-                                  child: Text(
-                                    "Sentinela",
-                                    style: stylo,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Container(
-                                  child: Text(
-                                    map[index]["nome"].toString(),
-                                    style: stylo,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+    return Scaffold(
+      extendBodyBehindAppBar: false,
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 4, 51, 0),
+        leading: IconButton(
+          icon:
+              Icon(Icons.arrow_back, color: Color.fromARGB(255, 255, 255, 255)),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-      ],
+        centerTitle: true,
+        title: Text(DateFormat('dd/MM/yyyy').format(widget.data).toString()),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+        children: [
+          InputDecorator(
+            decoration: InputDecoration(
+              labelText: "Comandante da Guarda",
+              labelStyle: const TextStyle(
+                color: Color.fromARGB(255, 7, 63, 0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  width: 2,
+                  color: Color.fromARGB(255, 7, 63, 0),
+                  style: BorderStyle.solid,
+                ),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(0),
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: []),
+              child: Column(
+                children: [
+                  Text(
+                    nomeCom.toString(),
+                    style: estilo,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          InputDecorator(
+            decoration: InputDecoration(
+              labelText: "Cabo da Guarda",
+              labelStyle: const TextStyle(
+                color: Color.fromARGB(255, 7, 63, 0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  width: 2,
+                  color: Color.fromARGB(255, 7, 63, 0),
+                  style: BorderStyle.solid,
+                ),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(0),
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: []),
+              child: Column(
+                children: [
+                  Text(
+                    nomeCabo.toString(),
+                    style: estilo,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(30),
+            color: Color.fromARGB(255, 255, 255, 255),
+            child: Column(
+              children: [
+                ListView.separated(
+                  separatorBuilder: (context, index) => Divider(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                  shrinkWrap: true,
+                  itemCount: map.length,
+                  itemBuilder: (_, index) {
+                    return InputDecorator(
+                      decoration: InputDecoration(
+                        labelText: "Sentinela " + (index + 1).toString(),
+                        labelStyle: const TextStyle(
+                          color: Color.fromARGB(255, 7, 63, 0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            width: 2,
+                            color: Color.fromARGB(255, 7, 63, 0),
+                            style: BorderStyle.solid,
+                          ),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.all(0),
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: []),
+                        child: Column(
+                          children: [
+                            Text(
+                              map[index]["nome"].toString(),
+                              style: estilo,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => alteracaoGuarnicaoComandantes(
+                          data: widget.data,
+                        )));
+              },
+              style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 0, 34, 2),
+                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20)),
+              child: Text("Alterar Guarnição",
+                  style: TextStyle(fontSize: 18, fontFamily: 'Montserrat')))
+        ],
+      ),
     );
   }
 }

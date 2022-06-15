@@ -105,7 +105,10 @@ class _AlteraAtiradorState extends State<AlteraAtirador> {
       print(usuario['funcao']);
       print(usuario['pelotao']);
 
- 
+      setState(() {
+        
+      });
+
       /*
     if (usuario.exists) {
         nomeController.text =usuario['nome'];
