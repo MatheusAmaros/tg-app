@@ -113,7 +113,7 @@ class _HomeState extends State<Home> {
               ),
               onTap: () {
                 setState(() {
-                  // Navigator.pop(context);
+                  Navigator.pushNamed(context, '/perfil');
                 });
               },
             ),
@@ -358,7 +358,7 @@ class _HomeState extends State<Home> {
                                       IconButton(
                                           onPressed: () {
                                             Navigator.pushNamed(
-                                                context, "/buscarUsuario");
+                                                context, "/busca");
                                           },
                                           iconSize: 50,
                                           icon: Icon(Icons.manage_accounts)),

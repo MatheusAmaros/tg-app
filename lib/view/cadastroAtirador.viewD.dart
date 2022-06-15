@@ -219,7 +219,7 @@ class _CadastroAtiradorState extends State<CadastroAtirador> {
               ),
               onTap: () {
                 setState(() {
-                  // Navigator.pop(context);
+                  Navigator.pushNamed(context, '/perfil');
                 });
               },
             ),
